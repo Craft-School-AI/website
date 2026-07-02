@@ -65,6 +65,21 @@
     scroll-behavior: smooth;
   }
 
+  /* Когда активен Locomotive Scroll (Lenis), нативное сглаживание отключаем,
+     чтобы не было двойной анимации на якорных ссылках */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  html.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  html.lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
   body {
     @apply bg-surface font-body text-ink antialiased;
   }

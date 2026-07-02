@@ -50,8 +50,13 @@ export function Hero() {
           </Reveal>
         </div>
 
-        {/* Фото мастерской */}
-        <Reveal delay={200} className="relative mx-auto w-full max-w-md lg:max-w-none">
+        {/* Фото мастерской: data-scroll-speed — мягкий параллакс от Locomotive */}
+        <Reveal
+          delay={200}
+          className="relative mx-auto w-full max-w-md lg:max-w-none"
+          data-scroll
+          data-scroll-speed="0.12"
+        >
           {/* Смещённая рамка позади фото */}
           <div
             aria-hidden

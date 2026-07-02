@@ -1,9 +1,9 @@
 'use client';
 
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, HTMLAttributes, ReactNode } from 'react';
 import { useInView } from '@/hooks/useInView';
 
-type RevealProps = {
+type RevealProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
   /** Задержка в мс — для ступенчатого появления карточек */
   delay?: number;
@@ -11,18 +11,25 @@ type RevealProps = {
 };
 
 /** Обёртка с анимацией появления при скролле (Intersection Observer + CSS). */
-export function Reveal({ children, delay = 0, className = '' }: RevealProps) {
+export function Reveal({
+  children,
+  delay = 0,
+  className = '',
+  style,
+  ...rest
+}: RevealProps) {
   const { ref, isInView } = useInView();
 
-  const style: CSSProperties | undefined = delay
-    ? { transitionDelay: `${delay}ms` }
-    : undefined;
+  const mergedStyle: CSSProperties | undefined = delay
+    ? { ...style, transitionDelay: `${delay}ms` }
+    : style;
 
   return (
     <div
       ref={ref}
-      style={style}
+      style={mergedStyle}
       className={`reveal ${isInView ? 'is-visible' : ''} ${className}`}
+      {...rest}
     >
       {children}
     </div>
