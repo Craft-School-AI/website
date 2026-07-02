@@ -12,7 +12,7 @@ export function Hero() {
       <div className="container-page section relative z-10 flex flex-col items-center pb-48 text-center sm:pb-56">
         <Reveal>
           <span className="ai-tag bg-surface/80 backdrop-blur-sm">
-            <Sparkles className="h-3.5 w-3.5" aria-hidden /> Сайты делают ИИ-агенты. Управляете — вы
+            <Sparkles className="h-3.5 w-3.5" aria-hidden /> Сайты делают ИИ-агенты
           </span>
         </Reveal>
 

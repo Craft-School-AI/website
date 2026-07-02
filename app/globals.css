@@ -150,3 +150,92 @@
     @apply inline-flex items-center gap-1.5 rounded-full border border-amber/50 bg-amber/15 px-3 py-1 text-xs font-semibold tracking-wide text-ink-soft;
   }
 }
+
+/* ===== Анимации роботов-персонажей (components/RobotBackdrop.tsx) ===== */
+
+.rb-drive-a {
+  animation: rb-drive-a 30s linear infinite;
+}
+@keyframes rb-drive-a {
+  from { transform: translateX(-160px); }
+  to { transform: translateX(calc(100vw + 160px)); }
+}
+
+.rb-drive-b {
+  animation: rb-drive-b 22s linear infinite;
+  animation-delay: -9s;
+}
+@keyframes rb-drive-b {
+  from { transform: translateX(calc(100vw + 160px)); }
+  to { transform: translateX(-180px); }
+}
+
+.rb-wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rb-spin 0.9s linear infinite;
+}
+.rb-wheel-rev {
+  animation-direction: reverse;
+}
+@keyframes rb-spin {
+  to { transform: rotate(360deg); }
+}
+
+.rb-gear {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rb-spin 26s linear infinite;
+}
+
+.rb-bob {
+  animation: rb-bob 3.6s ease-in-out infinite;
+}
+@keyframes rb-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.rb-rotor {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rb-rotor 0.4s linear infinite;
+}
+@keyframes rb-rotor {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.25); }
+}
+
+.rb-pulse {
+  animation: rb-pulse 1.6s ease-in-out infinite;
+}
+@keyframes rb-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+.rb-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rb-blink 4s infinite;
+}
+@keyframes rb-blink {
+  0%, 91%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.12); }
+}
+
+.rb-twinkle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: rb-twinkle 2.8s ease-in-out infinite;
+}
+@keyframes rb-twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.7); }
+  50% { opacity: 0.8; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*='rb-'] {
+    animation: none !important;
+  }
+}

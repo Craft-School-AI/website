@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Sparkles } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
+import { RobotActivity } from '@/components/RobotActivity';
 
 type PageHeroProps = {
   tag?: string;
@@ -11,11 +12,14 @@ type PageHeroProps = {
 /** Единая шапка внутренних страниц. */
 export function PageHero({ tag, title, subtitle }: PageHeroProps) {
   return (
-    <section className="border-b border-line bg-surface-soft">
-      <div className="container-page py-14 text-center sm:py-20">
+    <section className="relative overflow-hidden border-b border-line bg-surface-soft">
+      {/* Случайная активность роботов — своя при каждом заходе на страницу */}
+      <RobotActivity laneMin={12} laneMax={30} />
+
+      <div className="container-page relative z-10 pb-28 pt-14 text-center sm:pb-32 sm:pt-20">
         <Reveal>
           {tag && (
-            <span className="ai-tag">
+            <span className="ai-tag bg-surface/80 backdrop-blur-sm">
               <Sparkles className="h-3.5 w-3.5" aria-hidden /> {tag}
             </span>
           )}

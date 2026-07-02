@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { LogoMark } from '@/components/Logo';
+import { RobotActivity } from '@/components/RobotActivity';
 
 const navLinks = [
   { href: '/program', label: 'О программе' },
@@ -18,8 +19,12 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-surface-soft">
-      <div className="container-page grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="relative overflow-hidden border-t border-line bg-surface-soft">
+      {/* Роботы заглядывают и в подвал — сцена случайная на каждой странице */}
+      {/* Полосы движения — над линией копирайта, она служит «полом» */}
+      <RobotActivity laneMin={58} laneMax={74} withDrone={false} withFloor={false} />
+
+      <div className="container-page relative z-10 grid gap-10 py-12 pb-24 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2">
           <p className="flex items-center gap-2 font-display text-2xl font-bold">
             <LogoMark className="h-9 w-auto" />
@@ -80,7 +85,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-line/70 py-5">
+      <div className="relative z-10 border-t border-line/70 py-5">
         <p className="container-page text-xs text-ink-faint">
           © {new Date().getFullYear()} Craft-School.ai — цифровая мастерская.
           Все права защищены.

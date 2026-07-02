@@ -1,9 +1,11 @@
 import { Button } from '@/components/ui/Button';
+import { CourierRobot } from '@/components/RobotBackdrop';
 
 export default function NotFound() {
   return (
     <section className="section">
       <div className="container-page flex flex-col items-center text-center">
+        <CourierRobot className="h-24 w-auto" />
         <p className="font-display text-8xl font-bold text-terracotta">404</p>
         <h1 className="heading-lg mt-4">Такой страницы в мастерской нет</h1>
         <p className="mt-3 max-w-md text-ink-soft">

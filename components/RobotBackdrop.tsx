@@ -1,11 +1,17 @@
 /**
- * Фоновый слой hero: роботы-агенты ездят по нижней кромке экрана,
- * дрон парит в углу, искры ИИ мерцают за текстом.
+ * Роботы-персонажи Craft-School.ai.
  *
- * Чистый SVG + CSS-keyframes, без JavaScript. Цвета — из токенов темы,
- * при prefers-reduced-motion всё замирает. Слой декоративный
- * (aria-hidden, pointer-events-none) — на SEO и доступность не влияет.
+ * Спрайты — чистый SVG, анимации — CSS-keyframes из globals.css (префикс rb-).
+ * Цвета берутся из токенов темы, при prefers-reduced-motion всё замирает.
+ * Фоновые слои декоративные (aria-hidden, pointer-events-none) —
+ * на SEO и доступность не влияют.
+ *
+ * - RobotBackdrop — полная сцена для hero главной страницы
+ * - RobotActivity (components/RobotActivity.tsx) — случайная активность
+ *   для шапок внутренних страниц и футера
  */
+
+import type { CSSProperties } from 'react';
 
 const terracotta = 'rgb(var(--brand-terracotta))';
 const amber = 'rgb(var(--brand-amber))';
@@ -14,58 +20,18 @@ const ink = 'rgb(var(--text-primary))';
 const faint = 'rgb(var(--text-tertiary))';
 const surface = 'rgb(var(--bg-primary))';
 
-const styles = `
-  .rb-drive-a { animation: rb-drive-a 30s linear infinite; }
-  @keyframes rb-drive-a {
-    from { transform: translateX(-160px); }
-    to { transform: translateX(calc(100vw + 160px)); }
-  }
-  .rb-drive-b { animation: rb-drive-b 22s linear infinite; animation-delay: -9s; }
-  @keyframes rb-drive-b {
-    from { transform: translateX(calc(100vw + 160px)); }
-    to { transform: translateX(-180px); }
-  }
-  .rb-wheel { transform-box: fill-box; transform-origin: center; animation: rb-spin 0.9s linear infinite; }
-  .rb-wheel-rev { animation-direction: reverse; }
-  @keyframes rb-spin { to { transform: rotate(360deg); } }
-  .rb-gear { transform-box: fill-box; transform-origin: center; animation: rb-spin 26s linear infinite; }
-  .rb-bob { animation: rb-bob 3.6s ease-in-out infinite; }
-  @keyframes rb-bob {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-  }
-  .rb-rotor { transform-box: fill-box; transform-origin: center; animation: rb-rotor 0.4s linear infinite; }
-  @keyframes rb-rotor {
-    0%, 100% { transform: scaleX(1); }
-    50% { transform: scaleX(0.25); }
-  }
-  .rb-pulse { animation: rb-pulse 1.6s ease-in-out infinite; }
-  @keyframes rb-pulse {
-    0%, 100% { opacity: 0.35; }
-    50% { opacity: 1; }
-  }
-  .rb-blink { transform-box: fill-box; transform-origin: center; animation: rb-blink 4s infinite; }
-  @keyframes rb-blink {
-    0%, 91%, 100% { transform: scaleY(1); }
-    94% { transform: scaleY(0.12); }
-  }
-  .rb-twinkle { transform-box: fill-box; transform-origin: center; animation: rb-twinkle 2.8s ease-in-out infinite; }
-  @keyframes rb-twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(0.7); }
-    50% { opacity: 0.8; transform: scale(1); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    [class*='rb-'] { animation: none !important; }
-  }
-`;
-
 const sparklePath =
   'M0,-7 L1.8,-1.8 L7,0 L1.8,1.8 L0,7 L-1.8,1.8 L-7,0 L-1.8,-1.8 Z';
 
+type SpriteProps = {
+  className?: string;
+  style?: CSSProperties;
+};
+
 /** Робот-курьер: везёт кнопку для сайта */
-function CourierRobot({ className = '' }: { className?: string }) {
+export function CourierRobot({ className = '', style }: SpriteProps) {
   return (
-    <svg viewBox="-32 -68 102 80" className={className} aria-hidden>
+    <svg viewBox="-32 -68 102 80" className={className} style={style} aria-hidden>
       <line x1="0" y1="-46" x2="0" y2="-58" stroke={ink} strokeWidth="2.5" />
       <circle className="rb-pulse" cx="0" cy="-61" r="4" fill={amber} />
       <rect x="-28" y="-46" width="56" height="38" rx="10" fill={terracotta} />
@@ -87,9 +53,9 @@ function CourierRobot({ className = '' }: { className?: string }) {
 }
 
 /** Робот-погрузчик: везёт блок с картинкой */
-function ForkliftRobot({ className = '' }: { className?: string }) {
+export function ForkliftRobot({ className = '', style }: SpriteProps) {
   return (
-    <svg viewBox="-44 -42 68 52" className={className} aria-hidden>
+    <svg viewBox="-44 -42 68 52" className={className} style={style} aria-hidden>
       <line x1="-26" y1="-36" x2="-26" y2="-4" stroke={ink} strokeWidth="3.5" />
       <line x1="-26" y1="-10" x2="-40" y2="-10" stroke={ink} strokeWidth="3.5" strokeLinecap="round" />
       <rect x="-40" y="-24" width="13" height="13" rx="2.5" fill={amber} />
@@ -109,9 +75,9 @@ function ForkliftRobot({ className = '' }: { className?: string }) {
 }
 
 /** Дрон с мигающим огоньком */
-function Drone({ className = '' }: { className?: string }) {
+export function Drone({ className = '', style }: SpriteProps) {
   return (
-    <svg viewBox="272 96 56 44" className={className} aria-hidden>
+    <svg viewBox="272 96 56 44" className={className} style={style} aria-hidden>
       <line className="rb-rotor" x1="278" y1="104" x2="294" y2="104" stroke={ink} strokeWidth="3" strokeLinecap="round" />
       <line className="rb-rotor" x1="306" y1="104" x2="322" y2="104" stroke={ink} strokeWidth="3" strokeLinecap="round" style={{ animationDelay: '-0.2s' }} />
       <line x1="286" y1="106" x2="292" y2="114" stroke={ink} strokeWidth="2.5" />
@@ -124,9 +90,9 @@ function Drone({ className = '' }: { className?: string }) {
 }
 
 /** Медленная шестерёнка */
-function Gear({ className = '' }: { className?: string }) {
+export function Gear({ className = '', style }: SpriteProps) {
   return (
-    <svg viewBox="325 45 54 54" className={className} aria-hidden>
+    <svg viewBox="325 45 54 54" className={className} style={style} aria-hidden>
       <g className="rb-gear">
         <circle cx="352" cy="72" r="15" fill="none" stroke={faint} strokeWidth="5" />
         {[0, 60, 120, 180, 240, 300].map((angle) => (
@@ -146,15 +112,13 @@ function Gear({ className = '' }: { className?: string }) {
   );
 }
 
-function Sparkle({
+export function Sparkle({
   className = '',
+  style,
   delay = 0,
-}: {
-  className?: string;
-  delay?: number;
-}) {
+}: SpriteProps & { delay?: number }) {
   return (
-    <svg viewBox="-8 -8 16 16" className={className} aria-hidden>
+    <svg viewBox="-8 -8 16 16" className={className} style={style} aria-hidden>
       <path
         d={sparklePath}
         fill={amber}
@@ -165,11 +129,10 @@ function Sparkle({
   );
 }
 
+/** Полная сцена для hero главной страницы */
 export function RobotBackdrop() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      <style>{styles}</style>
-
       {/* Пол, по которому ездят роботы */}
       <div className="absolute inset-x-0 bottom-24 border-t border-line/70" />
 
@@ -183,9 +146,10 @@ export function RobotBackdrop() {
         <ForkliftRobot className="h-14 w-auto sm:h-16" />
       </div>
 
-      {/* Дрон в правом верхнем углу */}
-      <div className="rb-bob absolute right-[8%] top-16 opacity-80 sm:right-[12%]">
-        <Drone className="h-12 w-auto sm:h-14" />
+      {/* Дрон в правом верхнем углу; на мобильных — выше и ближе к краю,
+          чтобы не пересекаться с AI-меткой */}
+      <div className="rb-bob absolute right-[3%] top-5 opacity-80 sm:right-[12%] sm:top-16">
+        <Drone className="h-10 w-auto sm:h-14" />
       </div>
 
       {/* Шестерёнка в левом верхнем углу */}
