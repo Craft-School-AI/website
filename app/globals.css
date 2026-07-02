@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* ===== СВЕТЛАЯ ТЕМА =====
+     Значения — RGB-триплеты, чтобы в Tailwind работали
+     модификаторы прозрачности (bg-amber/15 и т.п.) */
+  :root {
+    color-scheme: light;
+
+    /* Основные фоны */
+    --bg-primary: 253 248 240; /* #FDF8F0 слоновая кость — основной фон */
+    --bg-secondary: 245 237 227; /* #F5EDE3 тёплый бежевый — карточки */
+    --bg-tertiary: 237 227 215; /* #EDE3D7 глубокий бежевый — акцентные блоки */
+
+    /* Текст */
+    --text-primary: 26 29 31; /* #1A1D1F глубокий графит */
+    --text-secondary: 74 68 64; /* #4A4440 тёплый серый — подзаголовки */
+    --text-tertiary: 122 114 107; /* #7A726B светлый серый — мелкий текст */
+
+    /* Акценты бренда */
+    --brand-terracotta: 198 123 90; /* #C67B5A терракот — главный цвет */
+    --brand-amber: 212 165 74; /* #D4A54A янтарь — AI-акценты */
+    --brand-green: 136 182 162; /* #88B6A2 оксид зелени — CTA */
+
+    /* Границы и тени */
+    --border-light: 229 217 204; /* #E5D9CC */
+    --shadow-soft: 0 8px 30px rgba(26, 29, 31, 0.08);
+    --shadow-hover: 0 16px 48px rgba(26, 29, 31, 0.12);
+
+    /* Текстуры */
+    --noise-opacity: 0.03;
+  }
+
+  /* ===== ТЁМНАЯ ТЕМА ===== */
+  .dark {
+    color-scheme: dark;
+
+    /* Основные фоны */
+    --bg-primary: 20 18 18; /* #141212 почти чёрный с тёплым подтоном */
+    --bg-secondary: 30 27 26; /* #1E1B1A глубокий тёмно-коричневый */
+    --bg-tertiary: 42 36 33; /* #2A2421 графит — карточки */
+
+    /* Текст */
+    --text-primary: 245 237 227; /* #F5EDE3 светлый бежевый */
+    --text-secondary: 196 184 170; /* #C4B8AA тёплый светлый */
+    --text-tertiary: 138 128 120; /* #8A8078 приглушённый */
+
+    /* Акценты бренда (ярче для контраста) */
+    --brand-terracotta: 212 135 102; /* #D48766 */
+    --brand-amber: 232 192 112; /* #E8C070 */
+    --brand-green: 122 207 168; /* #7ACFA8 */
+
+    /* Границы и тени */
+    --border-light: 58 53 50; /* #3A3532 */
+    --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.7);
+
+    /* Текстуры */
+    --noise-opacity: 0.05;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface font-body text-ink antialiased;
+  }
+
+  /* Лёгкое типографское «зерно» поверх всей страницы */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: var(--noise-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    @apply bg-terracotta text-ivory;
+  }
+}
+
+@layer components {
+  /* Появление при скролле — управляется хуком useInView */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section {
+    @apply py-16 sm:py-24;
+  }
+
+  .heading-xl {
+    @apply font-display text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl;
+  }
+
+  .heading-lg {
+    @apply font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl;
+  }
+
+  .heading-md {
+    @apply font-display text-xl font-semibold sm:text-2xl;
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-surface-soft p-6 shadow-soft;
+  }
+
+  /* Янтарная метка для всего, что про ИИ */
+  .ai-tag {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-amber/50 bg-amber/15 px-3 py-1 text-xs font-semibold tracking-wide text-ink-soft;
+  }
+}
