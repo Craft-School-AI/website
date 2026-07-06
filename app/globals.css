@@ -82,6 +82,9 @@
 
   body {
     @apply bg-surface font-body text-ink antialiased;
+    /* Страховка от горизонтального скролла из-за декоративных элементов:
+       clip (в отличие от hidden) не создаёт scroll-контейнер и не ломает sticky */
+    overflow-x: clip;
   }
 
   /* Лёгкое типографское «зерно» поверх всей страницы */

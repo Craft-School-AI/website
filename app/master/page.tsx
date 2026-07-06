@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/Button';
 export const metadata: Metadata = {
   title: 'О мастере',
   description:
-    '10 лет в разработке сайтов и сервисов, 2 года ежедневной работы с ИИ-агентами. Мастер лично ведёт каждый поток Craft-School.ai.',
+    '10 лет в разработке сайтов и сервисов, 2 года ежедневной работы с ИИ-агентами. Мастер лично ведёт каждый поток Craft School.',
 };
 
 const facts = [

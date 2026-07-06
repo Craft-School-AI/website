@@ -206,7 +206,14 @@ export function LeadForm() {
             })}
           />
           <span className={`text-xs ${errors.consent ? 'text-red-500' : 'text-ink-faint'}`}>
-            Я согласен(а) на обработку персональных данных в соответствии с{' '}
+            Я принимаю условия{' '}
+            <Link
+              href="/oferta"
+              className="underline underline-offset-2 hover:text-terracotta"
+            >
+              Публичной оферты
+            </Link>{' '}
+            и даю согласие на обработку персональных данных в соответствии с{' '}
             <Link
               href="/privacy"
               className="underline underline-offset-2 hover:text-terracotta"

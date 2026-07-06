@@ -1,5 +1,5 @@
 /**
- * Роботы-персонажи Craft-School.ai.
+ * Роботы-персонажи Craft School.
  *
  * Спрайты — чистый SVG, анимации — CSS-keyframes из globals.css (префикс rb-).
  * Цвета берутся из токенов темы, при prefers-reduced-motion всё замирает.

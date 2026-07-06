@@ -3,6 +3,7 @@ import { Manrope } from 'next/font/google';
 import { Analytics } from '@/components/Analytics';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { ScrollToTop } from '@/components/ScrollToTop';
 import { SmoothScrollProvider } from '@/components/SmoothScrollProvider';
 import './globals.css';
 
@@ -11,13 +12,13 @@ const body = Manrope({
   variable: '--font-body',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://craft-school.ai';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://craft-school.ru';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Craft-School.ai — сайты своими руками с помощью ИИ-агентов',
-    template: '%s — Craft-School.ai',
+    default: 'Craft School — сайты своими руками с помощью ИИ-агентов',
+    template: '%s — Craft School',
   },
   description:
     'Цифровая мастерская для предпринимателей: за 2–3 недели вы научитесь делать сайты с помощью ИИ-агентов — без подрядчиков, программистов и переплат.',
@@ -32,14 +33,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ru_RU',
     url: siteUrl,
-    siteName: 'Craft-School.ai',
-    title: 'Craft-School.ai — сайты своими руками с помощью ИИ-агентов',
+    siteName: 'Craft School',
+    title: 'Craft School — сайты своими руками с помощью ИИ-агентов',
     description:
       'Цифровая мастерская: предприниматели делают сайты сами с помощью ИИ-агентов и экономят сотни тысяч на подрядчиках.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Craft-School.ai — сайты своими руками с помощью ИИ-агентов',
+    title: 'Craft School — сайты своими руками с помощью ИИ-агентов',
     description:
       'Цифровая мастерская: предприниматели делают сайты сами с помощью ИИ-агентов.',
   },
@@ -72,6 +73,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <ScrollToTop />
         {/* Метрика и cookie-баннер появляются только при заданном YANDEX_METRIKA_ID */}
         {process.env.YANDEX_METRIKA_ID && (
           <Analytics metrikaId={process.env.YANDEX_METRIKA_ID} />

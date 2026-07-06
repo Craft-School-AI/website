@@ -6,7 +6,7 @@ import { LeadForm } from '@/components/LeadForm';
 export const metadata: Metadata = {
   title: 'Контакты',
   description:
-    'Свяжитесь с мастерской Craft-School.ai: Telegram, email или форма заявки. Отвечаем в течение пары часов.',
+    'Свяжитесь с мастерской Craft School: Telegram, email или форма заявки. Отвечаем в течение пары часов.',
 };
 
 const contacts = [
@@ -23,14 +23,8 @@ const contacts = [
     note: 'Для подробных вопросов и сотрудничества',
   },
   {
-    label: 'Instagram',
-    value: '@craft_school_ai',
-    href: 'https://www.instagram.com/craft_school_ai',
-    note: 'Закулисье мастерской и работы учеников',
-  },
-  {
     label: 'VK',
-    value: 'Сообщество Craft-School.ai',
+    value: 'Сообщество Craft School',
     href: 'https://vk.ru/club240091437',
     note: 'Новости школы и анонсы потоков',
   },

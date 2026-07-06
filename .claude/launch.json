@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "craft-school-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "NEXT_DIST_DIR=.next-preview exec node_modules/.bin/next dev"],
       "port": 3000,
       "autoPort": true
     }

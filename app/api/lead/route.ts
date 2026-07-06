@@ -69,7 +69,7 @@ export async function POST(request: Request) {
   }
 
   const text = [
-    '🔨 <b>Новая заявка с Craft-School.ai</b>',
+    '🔨 <b>Новая заявка с Craft School</b>',
     '',
     `<b>Имя:</b> ${escapeHtml(lead.name)}`,
     `<b>Телефон:</b> ${escapeHtml(lead.phone)}`,

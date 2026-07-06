@@ -2,7 +2,7 @@
   "name": "craft-school-website",
   "version": "1.0.0",
   "private": true,
-  "description": "Craft-School.ai — цифровая мастерская: сайты руками предпринимателей с помощью ИИ-агентов",
+  "description": "Craft School — цифровая мастерская: сайты руками предпринимателей с помощью ИИ-агентов",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

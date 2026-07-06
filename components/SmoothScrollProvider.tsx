@@ -56,9 +56,18 @@ export function SmoothScrollProvider() {
 
     document.addEventListener('click', handleAnchorClick);
 
+    // Кнопка «Наверх» просит плавный подъём через Locomotive
+    const handleScrollTop = (event: Event) => {
+      if (!scroll) return;
+      event.preventDefault();
+      scroll.scrollTo(0);
+    };
+    window.addEventListener('craft:scroll-top', handleScrollTop);
+
     return () => {
       cancelled = true;
       document.removeEventListener('click', handleAnchorClick);
+      window.removeEventListener('craft:scroll-top', handleScrollTop);
       scroll?.destroy();
       scroll = undefined;
     };

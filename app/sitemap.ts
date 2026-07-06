@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/blog';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://craft-school.ai';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://craft-school.ru';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog',
     '/contacts',
     '/privacy',
+    '/oferta',
   ].map((path) => ({
     url: `${siteUrl}${path}`,
     changeFrequency: 'weekly' as const,

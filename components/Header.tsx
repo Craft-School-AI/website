@@ -31,13 +31,8 @@ export function Header() {
         {/* Логотип — визуальная доминанта хедера */}
         <Link href="/" className="group flex items-center gap-2.5 whitespace-nowrap">
           <LogoMark className="h-10 w-auto transition-transform duration-300 group-hover:rotate-[-6deg] sm:h-11" />
-          <span className="flex items-baseline gap-0.5">
-            <span className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-              Craft-School
-            </span>
-            <span className="font-display text-2xl font-bold text-amber transition-colors group-hover:text-terracotta sm:text-3xl">
-              .ai
-            </span>
+          <span className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+            Craft School
           </span>
         </Link>
 
@@ -71,9 +66,10 @@ export function Header() {
             aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
             className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-line lg:hidden"
           >
+            {/* Сдвиг на 8px: центр верхней полоски совпадает с центром стека */}
             <span
               className={`h-0.5 w-5 bg-current transition-transform ${
-                menuOpen ? 'translate-y-1 rotate-45' : ''
+                menuOpen ? 'translate-y-2 rotate-45' : ''
               }`}
             />
             <span
@@ -83,38 +79,51 @@ export function Header() {
             />
             <span
               className={`h-0.5 w-5 bg-current transition-transform ${
-                menuOpen ? '-translate-y-3 -rotate-45' : ''
+                menuOpen ? '-translate-y-2 -rotate-45' : ''
               }`}
             />
           </button>
         </div>
       </div>
 
-      {/* Мобильное меню */}
-      {menuOpen && (
+      {/* Мобильное меню: grid-rows 0fr→1fr плавно анимирует высоту
+          до фактического размера контента; inert выключает скрытые ссылки */}
+      <div
+        className={`grid transition-[grid-template-rows] duration-300 ease-out lg:hidden ${
+          menuOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'
+        }`}
+      >
         <nav
-          className="border-t border-line/70 bg-surface px-4 pb-6 pt-2 lg:hidden"
+          className="overflow-hidden"
           aria-label="Мобильная навигация"
+          aria-hidden={!menuOpen}
+          inert={!menuOpen}
         >
-          <ul className="flex flex-col">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="block border-b border-line/70 py-3 text-base"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="pt-4">
-            <Button href="/#zayavka" className="w-full">
-              Записаться в мастерскую
-            </Button>
+          <div
+            className={`border-t border-line/70 bg-surface px-4 pb-6 pt-2 transition-[opacity,transform] duration-300 ease-out ${
+              menuOpen ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0'
+            }`}
+          >
+            <ul className="flex flex-col">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="block border-b border-line/70 py-3 text-base"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="pt-4">
+              <Button href="/#zayavka" className="w-full">
+                Записаться в мастерскую
+              </Button>
+            </div>
           </div>
         </nav>
-      )}
+      </div>
     </header>
   );
 }
