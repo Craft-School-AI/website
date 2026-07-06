@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { LogoMark } from '@/components/Logo';
 import { RobotActivity } from '@/components/RobotActivity';
+import { InstagramIcon, TelegramIcon, VkIcon } from '@/components/SocialIcons';
 
 const navLinks = [
   { href: '/program', label: 'О программе' },
@@ -12,9 +13,9 @@ const navLinks = [
 ];
 
 const socials = [
-  { href: 'https://t.me/craftschool_ai', label: 'Telegram' },
-  { href: 'https://www.youtube.com/@craftschool_ai', label: 'YouTube' },
-  { href: 'https://vk.com/craftschool_ai', label: 'VK' },
+  { href: 'https://t.me/craft_school_ai_bot', label: 'Telegram', Icon: TelegramIcon },
+  { href: 'https://www.instagram.com/craft_school_ai', label: 'Instagram', Icon: InstagramIcon },
+  { href: 'https://vk.ru/club240091437', label: 'VK', Icon: VkIcon },
 ];
 
 export function Footer() {
@@ -60,24 +61,24 @@ export function Footer() {
           <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-ink-faint">
             Связаться
           </p>
-          <ul className="space-y-2 text-sm">
-            <li>
-              <a
-                href="mailto:hello@craft-school.ai"
-                className="text-ink-soft transition-colors hover:text-terracotta"
-              >
-                hello@craft-school.ai
-              </a>
-            </li>
-            {socials.map((social) => (
-              <li key={social.href}>
+          <a
+            href="mailto:craft-school-ai@yandex.ru"
+            className="text-sm text-ink-soft transition-colors hover:text-terracotta"
+          >
+            craft-school-ai@yandex.ru
+          </a>
+          <ul className="mt-4 flex items-center gap-3">
+            {socials.map(({ href, label, Icon }) => (
+              <li key={href}>
                 <a
-                  href={social.href}
+                  href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-ink-soft transition-colors hover:text-terracotta"
+                  aria-label={label}
+                  title={label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink-soft transition-colors hover:border-terracotta hover:text-terracotta"
                 >
-                  {social.label}
+                  <Icon className="h-5 w-5" />
                 </a>
               </li>
             ))}
@@ -86,10 +87,18 @@ export function Footer() {
       </div>
 
       <div className="relative z-10 border-t border-line/70 py-5">
-        <p className="container-page text-xs text-ink-faint">
-          © {new Date().getFullYear()} Craft-School.ai — цифровая мастерская.
-          Все права защищены.
-        </p>
+        <div className="container-page flex flex-col gap-2 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} Craft-School.ai — цифровая мастерская.
+            Все права защищены.
+          </p>
+          <Link
+            href="/privacy"
+            className="transition-colors hover:text-terracotta"
+          >
+            Политика конфиденциальности
+          </Link>
+        </div>
       </div>
     </footer>
   );

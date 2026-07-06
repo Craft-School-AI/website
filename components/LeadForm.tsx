@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { Handshake } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -10,6 +11,7 @@ type LeadFormValues = {
   phone: string;
   email: string;
   comment: string;
+  consent: boolean;
 };
 
 type SubmitState = 'idle' | 'success' | 'error';
@@ -24,7 +26,7 @@ export function LeadForm() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<LeadFormValues>({
-    defaultValues: { name: '', phone: '', email: '', comment: '' },
+    defaultValues: { name: '', phone: '', email: '', comment: '', consent: false },
   });
 
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
@@ -182,13 +184,47 @@ export function LeadForm() {
         </p>
       )}
 
+      {/* Явное согласие на обработку ПДн — без галочки форма не уходит */}
+      <div>
+        <label
+          htmlFor="lead-consent"
+          className={`flex cursor-pointer items-start gap-3 rounded-xl border px-3 py-2.5 transition-colors ${
+            errors.consent
+              ? 'border-red-500 bg-red-500/10'
+              : 'border-transparent'
+          }`}
+        >
+          <input
+            id="lead-consent"
+            type="checkbox"
+            aria-invalid={Boolean(errors.consent)}
+            className={`mt-0.5 h-4 w-4 shrink-0 cursor-pointer accent-[rgb(var(--brand-terracotta))] ${
+              errors.consent ? 'outline outline-2 outline-red-500' : ''
+            }`}
+            {...register('consent', {
+              required: 'Отметьте согласие — без него мы не имеем права обработать заявку',
+            })}
+          />
+          <span className={`text-xs ${errors.consent ? 'text-red-500' : 'text-ink-faint'}`}>
+            Я согласен(а) на обработку персональных данных в соответствии с{' '}
+            <Link
+              href="/privacy"
+              className="underline underline-offset-2 hover:text-terracotta"
+            >
+              Политикой конфиденциальности
+            </Link>
+          </span>
+        </label>
+        {errors.consent && (
+          <p role="alert" className="mt-1 px-3 text-sm text-red-500">
+            {errors.consent.message}
+          </p>
+        )}
+      </div>
+
       <Button type="submit" size="lg" disabled={isSubmitting} className="w-full">
         {isSubmitting ? 'Отправляем…' : 'Записаться в мастерскую'}
       </Button>
-
-      <p className="text-center text-xs text-ink-faint">
-        Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
-      </p>
     </form>
   );
 }

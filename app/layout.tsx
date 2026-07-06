@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Manrope } from 'next/font/google';
+import { Analytics } from '@/components/Analytics';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { SmoothScrollProvider } from '@/components/SmoothScrollProvider';
@@ -71,6 +72,10 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        {/* Метрика и cookie-баннер появляются только при заданном YANDEX_METRIKA_ID */}
+        {process.env.YANDEX_METRIKA_ID && (
+          <Analytics metrikaId={process.env.YANDEX_METRIKA_ID} />
+        )}
       </body>
     </html>
   );

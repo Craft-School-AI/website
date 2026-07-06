@@ -12,21 +12,27 @@ export const metadata: Metadata = {
 const contacts = [
   {
     label: 'Telegram',
-    value: '@craftschool_ai',
-    href: 'https://t.me/craftschool_ai',
+    value: '@craft_school_ai_bot',
+    href: 'https://t.me/craft_school_ai_bot',
     note: 'Самый быстрый способ — отвечаем в течение пары часов',
   },
   {
     label: 'Email',
-    value: 'hello@craft-school.ai',
-    href: 'mailto:hello@craft-school.ai',
+    value: 'craft-school-ai@yandex.ru',
+    href: 'mailto:craft-school-ai@yandex.ru',
     note: 'Для подробных вопросов и сотрудничества',
   },
   {
-    label: 'YouTube',
-    value: '@craftschool_ai',
-    href: 'https://www.youtube.com/@craftschool_ai',
-    note: 'Разборы сайтов учеников и приёмы работы с агентами',
+    label: 'Instagram',
+    value: '@craft_school_ai',
+    href: 'https://www.instagram.com/craft_school_ai',
+    note: 'Закулисье мастерской и работы учеников',
+  },
+  {
+    label: 'VK',
+    value: 'Сообщество Craft-School.ai',
+    href: 'https://vk.ru/club240091437',
+    note: 'Новости школы и анонсы потоков',
   },
 ];
 
