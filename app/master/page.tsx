@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import { Star } from 'lucide-react';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
 import { Button } from '@/components/ui/Button';
@@ -40,7 +41,7 @@ export default function MasterPage() {
       <PageHero
         tag="Кто ведёт обучение"
         title="Роман Бабанов"
-        subtitle="Сам делал сайты и приложения для крупных компаний. Сам был тем подрядчиком, к которому приходят за сайтом. Теперь учу предпринимателей делать это самим — с помощью ИИ-агентов."
+        subtitle="Владел студией разработки на заказ, работал и руководил командами в крупных компаниях. Сам был тем подрядчиком, к которому приходят за сайтом — а теперь учу предпринимателей делать это самим, с помощью ИИ-агентов."
       />
 
       {/* Фото + короткое вступление */}
@@ -68,11 +69,22 @@ export default function MasterPage() {
               <span className="text-terracotta">потому что сам их делал на заказ</span>
             </h2>
             <p className="mt-5 text-lg text-ink-soft">
-              Больше десяти лет я делал сайты и приложения не в теории, а руками:
-              сервисы доставки еды, банковские и финансовые продукты, платформы
-              для найма и спорта, кибербезопасность. Работал и руководил командами
-              разработки в крупных компаниях.
+              Несколько лет я владел собственной студией разработки на заказ —{' '}
+              <strong className="text-ink">sourcemap.pro</strong>: мы делали сайты
+              и приложения для бизнеса из самых разных сфер. А больше десяти лет
+              работал и руководил командами в крупных компаниях — делал продукты
+              для доставки еды, банков, найма, спорта, кибербезопасности.
             </p>
+
+            <a
+              href="https://clutch.co/profile/sourcemappro"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-terracotta/50 bg-terracotta/10 px-4 py-2 text-sm font-semibold text-terracotta transition-colors hover:bg-terracotta/20"
+            >
+              <Star className="h-4 w-4 fill-amber text-amber" aria-hidden />
+              4.9 из 5 · отзывы клиентов студии на Clutch
+            </a>
 
             <p className="mt-6 text-sm font-semibold uppercase tracking-wider text-ink-faint">
               Работал и вёл команды в
@@ -113,12 +125,11 @@ export default function MasterPage() {
           <Reveal>
             <div className="card mx-auto max-w-3xl">
               <p className="text-lg leading-relaxed text-ink-soft">
-                Несколько лет у меня была своя студия —{' '}
-                <strong className="text-ink">sourcemap.pro</strong>. Мы делали
-                сайты и приложения на заказ для бизнеса из самых разных сфер. То
-                есть я и есть тот самый «подрядчик», к которому предприниматели
-                приходят за сайтом. Я изнутри знаю, сколько это стоит заказчику —
-                деньгами, временем и нервами.
+                Собственная студия — это не строчка в резюме, а точка зрения. Я и
+                есть тот самый «подрядчик», к которому предприниматели приходят за
+                сайтом, — и изнутри знаю, сколько это стоит заказчику: деньгами,
+                временем и нервами. А ещё знаю, что большую часть этой работы
+                теперь можно сделать самому.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-ink-soft">
                 Я не только делал, но и учил: выступал в школах программирования и
