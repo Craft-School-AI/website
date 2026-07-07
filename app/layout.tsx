@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
 import { Analytics } from '@/components/Analytics';
 import { Header } from '@/components/Header';
@@ -13,6 +13,14 @@ const body = Manrope({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://craft-school.ru';
+
+// Цвет адресной строки мобильных браузеров под светлую/тёмную тему
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FDF8F0' },
+    { media: '(prefers-color-scheme: dark)', color: '#141212' },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
