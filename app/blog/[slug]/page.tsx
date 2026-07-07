@@ -77,7 +77,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <footer className="card mt-14 text-center">
           <h2 className="heading-md">Хотите так же — своими руками?</h2>
           <p className="mt-2 text-ink-soft">
-            Запишитесь в мастерскую: за 2–3 недели соберёте сайт для своего дела.
+            Запишитесь в мастерскую: за 2–4 недели соберёте сайт для своего дела.
           </p>
           <div className="mt-6">
             <Button href="/#zayavka" size="lg">

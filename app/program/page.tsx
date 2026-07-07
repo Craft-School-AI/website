@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 export const metadata: Metadata = {
   title: 'О программе',
   description:
-    'Формат спринтов: 2–3 недели практики, в конце каждой недели — готовая часть вашего настоящего сайта. Для предпринимателей без опыта в IT.',
+    'Формат спринтов: 2–4 недели практики, в конце каждой недели — готовая часть вашего настоящего сайта. Для предпринимателей без опыта в IT.',
 };
 
 const sprintPrinciples = [
@@ -52,7 +52,7 @@ export default function ProgramPage() {
             Спринты: короткий путь <br /> от идеи к работающему сайту
           </>
         }
-        subtitle="2–3 недели практики. В конце каждой недели — готовая часть вашего настоящего сайта, а не конспект."
+        subtitle="2–4 недели практики. В конце каждой недели — готовая часть вашего настоящего сайта, а не конспект."
       />
 
       <section className="section">
@@ -109,7 +109,8 @@ export default function ProgramPage() {
           <Reveal>
             <h2 className="heading-lg">Посмотрите, из чего состоит обучение</h2>
             <p className="mx-auto mt-4 max-w-xl text-ink-soft">
-              Три спринта — от первой страницы до сайта, который принимает заявки.
+              От 2 до 4 спринтов — от первой версии сайта на Vercel до запуска
+              бизнеса под ключ. Сколько именно — зависит от тарифа.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button href="/modules" size="lg">

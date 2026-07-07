@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
 import { Button } from '@/components/ui/Button';
@@ -6,14 +7,17 @@ import { Button } from '@/components/ui/Button';
 export const metadata: Metadata = {
   title: 'О мастере',
   description:
-    '10 лет в разработке сайтов и сервисов, 2 года ежедневной работы с ИИ-агентами. Мастер лично ведёт каждый поток Craft School.',
+    '10+ лет в разработке сайтов и приложений: Яндекс, Avito, Huntflow, X5, своя студия на заказ. Мастер сам был тем подрядчиком — и лично ведёт каждый поток Craft School.',
 };
 
 const facts = [
-  { value: '10 лет', label: 'в разработке сайтов и сервисов' },
-  { value: '2 года', label: 'ежедневной работы с ИИ-агентами' },
-  { value: '3 недели', label: 'от нуля до сайта у учеников' },
+  { value: '10+ лет', label: 'в разработке сайтов и приложений' },
+  { value: '20+', label: 'разработчиков вырастил и вёл в командах' },
+  { value: '2 года', label: 'каждый день работаю с ИИ-агентами' },
 ];
+
+// Узнаваемые компании и продукты — быстрый сигнал доверия
+const companies = ['Яндекс', 'Avito', 'Huntflow', 'X5', 'FlowMapp', 'ManyChat'];
 
 const principles = [
   {
@@ -35,45 +39,110 @@ export default function MasterPage() {
     <>
       <PageHero
         tag="Кто ведёт обучение"
-        title="Мастер, который сначала сделал это сам"
-        subtitle="10 лет я делал сайты руками — для студий, стартапов и своего бизнеса. Последние 2 года их для меня делают ИИ-агенты."
+        title="Роман Бабанов"
+        subtitle="Сам делал сайты и приложения для крупных компаний. Сам был тем подрядчиком, к которому приходят за сайтом. Теперь учу предпринимателей делать это самим — с помощью ИИ-агентов."
       />
 
+      {/* Фото + короткое вступление */}
+      <section className="section">
+        <div className="container-page grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          <Reveal className="relative mx-auto w-full max-w-sm lg:max-w-none">
+            <div
+              aria-hidden
+              className="absolute -inset-0 translate-x-4 translate-y-4 rounded-[2rem] border border-terracotta/40"
+            />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-hover">
+              <Image
+                src="/images/master-portrait.jpg"
+                alt="Роман Бабанов — мастер и наставник Craft School"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 40vw, 24rem"
+              />
+            </div>
+          </Reveal>
+
+          <Reveal delay={150}>
+            <h2 className="heading-lg">
+              Я знаю цену сайта —{' '}
+              <span className="text-terracotta">потому что сам их делал на заказ</span>
+            </h2>
+            <p className="mt-5 text-lg text-ink-soft">
+              Больше десяти лет я делал сайты и приложения не в теории, а руками:
+              сервисы доставки еды, банковские и финансовые продукты, платформы
+              для найма и спорта, кибербезопасность. Работал и руководил командами
+              разработки в крупных компаниях.
+            </p>
+
+            <p className="mt-6 text-sm font-semibold uppercase tracking-wider text-ink-faint">
+              Работал и вёл команды в
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {companies.map((company) => (
+                <span
+                  key={company}
+                  className="rounded-full border border-line bg-surface-soft px-3 py-1 text-sm font-semibold"
+                >
+                  {company}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Цифры */}
+      <section className="pb-4">
+        <div className="container-page grid gap-6 sm:grid-cols-3">
+          {facts.map((fact, index) => (
+            <Reveal key={fact.label} delay={index * 100}>
+              <div className="card text-center">
+                <p className="font-display text-4xl font-bold text-terracotta">
+                  {fact.value}
+                </p>
+                <p className="mt-2 text-sm text-ink-soft">{fact.label}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* Развёрнутая история */}
       <section className="section">
         <div className="container-page">
-          <div className="grid gap-6 sm:grid-cols-3">
-            {facts.map((fact, index) => (
-              <Reveal key={fact.label} delay={index * 100}>
-                <div className="card text-center">
-                  <p className="font-display text-4xl font-bold text-terracotta">
-                    {fact.value}
-                  </p>
-                  <p className="mt-2 text-sm text-ink-soft">{fact.label}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={200}>
-            <div className="card mx-auto mt-12 max-w-3xl">
+          <Reveal>
+            <div className="card mx-auto max-w-3xl">
               <p className="text-lg leading-relaxed text-ink-soft">
-                Десять лет я писал код сам: интернет-магазины, сервисы записи,
-                корпоративные сайты. Я знаю, сколько это стоит заказчику — и деньгами,
-                и нервами.
+                Несколько лет у меня была своя студия —{' '}
+                <strong className="text-ink">sourcemap.pro</strong>. Мы делали
+                сайты и приложения на заказ для бизнеса из самых разных сфер. То
+                есть я и есть тот самый «подрядчик», к которому предприниматели
+                приходят за сайтом. Я изнутри знаю, сколько это стоит заказчику —
+                деньгами, временем и нервами.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-ink-soft">
-                Два года назад всё изменилось: появились ИИ-агенты, которые пишут
-                код быстрее и аккуратнее младшего программиста. Я перестроил свою
-                работу вокруг них — и понял главное:{' '}
-                <strong>
+                Я не только делал, но и учил: выступал в школах программирования и
+                на конференциях, наставлял разработчиков в командах, проводил
+                разборы работ. Объяснять сложное простыми словами — то, что я умею
+                и люблю.
+              </p>
+              <p className="mt-4 text-lg leading-relaxed text-ink-soft">
+                Два года назад появились ИИ-агенты, которые пишут код быстрее и
+                аккуратнее младшего разработчика. Я перестроил вокруг них свою
+                работу — и понял главное:{' '}
+                <strong className="text-ink">
                   теперь сайт может сделать сам владелец бизнеса
-                </strong>. Не «на конструкторе с шаблоном как у всех», а настоящий,
-                свой.
+                </strong>
+                . Не «на конструкторе с шаблоном как у всех», а настоящий, свой.
               </p>
               <p className="mt-4 text-lg leading-relaxed text-ink-soft">
                 Так появилась эта мастерская. Я не делаю из предпринимателей
                 программистов — я учу их управлять новым станком. Как мастер учит
                 подмастерьев: показываю, страхую, отпускаю в самостоятельную работу.
+              </p>
+              <p className="mt-6 text-sm text-ink-faint">
+                Образование: НИЯУ МИФИ, факультет «Кибернетика и безопасность»,
+                прикладная математика и информатика.
               </p>
             </div>
           </Reveal>

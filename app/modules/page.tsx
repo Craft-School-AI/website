@@ -5,46 +5,71 @@ import { Reveal } from '@/components/Reveal';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Модули — три спринта',
+  title: 'Модули — спринты',
   description:
-    'Три спринта Craft School: первая страница за неделю, полноценный сайт, запуск и приём заявок. Каждый спринт заканчивается готовым результатом.',
+    'Спринты Craft School: от первой версии сайта и публикации на Vercel до своего домена, приёма заявок и запуска бизнеса под ключ. Каждый спринт — готовый результат.',
 };
 
-const sprints = [
+type Sprint = {
+  number: string;
+  duration: string;
+  title: string;
+  result: string;
+  tiers: string;
+  points: string[];
+};
+
+const sprints: Sprint[] = [
   {
     number: 'Спринт 1',
-    duration: '1 неделя',
+    duration: '1 неделя · 2 занятия',
     title: 'Знакомство с ИИ-станком',
-    result: 'Ваша первая страница — в интернете',
+    result: 'Первая версия вашего сайта на компьютере',
+    tiers: 'Все тарифы',
     points: [
       'Настраиваем рабочее место: всё нужное — за один вечер',
       'Учимся ставить задачи ИИ-агенту простыми словами',
-      'Собираем главную страницу вашего бизнеса: заголовок, услуги, контакты',
-      'Публикуем страницу в интернете — с настоящим адресом',
+      'Подробно описываем идею — и агент собирает первую версию сайта',
+      'Разбираем, как проверять работу агента и просить переделать',
     ],
   },
   {
     number: 'Спринт 2',
-    duration: '1 неделя',
-    title: 'Сайт целиком',
-    result: 'Полноценный сайт с фирменным стилем',
+    duration: '1 неделя · 2 занятия',
+    title: 'Сайт целиком и публикация',
+    result: 'Готовый сайт в интернете — рабочая ссылка на Vercel',
+    tiers: 'Все тарифы',
     points: [
-      'Добавляем страницы: услуги и цены, о вас, отзывы клиентов',
+      'Дорабатываем страницы, тексты и цены под ваш бизнес',
       'Подбираем цвета и шрифты под характер вашего дела',
-      'Делаем сайт удобным на телефоне — там сидит большинство клиентов',
-      'Учимся проверять работу агента и просить переделать неудачное',
+      'Добавляем wow-эффект: анимации и живые детали',
+      'Публикуем сайт на Vercel — на выходе настоящая ссылка',
     ],
   },
   {
     number: 'Спринт 3',
-    duration: '1 неделя',
+    duration: '1 неделя · 2 занятия',
     title: 'Запуск и заявки',
-    result: 'Сайт продаёт: заявки приходят вам в мессенджер',
+    result: 'Сайт на своём домене принимает заявки в Telegram',
+    tiers: 'Средний и высший тариф',
     points: [
-      'Подключаем форму заявки — клиенты записываются прямо с сайта',
-      'Настраиваем уведомления: новая заявка приходит вам в Telegram',
-      'Приводим тексты в порядок: коротко, по делу, продающе',
-      'Составляем план: как развивать сайт дальше своими силами',
+      'Покупаем и подключаем свой домен',
+      'Разворачиваем сайт на настоящем хостинге',
+      'Подключаем форму — заявки приходят вам в Telegram',
+      'Добавляем аналитику, cookie-баннер и документы (политика, оферта)',
+    ],
+  },
+  {
+    number: 'Спринт 4',
+    duration: '1 неделя · 2 занятия',
+    title: 'Бизнес под ключ',
+    result: 'Сайт продаёт: оплата, запись, аналитика — под ваш бизнес',
+    tiers: 'Только высший тариф',
+    points: [
+      'Подключаем приём оплаты или онлайн-запись — по потребности',
+      'Настраиваем базовое SEO и цели в аналитике',
+      'Дорабатываем сайт индивидуально под вашу задачу',
+      'Составляем план развития и месяц поддержки после выпуска',
     ],
   },
 ];
@@ -54,20 +79,23 @@ export default function ModulesPage() {
     <>
       <PageHero
         tag="Программа"
-        title="Три спринта — и сайт работает на вас"
-        subtitle="Каждый спринт заканчивается не «пройденной темой», а готовой частью вашего сайта."
+        title="Спринты — от первой ссылки до продаж"
+        subtitle="Каждый спринт заканчивается не «пройденной темой», а готовой частью вашего сайта. Сколько спринтов — зависит от тарифа."
       />
 
       <section className="section">
         <div className="container-page space-y-8">
           {sprints.map((sprint, index) => (
             <Reveal key={sprint.number} delay={index * 100}>
-              <article className="card grid gap-6 lg:grid-cols-[220px_1fr]">
+              <article className="card grid gap-6 lg:grid-cols-[240px_1fr]">
                 <div>
                   <p className="font-display text-3xl font-bold text-terracotta">
                     {sprint.number}
                   </p>
                   <p className="mt-1 text-sm text-ink-faint">{sprint.duration}</p>
+                  <p className="mt-3 inline-block rounded-full border border-line px-3 py-1 text-xs font-semibold text-ink-soft">
+                    {sprint.tiers}
+                  </p>
                   <p className="mt-4 inline-block rounded-xl bg-amber/20 px-3 py-2 text-sm font-semibold">
                     Результат: {sprint.result}
                   </p>
@@ -94,11 +122,14 @@ export default function ModulesPage() {
           <Reveal>
             <h2 className="heading-lg">Готовы встать за станок?</h2>
             <p className="mx-auto mt-4 max-w-xl text-ink-soft">
-              Оставьте заявку — обсудим ваш проект и подберём поток.
+              Оставьте заявку — обсудим ваш проект, подберём тариф и поток.
             </p>
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button href="/#zayavka" size="lg">
                 Записаться в мастерскую
+              </Button>
+              <Button href="/pricing" variant="outline" size="lg">
+                Смотреть тарифы
               </Button>
             </div>
           </Reveal>
