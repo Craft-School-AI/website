@@ -27,14 +27,6 @@ function validate(payload: LeadPayload) {
   return { errors, lead: { name, phone, email, comment } };
 }
 
-// Telegram parse_mode=HTML: экранируем пользовательский ввод
-function escapeHtml(value: string) {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;');
-}
-
 export async function POST(request: Request) {
   let payload: LeadPayload;
   try {
@@ -54,12 +46,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
+  // ВКонтакте вместо Telegram: api.vk.com доступен с серверов в РФ,
+  // где api.telegram.org заблокирован (ConnectTimeout).
+  const token = process.env.VK_ACCESS_TOKEN;
+  const peerId = process.env.VK_PEER_ID;
+  const apiVersion = process.env.VK_API_VERSION || '5.199';
 
-  if (!token || !chatId) {
+  if (!token || !peerId) {
     console.error(
-      '[lead] TELEGRAM_BOT_TOKEN или TELEGRAM_CHAT_ID не заданы — заявка не отправлена:',
+      '[lead] VK_ACCESS_TOKEN или VK_PEER_ID не заданы — заявка не отправлена:',
       lead,
     );
     return NextResponse.json(
@@ -68,41 +63,52 @@ export async function POST(request: Request) {
     );
   }
 
+  // VK messages не поддерживает разметку — отправляем простым текстом.
   const text = [
-    '🔨 <b>Новая заявка с Craft School</b>',
+    '🔨 Новая заявка с Craft School',
     '',
-    `<b>Имя:</b> ${escapeHtml(lead.name)}`,
-    `<b>Телефон:</b> ${escapeHtml(lead.phone)}`,
-    `<b>Email:</b> ${escapeHtml(lead.email)}`,
-    lead.comment ? `<b>Комментарий:</b> ${escapeHtml(lead.comment)}` : null,
+    `Имя: ${lead.name}`,
+    `Телефон: ${lead.phone}`,
+    `Email: ${lead.email}`,
+    lead.comment ? `Комментарий: ${lead.comment}` : null,
   ]
     .filter((line): line is string => line !== null)
     .join('\n');
 
-  try {
-    const response = await fetch(
-      `https://api.telegram.org/bot${token}/sendMessage`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text,
-          parse_mode: 'HTML',
-        }),
-      },
-    );
+  const params = new URLSearchParams({
+    access_token: token,
+    peer_id: peerId,
+    message: text,
+    // random_id обязателен: VK использует его для дедупликации сообщений.
+    random_id: String(Date.now() + Math.floor(Math.random() * 1_000_000)),
+    v: apiVersion,
+  });
 
-    if (!response.ok) {
-      const details = await response.text();
-      console.error('[lead] Telegram API вернул ошибку:', details);
+  try {
+    const response = await fetch('https://api.vk.com/method/messages.send', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params,
+    });
+
+    // VK отвечает HTTP 200 даже при ошибке: реальная ошибка лежит в теле в поле error.
+    const data = (await response.json()) as {
+      response?: number;
+      error?: { error_code?: number; error_msg?: string };
+    };
+
+    if (!response.ok || data.error) {
+      console.error(
+        '[lead] VK API вернул ошибку:',
+        data.error ?? `HTTP ${response.status}`,
+      );
       return NextResponse.json(
         { ok: false, error: 'Не удалось отправить заявку. Попробуйте позже.' },
         { status: 502 },
       );
     }
   } catch (error) {
-    console.error('[lead] Ошибка сети при отправке в Telegram:', error);
+    console.error('[lead] Ошибка сети при отправке во ВКонтакте:', error);
     return NextResponse.json(
       { ok: false, error: 'Не удалось отправить заявку. Попробуйте позже.' },
       { status: 502 },
