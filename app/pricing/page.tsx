@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Check, Flame } from 'lucide-react';
+import { Check, Clock, Coins, Flame, Star, Users } from 'lucide-react';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
 import { Button } from '@/components/ui/Button';
@@ -114,47 +114,66 @@ export default function PricingPage() {
             </div>
           </Reveal>
 
-          <div className="grid gap-6 lg:grid-cols-3">
+          <div className="grid items-start gap-6 lg:grid-cols-3">
             {plans.map((plan, index) => (
-              <Reveal key={plan.name} delay={index * 120}>
+              <Reveal key={plan.name} delay={index * 120} className="relative">
+                {plan.highlighted && (
+                  <div
+                    aria-hidden
+                    className="absolute -inset-2 rounded-[2.5rem] bg-terracotta/20 blur-2xl"
+                  />
+                )}
                 <article
-                  className={`card relative flex h-full flex-col ${
-                    plan.highlighted ? 'border-2 border-terracotta shadow-hover' : ''
+                  className={`relative flex h-full flex-col rounded-3xl bg-white p-8 shadow-soft dark:bg-[#0E0C0C] ${
+                    plan.highlighted
+                      ? 'border-2 border-terracotta lg:-translate-y-3'
+                      : 'border border-ink/10 dark:border-white/10'
                   }`}
                 >
                   {plan.highlighted && (
-                    <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-terracotta px-4 py-1 text-xs font-bold uppercase tracking-wider text-ivory">
-                      Выбор большинства
+                    <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-terracotta px-4 py-1 text-xs font-bold uppercase tracking-wider text-ivory">
+                      <Star className="h-3.5 w-3.5 fill-ivory" aria-hidden /> Выбор большинства
                     </span>
                   )}
                   <h2 className="heading-md">{plan.name}</h2>
 
-                  <div className="mt-3 flex items-baseline gap-3">
-                    <span className="font-display text-4xl font-bold">{plan.price}</span>
-                    <span className="text-lg font-semibold text-ink-faint line-through">
+                  <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <span className="whitespace-nowrap font-display text-[2.75rem] font-bold leading-none">
+                      {plan.price}
+                    </span>
+                    <span className="whitespace-nowrap text-lg font-semibold text-ink-faint line-through">
                       {plan.oldPrice}
                     </span>
                   </div>
-                  <p className="mt-1.5 inline-flex items-center gap-1.5 text-xs font-semibold text-terracotta">
+                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-terracotta">
                     <Flame className="h-3.5 w-3.5" aria-hidden /> Цена первого потока · дальше дороже
                   </p>
 
-                  <div className="mt-4 space-y-1.5 text-sm text-ink-faint">
-                    <p>{plan.duration}</p>
-                    <p>{plan.format}</p>
-                    <p className="font-semibold text-amber">{plan.tokens}</p>
+                  <div className="mt-6 space-y-3 border-t border-ink/10 pt-6 text-sm dark:border-white/10">
+                    <p className="flex items-center gap-2.5 text-ink-soft">
+                      <Clock className="h-4 w-4 shrink-0 text-ink-faint" aria-hidden />
+                      {plan.duration}
+                    </p>
+                    <p className="flex items-center gap-2.5 text-ink-soft">
+                      <Users className="h-4 w-4 shrink-0 text-ink-faint" aria-hidden />
+                      {plan.format}
+                    </p>
+                    <p className="flex items-center gap-2.5 font-semibold text-terracotta">
+                      <Coins className="h-4 w-4 shrink-0" aria-hidden />
+                      {plan.tokens}
+                    </p>
                   </div>
 
-                  <p className="mt-4 text-sm text-ink-soft">{plan.description}</p>
+                  <p className="mt-6 text-sm text-ink-soft">{plan.description}</p>
 
-                  <p className="mt-4 rounded-xl bg-amber/15 px-3 py-2 text-sm font-semibold">
+                  <p className="mt-4 rounded-xl bg-amber/15 px-4 py-3 text-sm font-semibold">
                     Результат: {plan.result}
                   </p>
 
-                  <ul className="mt-6 flex-1 space-y-3">
+                  <ul className="mt-6 flex-1 space-y-3 border-t border-ink/10 pt-6 dark:border-white/10">
                     {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2 text-sm text-ink-soft">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-amber" aria-hidden />
+                      <li key={feature} className="flex items-start gap-2.5 text-sm text-ink-soft">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-terracotta" aria-hidden />
                         {feature}
                       </li>
                     ))}

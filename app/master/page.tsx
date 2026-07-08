@@ -48,19 +48,20 @@ export default function MasterPage() {
       <section className="section">
         <div className="container-page grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <Reveal className="relative mx-auto w-full max-w-sm lg:max-w-none">
+            {/* Тёплое свечение позади — портрет «парит», без жёсткой рамки */}
             <div
               aria-hidden
-              className="absolute -inset-0 translate-x-4 translate-y-4 rounded-[2rem] border border-terracotta/40"
+              className="absolute inset-x-6 bottom-2 top-10 rounded-[3rem] bg-terracotta/20 blur-3xl"
             />
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-hover">
-              <Image
-                src="/images/master-portrait.jpg"
-                alt="Роман Бабанов — мастер и наставник Craft School"
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 40vw, 24rem"
-              />
-            </div>
+            <Image
+              src="/images/master-portrait.jpg"
+              alt="Роман Бабанов — мастер и наставник Craft School"
+              width={1024}
+              height={1404}
+              priority
+              className="relative h-auto w-full rounded-[2rem] shadow-hover"
+              sizes="(min-width: 1024px) 40vw, 24rem"
+            />
           </Reveal>
 
           <Reveal delay={150}>
