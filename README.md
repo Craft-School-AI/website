@@ -13,7 +13,7 @@ npm install
 
 # 2. Настроить переменные окружения
 cp .env.example .env.local
-# заполнить TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID (см. ниже)
+# заполнить VK_ACCESS_TOKEN и VK_PEER_ID (см. ниже)
 
 # 3. Запустить дев-сервер
 npm run dev
@@ -46,7 +46,7 @@ npm run dev
    Ключи доступа → Создать ключ с правом **«Управление сообщениями сообщества»**.
    Это `VK_ACCESS_TOKEN`.
 4. **Важно:** от своего личного аккаунта напишите сообществу любое сообщение —
-   иначе ВК не даст ему писать вам первым (как и Telegram).
+   иначе ВК не даст ему писать вам первым.
 5. **Узнайте свой VK id:** он указан на [vk.com/settings](https://vk.com/settings)
    (строка `id...`). Это `VK_PEER_ID`.
 6. Впишите значения в `.env.local` и перезапустите `npm run dev`.
@@ -112,8 +112,8 @@ lib/
 2. На [vercel.com](https://vercel.com) нажмите **Add New → Project** и выберите репозиторий.
    Vercel сам определит Next.js — настройки сборки менять не нужно.
 3. В **Settings → Environment Variables** добавьте:
-   - `TELEGRAM_BOT_TOKEN`
-   - `TELEGRAM_CHAT_ID`
+   - `VK_ACCESS_TOKEN`
+   - `VK_PEER_ID`
    - `NEXT_PUBLIC_SITE_URL` — боевой адрес сайта, например `https://craft-school.ru`
 4. Нажмите **Deploy**.
 
