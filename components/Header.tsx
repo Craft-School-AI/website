@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/modules', label: 'Модули' },
   { href: '/master', label: 'О мастере' },
   { href: '/pricing', label: 'Тарифы' },
+  { href: '/schedule', label: 'Расписание' },
   { href: '/blog', label: 'Блог' },
   { href: '/contacts', label: 'Контакты' },
 ];

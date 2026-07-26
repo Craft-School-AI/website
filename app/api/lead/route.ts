@@ -4,6 +4,7 @@ type LeadPayload = {
   name?: unknown;
   phone?: unknown;
   email?: unknown;
+  cohort?: unknown;
   comment?: unknown;
 };
 
@@ -16,6 +17,8 @@ function validate(payload: LeadPayload) {
   const name = typeof payload.name === 'string' ? payload.name.trim() : '';
   const phone = typeof payload.phone === 'string' ? payload.phone.trim() : '';
   const email = typeof payload.email === 'string' ? payload.email.trim() : '';
+  const cohort =
+    typeof payload.cohort === 'string' ? payload.cohort.trim().slice(0, 120) : '';
   const comment =
     typeof payload.comment === 'string' ? payload.comment.trim() : '';
 
@@ -24,7 +27,7 @@ function validate(payload: LeadPayload) {
   if (!EMAIL_RE.test(email)) errors.push('Укажите корректный email');
   if (comment.length > 1000) errors.push('Комментарий слишком длинный');
 
-  return { errors, lead: { name, phone, email, comment } };
+  return { errors, lead: { name, phone, email, cohort, comment } };
 }
 
 export async function POST(request: Request) {
@@ -70,6 +73,7 @@ export async function POST(request: Request) {
     `Имя: ${lead.name}`,
     `Телефон: ${lead.phone}`,
     `Email: ${lead.email}`,
+    lead.cohort ? `Поток: ${lead.cohort}` : null,
     lead.comment ? `Комментарий: ${lead.comment}` : null,
   ]
     .filter((line): line is string => line !== null)

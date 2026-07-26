@@ -1,8 +1,12 @@
 import { Check } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 import { LeadForm } from '@/components/LeadForm';
+import { getCohorts, getNearestCohortId } from '@/lib/cohorts';
 
 export function LeadSection() {
+  const cohorts = getCohorts();
+  const nearestCohortId = getNearestCohortId();
+
   return (
     <section id="zayavka" className="section scroll-mt-24">
       <div className="container-page grid items-center gap-10 lg:grid-cols-2">
@@ -34,7 +38,7 @@ export function LeadSection() {
         </Reveal>
 
         <Reveal delay={150}>
-          <LeadForm />
+          <LeadForm cohorts={cohorts} cohortId={nearestCohortId} />
         </Reveal>
       </div>
     </section>

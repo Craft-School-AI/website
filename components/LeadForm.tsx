@@ -1,46 +1,81 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Handshake } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
+import type { Cohort } from '@/lib/cohorts';
 
 type LeadFormValues = {
   name: string;
   phone: string;
   email: string;
+  cohort: string;
   comment: string;
   consent: boolean;
 };
 
 type SubmitState = 'idle' | 'success' | 'error';
 
+type LeadFormProps = {
+  /** Доступные потоки для выбора. */
+  cohorts?: Cohort[];
+  /** Выбранный поток (id) — управляется извне, напр. из календаря. */
+  cohortId?: string;
+  /** Синхронизация выбора потока обратно наверх. */
+  onCohortChange?: (id: string) => void;
+};
+
 const inputClasses =
   'w-full rounded-xl border border-line bg-surface px-4 py-3 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-terracotta';
 
-export function LeadForm() {
+export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormProps) {
+  const defaultCohort = cohortId ?? cohorts[0]?.id ?? '';
+
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<LeadFormValues>({
-    defaultValues: { name: '', phone: '', email: '', comment: '', consent: false },
+    defaultValues: {
+      name: '',
+      phone: '',
+      email: '',
+      cohort: defaultCohort,
+      comment: '',
+      consent: false,
+    },
   });
 
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [serverError, setServerError] = useState('');
 
+  // Выбор потока извне (клик «Записаться» в календаре) — подставляем в селект.
+  useEffect(() => {
+    if (cohortId) {
+      setValue('cohort', cohortId);
+    }
+  }, [cohortId, setValue]);
+
   const onSubmit = async (values: LeadFormValues) => {
     setSubmitState('idle');
     setServerError('');
+
+    // В заявку кладём читаемое название потока, а не технический id.
+    const selectedCohort = cohorts.find((c) => c.id === values.cohort);
+    const payload = {
+      ...values,
+      cohort: selectedCohort ? selectedCohort.selectLabel : '',
+    };
 
     try {
       const response = await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
 
       const data = (await response.json()) as { ok: boolean; error?: string };
@@ -52,7 +87,14 @@ export function LeadForm() {
       }
 
       setSubmitState('success');
-      reset();
+      reset({
+        name: '',
+        phone: '',
+        email: '',
+        cohort: defaultCohort,
+        comment: '',
+        consent: false,
+      });
     } catch {
       setServerError('Нет соединения. Проверьте интернет и попробуйте снова.');
       setSubmitState('error');
@@ -157,6 +199,38 @@ export function LeadForm() {
           </p>
         )}
       </div>
+
+      {cohorts.length > 0 && (
+        <div>
+          <label htmlFor="lead-cohort" className="mb-1.5 block text-sm font-semibold">
+            Поток
+          </label>
+          <select
+            id="lead-cohort"
+            className={`${inputClasses} cursor-pointer appearance-none bg-[right_1rem_center] bg-no-repeat pr-10`}
+            style={{
+              backgroundImage:
+                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+            }}
+            aria-invalid={Boolean(errors.cohort)}
+            {...register('cohort', {
+              required: 'Выберите поток',
+              onChange: (event) => onCohortChange?.(event.target.value),
+            })}
+          >
+            {cohorts.map((cohort) => (
+              <option key={cohort.id} value={cohort.id}>
+                {cohort.selectLabel}
+              </option>
+            ))}
+          </select>
+          {errors.cohort && (
+            <p role="alert" className="mt-1 text-sm text-terracotta">
+              {errors.cohort.message}
+            </p>
+          )}
+        </div>
+      )}
 
       <div>
         <label htmlFor="lead-comment" className="mb-1.5 block text-sm font-semibold">
