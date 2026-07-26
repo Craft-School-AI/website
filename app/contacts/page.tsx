@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
 import { LeadForm } from '@/components/LeadForm';
+import { PERSONAL_TELEGRAM_URL, WRITE_MASTER_LABEL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Контакты',
@@ -12,9 +13,9 @@ export const metadata: Metadata = {
 const contacts = [
   {
     label: 'Telegram',
-    value: '@craft_school_ai_bot',
-    href: 'https://t.me/craft_school_ai_bot',
-    note: 'Самый быстрый способ — отвечаем в течение пары часов',
+    value: WRITE_MASTER_LABEL,
+    href: PERSONAL_TELEGRAM_URL,
+    note: 'Напишите мастеру напрямую — отвечаю лично, обычно в течение пары часов',
   },
   {
     label: 'Email',

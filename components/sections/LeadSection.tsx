@@ -1,6 +1,7 @@
 import { Check } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 import { LeadForm } from '@/components/LeadForm';
+import { AskMaster } from '@/components/AskMaster';
 import { getCohorts, getNearestCohortId } from '@/lib/cohorts';
 
 export function LeadSection() {
@@ -35,6 +36,7 @@ export function LeadSection() {
               Работаем на вашем реальном проекте, а не на учебных примерах
             </li>
           </ul>
+          <AskMaster className="mt-6" />
         </Reveal>
 
         <Reveal delay={150}>

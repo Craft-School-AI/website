@@ -1,0 +1,76 @@
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logo-main-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D48766" />
+      <stop offset="100%" stop-color="#E8C070" />
+    </linearGradient>
+    <radialGradient id="glow-t" cx="16%" cy="10%" r="60%">
+      <stop offset="0%" stop-color="#D48766" stop-opacity="0.24" />
+      <stop offset="100%" stop-color="#D48766" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glow-a" cx="90%" cy="92%" r="60%">
+      <stop offset="0%" stop-color="#E8C070" stop-opacity="0.16" />
+      <stop offset="100%" stop-color="#E8C070" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1080" height="1920" fill="#141212" />
+  <rect width="1080" height="1920" fill="url(#glow-t)" />
+  <rect width="1080" height="1920" fill="url(#glow-a)" />
+  <rect x="32" y="32" width="1016" height="1856" rx="40" fill="none" stroke="#3A3532" stroke-width="2" />
+
+  <!-- Логотип -->
+  <svg x="90" y="118" width="60" height="82" viewBox="80 50 220 300">
+    <path d="M 260 140 C 260 100, 220 80, 190 80 C 140 80, 110 120, 110 170 L 110 230 C 110 280, 140 320, 190 320 C 220 320, 260 300, 260 260"
+      fill="none" stroke="url(#logo-main-gradient)" stroke-width="24" stroke-linecap="round" />
+    <path d="M 180 140 L 210 160 L 180 180" fill="none" stroke="#E8C070" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M 220 220 L 190 240 L 220 260" fill="none" stroke="#E8C070" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="120" cy="140" r="8" fill="#E8C070" opacity="0.8" />
+    <circle cx="260" cy="260" r="8" fill="#E8C070" opacity="0.8" />
+  </svg>
+  <text x="164" y="176" font-family="Manrope, Arial, sans-serif" font-size="42" font-weight="800" fill="#F5EDE3">Craft School</text>
+
+  <!-- Плашка -->
+  <rect x="90" y="300" width="286" height="58" rx="29" fill="#E8C070" fill-opacity="0.14" stroke="#E8C070" stroke-opacity="0.5" stroke-width="2" />
+  <text x="118" y="338" font-family="Manrope, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="3" fill="#E8C070">НАБОР ОТКРЫТ</text>
+
+  <!-- Заголовок -->
+  <text x="86" y="500" font-family="Manrope, Arial, sans-serif" font-size="104" font-weight="800" fill="#F5EDE3">Я запускаю</text>
+  <text x="86" y="620" font-family="Manrope, Arial, sans-serif" font-size="104" font-weight="800" fill="#D48766">свою школу</text>
+
+  <!-- Подзаголовок -->
+  <text x="90" y="720" font-family="Manrope, Arial, sans-serif" font-size="37" font-weight="500" fill="#C4B8AA">Цифровая мастерская, где вы делаете</text>
+  <text x="90" y="772" font-family="Manrope, Arial, sans-serif" font-size="37" font-weight="500" fill="#C4B8AA">сайт своими руками — с ИИ и без кода</text>
+
+  <!-- Робот -->
+  <svg x="340" y="900" width="400" height="314" viewBox="-32 -68 102 80">
+    <line x1="0" y1="-46" x2="0" y2="-58" stroke="#F5EDE3" stroke-width="2.5" />
+    <circle cx="0" cy="-61" r="4" fill="#E8C070" />
+    <rect x="-28" y="-46" width="56" height="38" rx="10" fill="#D48766" />
+    <rect x="-20" y="-40" width="40" height="18" rx="6" fill="#141212" />
+    <circle cx="-8" cy="-31" r="3.5" fill="#F5EDE3" />
+    <circle cx="8" cy="-31" r="3.5" fill="#F5EDE3" />
+    <path d="M28,-34 L46,-26" stroke="#D48766" stroke-width="5" stroke-linecap="round" />
+    <rect x="42" y="-26" width="22" height="14" rx="7" fill="#7ACFA8" />
+    <circle cx="-14" cy="0" r="10" fill="#F5EDE3" />
+    <line x1="-14" y1="-6" x2="-14" y2="6" stroke="#141212" stroke-width="2.5" />
+    <circle cx="14" cy="0" r="10" fill="#F5EDE3" />
+    <line x1="14" y1="-6" x2="14" y2="6" stroke="#141212" stroke-width="2.5" />
+  </svg>
+  <path transform="translate(300,960)" d="M0,-7 L1.8,-1.8 L7,0 L1.8,1.8 L0,7 L-1.8,1.8 L-7,0 L-1.8,-1.8 Z" fill="#E8C070" opacity="0.8" />
+  <path transform="translate(790,1120) scale(1.5)" d="M0,-7 L1.8,-1.8 L7,0 L1.8,1.8 L0,7 L-1.8,1.8 L-7,0 L-1.8,-1.8 Z" fill="#D48766" opacity="0.7" />
+
+  <!-- Карточка старта -->
+  <rect x="88" y="1360" width="904" height="170" rx="24" fill="#1E1B1A" stroke="#3A3532" stroke-width="2" />
+  <rect x="116" y="1388" width="150" height="114" rx="16" fill="#141212" stroke="#3A3532" stroke-width="2" />
+  <text x="191" y="1462" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="60" font-weight="800" fill="#D48766">3</text>
+  <text x="191" y="1488" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="2" fill="#8A8078">АВГУСТА</text>
+  <text x="298" y="1428" font-family="Manrope, Arial, sans-serif" font-size="33" font-weight="700" fill="#F5EDE3">Старт первого потока</text>
+  <rect x="298" y="1450" width="188" height="46" rx="23" fill="#7ACFA8" fill-opacity="0.15" stroke="#7ACFA8" stroke-opacity="0.5" stroke-width="2" />
+  <text x="326" y="1481" font-family="Manrope, Arial, sans-serif" font-size="24" font-weight="700" fill="#7ACFA8">Бесплатно</text>
+  <text x="508" y="1481" font-family="Manrope, Arial, sans-serif" font-size="24" font-weight="500" fill="#C4B8AA">· для своих</text>
+
+  <!-- Футер -->
+  <text x="90" y="1660" font-family="Manrope, Arial, sans-serif" font-size="34" font-weight="700" fill="#E8C070">craft-school.ru/schedule</text>
+  <text x="90" y="1710" font-family="Manrope, Arial, sans-serif" font-size="26" font-weight="500" fill="#8A8078">Мест немного — расскажу подробности внутри</text>
+</svg>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Check, X } from 'lucide-react';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
+import { AskMaster } from '@/components/AskMaster';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
@@ -120,6 +121,7 @@ export default function ProgramPage() {
                 Оставить заявку
               </Button>
             </div>
+            <AskMaster className="mt-6" />
           </Reveal>
         </div>
       </section>

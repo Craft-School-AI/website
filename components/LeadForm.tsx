@@ -6,12 +6,14 @@ import { Handshake } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
 import type { Cohort } from '@/lib/cohorts';
+import { TARIFFS, DEFAULT_TARIFF_ID, findTariff, tariffLabel } from '@/lib/tariffs';
 
 type LeadFormValues = {
   name: string;
   phone: string;
   email: string;
   cohort: string;
+  tariff: string;
   comment: string;
   consent: boolean;
 };
@@ -38,6 +40,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<LeadFormValues>({
     defaultValues: {
@@ -45,6 +48,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
       phone: '',
       email: '',
       cohort: defaultCohort,
+      tariff: DEFAULT_TARIFF_ID,
       comment: '',
       consent: false,
     },
@@ -52,6 +56,11 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
 
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [serverError, setServerError] = useState('');
+
+  // Тариф выбирается только для платных потоков. Для бесплатного
+  // (обкаточного) августовского потока тарифа нет.
+  const selectedCohort = cohorts.find((c) => c.id === watch('cohort'));
+  const showTariff = cohorts.length > 0 && selectedCohort ? !selectedCohort.free : false;
 
   // Выбор потока извне (клик «Записаться» в календаре) — подставляем в селект.
   useEffect(() => {
@@ -64,11 +73,14 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
     setSubmitState('idle');
     setServerError('');
 
-    // В заявку кладём читаемое название потока, а не технический id.
-    const selectedCohort = cohorts.find((c) => c.id === values.cohort);
+    // В заявку кладём читаемые названия потока и тарифа, а не технические id.
+    const cohort = cohorts.find((c) => c.id === values.cohort);
+    // Тариф передаём только для платных потоков; для бесплатного — пусто.
+    const tariff = cohort && !cohort.free ? findTariff(values.tariff) : undefined;
     const payload = {
       ...values,
-      cohort: selectedCohort ? selectedCohort.selectLabel : '',
+      cohort: cohort ? cohort.selectLabel : '',
+      tariff: tariff ? tariffLabel(tariff) : '',
     };
 
     try {
@@ -92,6 +104,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
         phone: '',
         email: '',
         cohort: defaultCohort,
+        tariff: DEFAULT_TARIFF_ID,
         comment: '',
         consent: false,
       });
@@ -227,6 +240,41 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
           {errors.cohort && (
             <p role="alert" className="mt-1 text-sm text-terracotta">
               {errors.cohort.message}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Тариф — только для платных потоков. Скрытое поле не регистрируется,
+          поэтому для бесплатного потока не валидируется и не отправляется. */}
+      {showTariff && (
+        <div>
+          <label htmlFor="lead-tariff" className="mb-1.5 block text-sm font-semibold">
+            Тариф
+          </label>
+          <select
+            id="lead-tariff"
+            className={`${inputClasses} cursor-pointer appearance-none bg-[right_1rem_center] bg-no-repeat pr-10`}
+            style={{
+              backgroundImage:
+                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+            }}
+            aria-invalid={Boolean(errors.tariff)}
+            {...register('tariff', { required: 'Выберите тариф' })}
+          >
+            {TARIFFS.map((tariff) => (
+              <option key={tariff.id} value={tariff.id}>
+                {tariffLabel(tariff)}
+              </option>
+            ))}
+          </select>
+          <p className="mt-1.5 text-xs text-ink-faint">
+            Точный тариф подтвердите с мастером — он подскажет, какой формат
+            подойдёт вашему проекту.
+          </p>
+          {errors.tariff && (
+            <p role="alert" className="mt-1 text-sm text-terracotta">
+              {errors.tariff.message}
             </p>
           )}
         </div>

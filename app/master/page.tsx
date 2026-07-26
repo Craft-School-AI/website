@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
+import { AskMaster } from '@/components/AskMaster';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
@@ -188,6 +189,7 @@ export default function MasterPage() {
                 Записаться в мастерскую
               </Button>
             </div>
+            <AskMaster className="mt-6" />
           </Reveal>
         </div>
       </section>

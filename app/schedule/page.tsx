@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PageHero } from '@/components/PageHero';
 import { ScheduleView } from '@/components/ScheduleView';
-import { getCohorts, getNearestCohortId } from '@/lib/cohorts';
+import { getAllCohorts, getNearestCohortId } from '@/lib/cohorts';
 
 export const metadata: Metadata = {
   title: 'Расписание',
@@ -10,7 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function SchedulePage() {
-  const cohorts = getCohorts();
+  // Календарю отдаём все потоки (прошедшие показываем закрытыми),
+  // форма внутри берёт только открытые для записи.
+  const cohorts = getAllCohorts();
   const nearestCohortId = getNearestCohortId();
 
   return (

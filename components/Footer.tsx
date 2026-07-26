@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { LogoMark } from '@/components/Logo';
 import { RobotActivity } from '@/components/RobotActivity';
 import { TelegramIcon, VkIcon } from '@/components/SocialIcons';
+import { PERSONAL_TELEGRAM_URL, WRITE_MASTER_LABEL } from '@/lib/site';
 
 const navLinks = [
   { href: '/program', label: 'О программе' },
@@ -13,7 +14,7 @@ const navLinks = [
 ];
 
 const socials = [
-  { href: 'https://t.me/craft_school_ai_bot', label: 'Telegram', Icon: TelegramIcon },
+  { href: PERSONAL_TELEGRAM_URL, label: WRITE_MASTER_LABEL, Icon: TelegramIcon },
   { href: 'https://vk.ru/club240091437', label: 'VK', Icon: VkIcon },
 ];
 
@@ -62,9 +63,17 @@ export function Footer() {
           </p>
           <a
             href="mailto:craft-school-ai@yandex.ru"
-            className="text-sm text-ink-soft transition-colors hover:text-terracotta"
+            className="block text-sm text-ink-soft transition-colors hover:text-terracotta"
           >
             craft-school-ai@yandex.ru
+          </a>
+          <a
+            href={PERSONAL_TELEGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 block text-sm text-ink-soft transition-colors hover:text-terracotta"
+          >
+            {WRITE_MASTER_LABEL}
           </a>
           <ul className="mt-4 flex items-center gap-3">
             {socials.map(({ href, label, Icon }) => (

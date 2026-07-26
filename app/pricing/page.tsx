@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Check, Clock, Coins, Flame, Star, Users } from 'lucide-react';
 import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
+import { AskMaster } from '@/components/AskMaster';
 import { Button } from '@/components/ui/Button';
 
 export const metadata: Metadata = {
@@ -30,7 +31,7 @@ const plans: Plan[] = [
     name: 'Подмастерье',
     price: '19 900 ₽',
     oldPrice: '29 900 ₽',
-    duration: '2 недели · 2 спринта · 4 занятия по 1 часу',
+    duration: '2 недели · 2 спринта · 4 занятия по 1,5 часа',
     format: 'Группа 2–5 человек, вечерами по будням',
     tokens: 'Токены для агента — бюджет $50',
     description:
@@ -50,7 +51,7 @@ const plans: Plan[] = [
     name: 'Мастер',
     price: '49 000 ₽',
     oldPrice: '69 000 ₽',
-    duration: '3 недели · 3 спринта · 6 занятий по 1 часу',
+    duration: '3 недели · 3 спринта · 6 занятий по 1,5 часа',
     format: 'Группа 2–5 человек, вечерами по будням',
     tokens: 'Токены для агента — бюджет $100',
     description:
@@ -71,7 +72,7 @@ const plans: Plan[] = [
     name: 'Цех',
     price: '99 000 ₽',
     oldPrice: '139 000 ₽',
-    duration: '4 недели · 4 спринта · 8 занятий по 1 часу',
+    duration: '4 недели · 4 спринта · 8 занятий по 1,5 часа',
     format: 'Индивидуально, гибкое время',
     tokens: 'Токены для агента — бюджет $200',
     description:
@@ -221,6 +222,7 @@ export default function PricingPage() {
                   Получить совет мастера
                 </Button>
               </div>
+              <AskMaster className="mt-6" />
             </div>
           </Reveal>
         </div>
