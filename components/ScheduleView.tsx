@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { Check, Gift, Lock, CalendarDays, Clock, Hourglass } from 'lucide-react';
+import { Check, Lock, CalendarDays, Clock, Hourglass } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 import { LeadForm } from '@/components/LeadForm';
 import { AskMaster } from '@/components/AskMaster';
@@ -18,9 +18,9 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
   const [selected, setSelected] = useState(defaultCohortId);
   const formRef = useRef<HTMLDivElement>(null);
 
-  // В форму отдаём только открытые для записи потоки; прошедшие в календаре
-  // показываем закрытыми, но записаться на них нельзя.
-  const openCohorts = cohorts.filter((cohort) => !cohort.past);
+  // В форму отдаём только открытые для записи потоки; прошедшие и уже
+  // набранные в календаре показываем закрытыми, но записаться на них нельзя.
+  const openCohorts = cohorts.filter((cohort) => !cohort.past && !cohort.closed);
 
   const handleEnroll = (id: string) => {
     setSelected(id);
@@ -34,7 +34,7 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
           <Reveal>
             <h2 className="heading-lg text-center">Расписание потоков</h2>
             <p className="mx-auto mt-4 max-w-2xl text-center text-ink-soft">
-              Новый поток стартует в первый понедельник каждого месяца (по МСК).
+              Новый поток стартует в первый вторник каждого месяца (по МСК).
               Выберите удобный старт и запишитесь — места в группах ограничены.
             </p>
 
@@ -54,18 +54,20 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
               </li>
             </ul>
             <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-ink-faint">
-              Поток открывается в понедельник, первое занятие — в ближайший вторник.
+              Старт потока — во вторник, он же день первого занятия.
             </p>
           </Reveal>
 
           <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {cohorts.map((cohort, index) => {
-              const isSelected = !cohort.past && cohort.id === selected;
+              // Записаться нельзя, если поток прошёл или группа уже набрана.
+              const enrollClosed = cohort.past || cohort.closed;
+              const isSelected = !enrollClosed && cohort.id === selected;
               return (
                 <Reveal key={cohort.id} delay={index * 100}>
                   <li
                     className={`flex h-full flex-col rounded-2xl border p-6 transition-colors ${
-                      cohort.past
+                      enrollClosed
                         ? 'border-line bg-surface/40 opacity-60'
                         : isSelected
                           ? 'border-terracotta bg-surface-soft shadow-soft'
@@ -92,10 +94,10 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
                           <Lock className="h-3.5 w-3.5" aria-hidden />
                           Закрыт
                         </span>
-                      ) : cohort.free ? (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-green/15 px-3 py-1 text-xs font-semibold text-green">
-                          <Gift className="h-3.5 w-3.5" aria-hidden />
-                          Бесплатно
+                      ) : cohort.closed ? (
+                        <span className="inline-flex items-center gap-1 rounded-full bg-ink/10 px-3 py-1 text-xs font-semibold text-ink-faint">
+                          <Lock className="h-3.5 w-3.5" aria-hidden />
+                          Мест нет
                         </span>
                       ) : (
                         <span className="ai-tag">Платный</span>
@@ -104,7 +106,11 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
 
                     <h3
                       className={`heading-md mt-5 ${
-                        cohort.past ? 'text-ink-faint line-through' : ''
+                        cohort.past
+                          ? 'text-ink-faint line-through'
+                          : cohort.closed
+                            ? 'text-ink-faint'
+                            : ''
                       }`}
                     >
                       {cohort.monthLabel} · старт {cohort.startLabel}
@@ -129,6 +135,11 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
                         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-faint">
                           <Lock className="h-4 w-4" aria-hidden />
                           Регистрация закрыта
+                        </span>
+                      ) : cohort.closed ? (
+                        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-faint">
+                          <Lock className="h-4 w-4" aria-hidden />
+                          Регистрация закрыта — группа набрана
                         </span>
                       ) : isSelected ? (
                         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-terracotta">

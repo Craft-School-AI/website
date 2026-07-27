@@ -1,36 +1,40 @@
 import { NextResponse } from 'next/server';
+import { isPromoValid } from '@/lib/tariffs';
 
 type LeadPayload = {
   name?: unknown;
-  phone?: unknown;
-  email?: unknown;
+  social?: unknown;
   cohort?: unknown;
   tariff?: unknown;
+  promo?: unknown;
   comment?: unknown;
 };
-
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const PHONE_RE = /^[+]?[\d\s()-]{10,18}$/;
 
 function validate(payload: LeadPayload) {
   const errors: string[] = [];
 
   const name = typeof payload.name === 'string' ? payload.name.trim() : '';
-  const phone = typeof payload.phone === 'string' ? payload.phone.trim() : '';
-  const email = typeof payload.email === 'string' ? payload.email.trim() : '';
+  const social =
+    typeof payload.social === 'string' ? payload.social.trim().slice(0, 200) : '';
   const cohort =
     typeof payload.cohort === 'string' ? payload.cohort.trim().slice(0, 120) : '';
   const tariff =
     typeof payload.tariff === 'string' ? payload.tariff.trim().slice(0, 120) : '';
+  const promo =
+    typeof payload.promo === 'string' ? payload.promo.trim().slice(0, 40) : '';
   const comment =
     typeof payload.comment === 'string' ? payload.comment.trim() : '';
 
   if (name.length < 2) errors.push('Укажите имя');
-  if (!PHONE_RE.test(phone)) errors.push('Укажите корректный телефон');
-  if (!EMAIL_RE.test(email)) errors.push('Укажите корректный email');
+  if (social.length < 3) errors.push('Оставьте ссылку на соцсеть');
+  // Промокод необязателен, но если введён — должен быть валидным.
+  if (promo && !isPromoValid(promo)) errors.push('Промокод недействителен');
   if (comment.length > 1000) errors.push('Комментарий слишком длинный');
 
-  return { errors, lead: { name, phone, email, cohort, tariff, comment } };
+  return {
+    errors,
+    lead: { name, social, cohort, tariff, promo, comment },
+  };
 }
 
 export async function POST(request: Request) {
@@ -74,10 +78,10 @@ export async function POST(request: Request) {
     '🔨 Новая заявка с Craft School',
     '',
     `Имя: ${lead.name}`,
-    `Телефон: ${lead.phone}`,
-    `Email: ${lead.email}`,
+    `Соцсеть: ${lead.social}`,
     lead.cohort ? `Поток: ${lead.cohort}` : null,
     lead.tariff ? `Тариф: ${lead.tariff}` : null,
+    lead.promo ? `Промокод: ${lead.promo}` : null,
     lead.comment ? `Комментарий: ${lead.comment}` : null,
   ]
     .filter((line): line is string => line !== null)

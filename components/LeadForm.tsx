@@ -6,14 +6,23 @@ import { Handshake } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/Button';
 import type { Cohort } from '@/lib/cohorts';
-import { TARIFFS, DEFAULT_TARIFF_ID, findTariff, tariffLabel } from '@/lib/tariffs';
+import {
+  TARIFFS,
+  DEFAULT_TARIFF_ID,
+  findTariff,
+  tariffLabel,
+  tariffLabelDiscounted,
+  isPromoValid,
+  PROMO_CODE,
+  PROMO_LABEL,
+} from '@/lib/tariffs';
 
 type LeadFormValues = {
   name: string;
-  phone: string;
-  email: string;
+  social: string;
   cohort: string;
   tariff: string;
+  promo: string;
   comment: string;
   consent: boolean;
 };
@@ -45,10 +54,10 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
   } = useForm<LeadFormValues>({
     defaultValues: {
       name: '',
-      phone: '',
-      email: '',
+      social: '',
       cohort: defaultCohort,
       tariff: DEFAULT_TARIFF_ID,
+      promo: '',
       comment: '',
       consent: false,
     },
@@ -57,10 +66,12 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
   const [submitState, setSubmitState] = useState<SubmitState>('idle');
   const [serverError, setServerError] = useState('');
 
-  // Тариф выбирается только для платных потоков. Для бесплатного
-  // (обкаточного) августовского потока тарифа нет.
-  const selectedCohort = cohorts.find((c) => c.id === watch('cohort'));
-  const showTariff = cohorts.length > 0 && selectedCohort ? !selectedCohort.free : false;
+  // Все потоки платные — тариф показываем и требуем в форме записи.
+  const showTariff = cohorts.length > 0;
+
+  // Промокод: если введён валидный — показываем цены со скидкой.
+  const promoValue = watch('promo') ?? '';
+  const promoApplied = promoValue.trim() !== '' && isPromoValid(promoValue);
 
   // Выбор потока извне (клик «Записаться» в календаре) — подставляем в селект.
   useEffect(() => {
@@ -75,12 +86,19 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
 
     // В заявку кладём читаемые названия потока и тарифа, а не технические id.
     const cohort = cohorts.find((c) => c.id === values.cohort);
-    // Тариф передаём только для платных потоков; для бесплатного — пусто.
-    const tariff = cohort && !cohort.free ? findTariff(values.tariff) : undefined;
+    // Тариф есть только в форме записи (со списком потоков).
+    const tariff = cohorts.length > 0 ? findTariff(values.tariff) : undefined;
+    // Валидный промокод — в заявку кладём цену со скидкой.
+    const promoOk = isPromoValid(values.promo ?? '');
+    const tariffText = tariff
+      ? promoOk
+        ? tariffLabelDiscounted(tariff)
+        : tariffLabel(tariff)
+      : '';
     const payload = {
       ...values,
       cohort: cohort ? cohort.selectLabel : '',
-      tariff: tariff ? tariffLabel(tariff) : '',
+      tariff: tariffText,
     };
 
     try {
@@ -101,10 +119,10 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
       setSubmitState('success');
       reset({
         name: '',
-        phone: '',
-        email: '',
+        social: '',
         cohort: defaultCohort,
         tariff: DEFAULT_TARIFF_ID,
+        promo: '',
         comment: '',
         consent: false,
       });
@@ -162,53 +180,32 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
       </div>
 
       <div>
-        <label htmlFor="lead-phone" className="mb-1.5 block text-sm font-semibold">
-          Телефон
+        <label htmlFor="lead-social" className="mb-1.5 block text-sm font-semibold">
+          Ссылка на соцсеть
         </label>
         <input
-          id="lead-phone"
-          type="tel"
-          placeholder="+7 900 000-00-00"
-          autoComplete="tel"
+          id="lead-social"
+          type="text"
+          inputMode="url"
+          placeholder="https://t.me/username, vk.com/… или @ник"
+          autoComplete="url"
           className={inputClasses}
-          aria-invalid={Boolean(errors.phone)}
-          {...register('phone', {
-            required: 'Укажите телефон',
+          aria-invalid={Boolean(errors.social)}
+          {...register('social', {
+            required: 'Оставьте ссылку на соцсеть — так мастер напишет вам напрямую',
             pattern: {
-              value: /^[+]?[\d\s()-]{10,18}$/,
-              message: 'Похоже, в номере опечатка',
+              value: /(https?:\/\/|t\.me\/|vk\.com\/|@|\.[a-z]{2,})/i,
+              message: 'Вставьте ссылку на профиль или @ник (Telegram, VK, Instagram)',
             },
           })}
         />
-        {errors.phone && (
+        <p className="mt-1.5 text-xs text-ink-faint">
+          Telegram, VK или Instagram — куда вам удобнее ответить. Сюда мастер
+          напишет по заявке.
+        </p>
+        {errors.social && (
           <p role="alert" className="mt-1 text-sm text-terracotta">
-            {errors.phone.message}
-          </p>
-        )}
-      </div>
-
-      <div>
-        <label htmlFor="lead-email" className="mb-1.5 block text-sm font-semibold">
-          Email
-        </label>
-        <input
-          id="lead-email"
-          type="email"
-          placeholder="you@example.com"
-          autoComplete="email"
-          className={inputClasses}
-          aria-invalid={Boolean(errors.email)}
-          {...register('email', {
-            required: 'Укажите email',
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
-              message: 'Похоже, в адресе опечатка',
-            },
-          })}
-        />
-        {errors.email && (
-          <p role="alert" className="mt-1 text-sm text-terracotta">
-            {errors.email.message}
+            {errors.social.message}
           </p>
         )}
       </div>
@@ -245,8 +242,8 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
         </div>
       )}
 
-      {/* Тариф — только для платных потоков. Скрытое поле не регистрируется,
-          поэтому для бесплатного потока не валидируется и не отправляется. */}
+      {/* Тариф — обязателен в форме записи (со списком потоков). На общей
+          форме контактов потоков нет, поэтому поле не показываем. */}
       {showTariff && (
         <div>
           <label htmlFor="lead-tariff" className="mb-1.5 block text-sm font-semibold">
@@ -264,13 +261,14 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
           >
             {TARIFFS.map((tariff) => (
               <option key={tariff.id} value={tariff.id}>
-                {tariffLabel(tariff)}
+                {promoApplied ? tariffLabelDiscounted(tariff) : tariffLabel(tariff)}
               </option>
             ))}
           </select>
           <p className="mt-1.5 text-xs text-ink-faint">
-            Точный тариф подтвердите с мастером — он подскажет, какой формат
-            подойдёт вашему проекту.
+            {promoApplied
+              ? `Цены показаны со скидкой ${PROMO_LABEL} по промокоду.`
+              : 'Точный тариф подтвердите с мастером — он подскажет, какой формат подойдёт вашему проекту.'}
           </p>
           {errors.tariff && (
             <p role="alert" className="mt-1 text-sm text-terracotta">
@@ -279,6 +277,37 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
           )}
         </div>
       )}
+
+      <div>
+        <label htmlFor="lead-promo" className="mb-1.5 block text-sm font-semibold">
+          Промокод <span className="font-normal text-ink-faint">(если есть)</span>
+        </label>
+        <input
+          id="lead-promo"
+          type="text"
+          placeholder="Введите промокод"
+          autoCapitalize="characters"
+          className={inputClasses}
+          aria-invalid={Boolean(errors.promo)}
+          {...register('promo', {
+            maxLength: { value: 40, message: 'Слишком длинный промокод' },
+            // Пустой — ок (поле необязательное). Непустой должен совпасть с промокодом.
+            validate: (value) =>
+              !value.trim() ||
+              isPromoValid(value) ||
+              'Такого промокода нет — проверьте написание',
+          })}
+        />
+        {errors.promo ? (
+          <p role="alert" className="mt-1 text-sm text-terracotta">
+            {errors.promo.message}
+          </p>
+        ) : promoApplied ? (
+          <p className="mt-1.5 text-sm font-semibold text-green">
+            Промокод {PROMO_CODE} применён — скидка {PROMO_LABEL} на любой тариф.
+          </p>
+        ) : null}
+      </div>
 
       <div>
         <label htmlFor="lead-comment" className="mb-1.5 block text-sm font-semibold">

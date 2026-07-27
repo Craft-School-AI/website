@@ -2,10 +2,9 @@
  * Тарифы Craft School для формы записи.
  *
  * Названия и цены зеркалят страницу «Тарифы» (app/pricing/page.tsx) — цена
- * первого потока (со скидкой). Держите значения в синхроне при изменении цен.
+ * первого потока. Держите значения в синхроне при изменении цен.
  *
- * Тариф выбирается только для платных потоков. Первый (августовский)
- * обкаточный поток бесплатный — тариф для него не показывается и не отправляется.
+ * Тариф обязателен в форме записи (все потоки платные).
  */
 
 export type Tariff = {
@@ -13,21 +12,48 @@ export type Tariff = {
   id: string;
   /** Название, напр. «Мастер». */
   name: string;
-  /** Цена первого потока, напр. «49 000 ₽». */
-  price: string;
+  /** Цена первого потока в рублях, напр. 49000. */
+  amount: number;
   /** Рекомендуемый тариф — подставляется по умолчанию. */
   recommended?: boolean;
 };
 
 export const TARIFFS: Tariff[] = [
-  { id: 'podmasterye', name: 'Подмастерье', price: '19 900 ₽' },
-  { id: 'master', name: 'Мастер', price: '49 000 ₽', recommended: true },
-  { id: 'ceh', name: 'Цех', price: '99 000 ₽' },
+  { id: 'podmasterye', name: 'Подмастерье', amount: 19900 },
+  { id: 'master', name: 'Мастер', amount: 49000, recommended: true },
+  { id: 'ceh', name: 'Цех', amount: 99000 },
 ];
+
+/** Промокод для друзей: даёт скидку на любой тариф. */
+export const PROMO_CODE = 'CRAFTFRIENDS';
+/** Размер скидки по промокоду (доля от цены). */
+export const PROMO_DISCOUNT = 0.3;
+/** Подпись скидки, напр. «−30%». */
+export const PROMO_LABEL = `−${Math.round(PROMO_DISCOUNT * 100)}%`;
+
+/** Проверка промокода: без учёта регистра и пробелов. */
+export function isPromoValid(input: string): boolean {
+  return input.trim().toUpperCase() === PROMO_CODE;
+}
+
+/** Форматирует сумму как «49 000 ₽» (неразрывной группировки не используем). */
+export function formatRub(amount: number): string {
+  return `${String(amount).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ₽`;
+}
+
+/** Цена тарифа со скидкой по промокоду, округлённая до рубля. */
+export function discountedAmount(tariff: Tariff): number {
+  return Math.round(tariff.amount * (1 - PROMO_DISCOUNT));
+}
 
 /** Подпись тарифа для селекта и заявки, напр. «Мастер · 49 000 ₽». */
 export function tariffLabel(tariff: Tariff): string {
-  return `${tariff.name} · ${tariff.price}`;
+  return `${tariff.name} · ${formatRub(tariff.amount)}`;
+}
+
+/** Подпись тарифа со скидкой, напр. «Мастер · 34 300 ₽ (−30%)». */
+export function tariffLabelDiscounted(tariff: Tariff): string {
+  return `${tariff.name} · ${formatRub(discountedAmount(tariff))} (${PROMO_LABEL})`;
 }
 
 export function findTariff(id: string): Tariff | undefined {

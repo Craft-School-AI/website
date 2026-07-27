@@ -1,9 +1,10 @@
 /**
  * Потоки (когорты) Craft School.
  *
- * Логика набора: новый поток стартует в первый понедельник каждого месяца (по МСК).
- * Первый поток — августовский — обкаточный и бесплатный (только для друзей и
- * знакомых). Все следующие потоки, начиная с сентября, — платные.
+ * Логика набора: новый поток стартует в первый вторник каждого месяца (по МСК) —
+ * это же день первого занятия. Занятия идут по вторникам и четвергам.
+ * Все потоки платные. Августовский обкаточный поток уже набран — его регистрация
+ * закрыта вручную (см. CLOSED_COHORT_IDS).
  *
  * Даты стартов и «ближайший поток» считаются от даты сборки/запроса, поэтому
  * прошедшие потоки автоматически уходят из расписания.
@@ -15,8 +16,11 @@ const LAUNCH_YEAR = 2026;
 /** Месяцы потоков (0 — январь). Август — обкаточный, дальше — платные. */
 const COHORT_MONTHS = [7, 8, 9, 10, 11]; // авг, сен, окт, ноя, дек
 
-/** Обкаточный бесплатный поток. */
-const FREE_MONTH = 7; // август
+/**
+ * Потоки с вручную закрытой регистрацией (группа уже набрана), независимо
+ * от даты старта. Августовский обкаточный поток набран — запись закрыта.
+ */
+const CLOSED_COHORT_IDS = new Set<string>(['2026-08']);
 
 const MONTHS_NOMINATIVE = [
   'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
@@ -46,8 +50,6 @@ export type Cohort = {
   startLabel: string;
   /** Полная подпись для селекта. */
   selectLabel: string;
-  /** Бесплатный обкаточный поток. */
-  free: boolean;
   /** Пояснение для карточки календаря. */
   note: string;
   /** Даты первых занятий (вт и чт), напр. ["4 авг", "6 авг", …]. */
@@ -56,16 +58,18 @@ export type Cohort = {
   moreSessions: boolean;
   /** Регистрация закрыта — старт уже прошёл. */
   past: boolean;
+  /** Набор закрыт вручную — группа набрана (независимо от даты). */
+  closed: boolean;
 };
 
 /**
- * Первый понедельник месяца.
+ * Первый вторник месяца — день старта потока и первого занятия.
  * Считаем в UTC — важна только дата, не время суток.
  */
-function firstMonday(year: number, month0: number): Date {
+function firstTuesday(year: number, month0: number): Date {
   const d = new Date(Date.UTC(year, month0, 1));
-  const day = d.getUTCDay(); // 0 — вс, 1 — пн, ... 6 — сб
-  const offset = (8 - day) % 7; // сколько дней до ближайшего понедельника
+  const day = d.getUTCDay(); // 0 — вс, 1 — пн, 2 — вт, ... 6 — сб
+  const offset = (2 - day + 7) % 7; // сколько дней до ближайшего вторника
   d.setUTCDate(1 + offset);
   return d;
 }
@@ -82,40 +86,40 @@ function shortDate(date: Date): string {
 }
 
 /**
- * Даты первых занятий. Старт — в понедельник, занятия идут по вторникам
+ * Даты первых занятий. Старт — во вторник, занятия идут по вторникам
  * и четвергам, поэтому берём вт/чт первых двух недель.
  */
-function firstSessions(monday: Date): string[] {
-  const offsets = [1, 3, 8, 10]; // вт, чт, вт, чт
-  return offsets.map((offset) => shortDate(addDaysUTC(monday, offset)));
+function firstSessions(start: Date): string[] {
+  const offsets = [0, 2, 7, 9]; // вт, чт, вт, чт
+  return offsets.map((offset) => shortDate(addDaysUTC(start, offset)));
 }
 
 function buildCohort(year: number, month0: number, now: Date): Cohort {
-  const start = firstMonday(year, month0);
+  const start = firstTuesday(year, month0);
   const day = start.getUTCDate();
   const startISO = start.toISOString().slice(0, 10);
   const startLabel = `${day} ${MONTHS_GENITIVE[month0]}`;
   const monthLabel = MONTHS_NOMINATIVE[month0];
-  const free = month0 === FREE_MONTH;
+  const id = startISO.slice(0, 7);
   // Регистрация закрывается, как только стартовая дата прошла.
   const past = startISO < now.toISOString().slice(0, 10);
+  // Набор закрыт вручную — группа набрана.
+  const closed = CLOSED_COHORT_IDS.has(id);
 
   return {
-    id: startISO.slice(0, 7),
+    id,
     monthLabel,
     startISO,
     day,
     startLabel,
-    selectLabel: free
-      ? `${monthLabel} · старт ${startLabel} · бесплатный обкаточный поток`
-      : `${monthLabel} · старт ${startLabel}`,
-    free,
-    note: free
-      ? 'Обкаточный поток для друзей и знакомых. Бесплатно, мест немного.'
+    selectLabel: `${monthLabel} · старт ${startLabel}`,
+    note: closed
+      ? 'Группа набрана — регистрация закрыта. Спасибо за интерес!'
       : 'Платный поток, небольшая группа.',
     sessions: firstSessions(start),
     moreSessions: true,
     past,
+    closed,
   };
 }
 
@@ -130,7 +134,7 @@ export function getAllCohorts(now: Date = new Date()): Cohort[] {
  * не осталась пустой.
  */
 export function getCohorts(now: Date = new Date()): Cohort[] {
-  const open = getAllCohorts(now).filter((c) => !c.past);
+  const open = getAllCohorts(now).filter((c) => !c.past && !c.closed);
   return open.length > 0 ? open : getAllCohorts(now);
 }
 
