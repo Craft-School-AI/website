@@ -2,11 +2,35 @@ import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
 import { Analytics } from '@/components/Analytics';
 import { AnnouncementBar } from '@/components/AnnouncementBar';
+import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { JsonLd } from '@/components/JsonLd';
 import { ScrollToTop } from '@/components/ScrollToTop';
 import { SmoothScrollProvider } from '@/components/SmoothScrollProvider';
+import { PERSONAL_TELEGRAM_URL, SITE_NAME, SITE_URL } from '@/lib/site';
 import './globals.css';
+
+// Structured data уровня сайта — показываются на всех страницах.
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/icon-512.png`,
+  description:
+    'Цифровая мастерская для предпринимателей: сайты своими руками с помощью ИИ-агентов.',
+  sameAs: [PERSONAL_TELEGRAM_URL],
+};
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_NAME,
+  url: SITE_URL,
+  inLanguage: 'ru-RU',
+  publisher: { '@type': 'Organization', name: SITE_NAME },
+};
 
 const body = Manrope({
   subsets: ['latin', 'cyrillic'],
@@ -91,6 +115,8 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className={body.variable}>
+        <JsonLd data={[orgJsonLd, websiteJsonLd]} />
+        <Breadcrumbs />
         <SmoothScrollProvider />
         <AnnouncementBar />
         <Header />

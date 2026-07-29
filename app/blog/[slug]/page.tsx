@@ -5,7 +5,9 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { BlogChecklist } from '@/components/BlogChecklist';
+import { JsonLd } from '@/components/JsonLd';
 import { getAllPosts, getPostBySlug, type BlogBlock } from '@/lib/blog';
+import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -148,8 +150,37 @@ export default async function BlogPostPage({ params }: PageProps) {
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
+  const postUrl = `${SITE_URL}/blog/${post.slug}`;
+  const blogPostingJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    ...(post.cover ? { image: `${SITE_URL}${post.cover}` } : {}),
+    author: { '@type': 'Person', name: 'Роман Бабанов' },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_NAME,
+      logo: { '@type': 'ImageObject', url: `${SITE_URL}/icon-512.png` },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+    inLanguage: 'ru-RU',
+  };
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Блог', item: `${SITE_URL}/blog` },
+      { '@type': 'ListItem', position: 3, name: post.title, item: postUrl },
+    ],
+  };
+
   return (
     <article className="section">
+      <JsonLd data={[blogPostingJsonLd, breadcrumbJsonLd]} />
       <div className="container-page mx-auto max-w-3xl">
         <Link
           href="/blog"
