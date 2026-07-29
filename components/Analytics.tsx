@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Script from 'next/script';
 import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/Button';
 
 const STORAGE_KEY = 'craft-school-cookie-consent';
 
@@ -62,32 +61,40 @@ export function Analytics({ metrikaId }: { metrikaId: string }) {
         <div
           role="dialog"
           aria-label="Согласие на использование cookie"
-          className="fixed inset-x-4 bottom-4 z-[70] mx-auto max-w-xl rounded-2xl border border-line bg-surface p-5 shadow-hover"
+          className="fixed inset-x-0 bottom-0 z-[70] border-t border-line bg-surface/95 backdrop-blur-md"
         >
-          <p className="text-sm text-ink-soft">
-            Мы используем cookie и Яндекс.Метрику, чтобы понимать, как
-            посетители пользуются сайтом, и делать его удобнее. Если
-            откажетесь — сайт продолжит работать как обычно, просто без
-            аналитики. Подробнее — в{' '}
-            <Link
-              href="/privacy"
-              className="text-terracotta underline underline-offset-2 hover:no-underline"
-            >
-              Политике конфиденциальности
-            </Link>
-            .
-          </p>
-          <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-            <Button onClick={() => choose('accepted')} className="sm:flex-1">
-              Принимаю
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => choose('declined')}
-              className="sm:flex-1"
-            >
-              Отказаться
-            </Button>
+          <div className="container-page flex flex-col gap-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-ink-soft sm:max-w-3xl">
+              Мы используем cookie и Яндекс.Метрику, чтобы понимать, как
+              посетители пользуются сайтом, и делать его удобнее. Если
+              откажетесь — сайт продолжит работать как обычно, просто без
+              аналитики. Подробнее — в{' '}
+              <Link
+                href="/privacy"
+                className="text-terracotta underline underline-offset-2 hover:no-underline"
+              >
+                Политике конфиденциальности
+              </Link>
+              .
+            </p>
+            {/* Нейтральные кнопки — намеренно не как CTA в Hero (без зелёных/
+                терракотовых пилюль): тёмная сплошная + текстовая */}
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                type="button"
+                onClick={() => choose('declined')}
+                className="rounded-lg px-4 py-2 text-sm font-medium text-ink-soft underline underline-offset-4 transition-colors hover:text-ink"
+              >
+                Отказаться
+              </button>
+              <button
+                type="button"
+                onClick={() => choose('accepted')}
+                className="rounded-lg bg-ink px-5 py-2 text-sm font-semibold text-surface transition-opacity hover:opacity-90"
+              >
+                Принимаю
+              </button>
+            </div>
           </div>
         </div>
       )}
