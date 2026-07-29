@@ -54,6 +54,19 @@ export const metadata: Metadata = {
       'Цифровая мастерская: предприниматели делают сайты сами с помощью ИИ-агентов.',
   },
   robots: { index: true, follow: true },
+  // Иконки задаём явно (файлы в /public), чтобы отдавать максимально
+  // совместимый набор: BMP-ICO для поисковиков (в т.ч. Яндекса), PNG 16/32,
+  // SVG для современных браузеров, apple-touch-icon и legacy shortcut.
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: ['/favicon.ico'],
+    apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
 };
 
 // Выставляем тему до гидратации, чтобы не мигал светлый фон
