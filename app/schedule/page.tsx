@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { PageHero } from '@/components/PageHero';
 import { ScheduleView } from '@/components/ScheduleView';
 import { getAllCohorts, getNearestCohortId } from '@/lib/cohorts';
 
@@ -15,14 +14,5 @@ export default function SchedulePage() {
   const cohorts = getAllCohorts();
   const nearestCohortId = getNearestCohortId();
 
-  return (
-    <>
-      <PageHero
-        tag="Старты каждый месяц"
-        title="Расписание потоков"
-        subtitle="Новый поток стартует в первый вторник каждого месяца по МСК. Выберите удобный старт и запишитесь прямо из календаря."
-      />
-      <ScheduleView cohorts={cohorts} defaultCohortId={nearestCohortId} />
-    </>
-  );
+  return <ScheduleView cohorts={cohorts} defaultCohortId={nearestCohortId} />;
 }

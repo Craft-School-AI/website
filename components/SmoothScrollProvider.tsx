@@ -64,10 +64,24 @@ export function SmoothScrollProvider() {
     };
     window.addEventListener('craft:scroll-top', handleScrollTop);
 
+    // Плавный скролл к якорю по запросу компонентов (напр. карточки расписания).
+    // detail.handled сообщает отправителю, что Locomotive взял скролл на себя.
+    const handleScrollTo = (event: Event) => {
+      const detail = (event as CustomEvent<{ hash?: string; handled?: boolean }>)
+        .detail;
+      if (!scroll || !detail?.hash) return;
+      const target = document.querySelector<HTMLElement>(detail.hash);
+      if (!target) return;
+      detail.handled = true;
+      scroll.scrollTo(target, { offset: ANCHOR_OFFSET });
+    };
+    window.addEventListener('craft:scroll-to', handleScrollTo);
+
     return () => {
       cancelled = true;
       document.removeEventListener('click', handleAnchorClick);
       window.removeEventListener('craft:scroll-top', handleScrollTop);
+      window.removeEventListener('craft:scroll-to', handleScrollTo);
       scroll?.destroy();
       scroll = undefined;
     };

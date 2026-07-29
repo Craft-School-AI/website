@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Check, Clock, Coins, Flame, Star, Users } from 'lucide-react';
-import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
 import { AskMaster } from '@/components/AskMaster';
 import { Button } from '@/components/ui/Button';
@@ -95,16 +94,20 @@ const plans: Plan[] = [
 export default function PricingPage() {
   return (
     <>
-      <PageHero
-        tag="Тарифы"
-        title="От первой ссылки до бизнеса под ключ"
-        subtitle="Учим агентской разработке — на выходе всегда рабочий сайт. Со среднего тарифа помогаем довести проект до настоящего запуска. Токены для практики выдаёт школа."
-      />
-
       <section className="section">
         <div className="container-page">
           <Reveal>
-            <div className="mx-auto mb-10 flex max-w-2xl flex-col items-center gap-2 rounded-2xl border border-terracotta/40 bg-terracotta/10 px-5 py-4 text-center">
+            <h1 className="heading-lg text-center">
+              От первой ссылки до бизнеса под ключ
+            </h1>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-ink-soft">
+              Учим агентской разработке — на выходе всегда рабочий сайт. Токены
+              для практики выдаёт школа.
+            </p>
+          </Reveal>
+
+          <Reveal>
+            <div className="mx-auto mb-10 mt-10 flex max-w-2xl flex-col items-center gap-2 rounded-2xl border border-terracotta/40 bg-terracotta/10 px-5 py-4 text-center">
               <span className="inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-terracotta">
                 <Flame className="h-4 w-4" aria-hidden /> Идёт набор первого потока
               </span>

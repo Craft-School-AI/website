@@ -14,7 +14,7 @@ const navLinks = [
   { href: '/pricing', label: 'Тарифы' },
   { href: '/schedule', label: 'Расписание' },
   { href: '/blog', label: 'Блог' },
-  { href: '/contacts', label: 'Контакты' },
+  // «Контакты» намеренно только в футере (components/Footer.tsx)
 ];
 
 export function Header() {

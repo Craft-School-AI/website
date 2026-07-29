@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
-import { PageHero } from '@/components/PageHero';
 import { Reveal } from '@/components/Reveal';
 import { AskMaster } from '@/components/AskMaster';
 import { Button } from '@/components/ui/Button';
@@ -39,13 +38,7 @@ const principles = [
 export default function MasterPage() {
   return (
     <>
-      <PageHero
-        tag="Кто ведёт обучение"
-        title="Роман Бабанов"
-        subtitle="Владел студией разработки на заказ, работал и руководил командами в крупных компаниях. Сам был тем подрядчиком, к которому приходят за сайтом — а теперь учу предпринимателей делать это самим, с помощью ИИ-агентов."
-      />
-
-      {/* Фото + короткое вступление */}
+      {/* Фото + имя мастера — уникальная «шапка» профиля прямо в контенте */}
       <section className="section">
         <div className="container-page grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <Reveal className="relative mx-auto w-full max-w-sm lg:max-w-none">
@@ -66,7 +59,19 @@ export default function MasterPage() {
           </Reveal>
 
           <Reveal delay={150}>
-            <h2 className="heading-lg">
+            <span className="ai-tag">Кто ведёт обучение</span>
+            <h1 className="heading-xl mt-4">Роман Бабанов</h1>
+            <p className="mt-4 text-lg text-ink-soft">
+              Сам был тем подрядчиком, к которому приходят за сайтом, — а теперь
+              учу предпринимателей делать это самим, с помощью ИИ-агентов.
+            </p>
+
+            {/* Прямой контакт — написать мастеру в Telegram */}
+            <div className="mt-6">
+              <AskMaster />
+            </div>
+
+            <h2 className="heading-md mt-8">
               Я знаю цену сайта —{' '}
               <span className="text-terracotta">потому что сам их делал на заказ</span>
             </h2>

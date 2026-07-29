@@ -36,11 +36,22 @@ type Config = {
   bots: GroundBot[];
   drone: { side: 'left' | 'right'; inset: number; top: number; height: number; delay: number } | null;
   gear: { side: 'left' | 'right'; inset: number; top: number; size: number; opacity: number } | null;
-  sparkles: { left: number; top: number; size: number; delay: number }[];
+  sparkles: { left: number; top: number; size: number; delay: number; color: string }[];
 };
+
+// Палитра звёздочек — токены бренда, подхватывают тему (см. globals.css)
+const SPARKLE_COLORS = [
+  'rgb(var(--brand-amber))',
+  'rgb(var(--brand-terracotta))',
+  'rgb(var(--brand-green))',
+];
 
 function between(min: number, max: number) {
   return min + Math.random() * (max - min);
+}
+
+function pick<T>(items: T[]): T {
+  return items[Math.floor(Math.random() * items.length)];
 }
 
 function makeConfig(laneMin: number, laneMax: number, withDrone: boolean): Config {
@@ -82,11 +93,12 @@ function makeConfig(laneMin: number, laneMax: number, withDrone: boolean): Confi
             opacity: between(0.14, 0.24),
           }
         : null,
-    sparkles: Array.from({ length: 2 + Math.floor(Math.random() * 3) }, () => ({
-      left: between(5, 92),
-      top: between(12, 68),
-      size: between(10, 17),
+    sparkles: Array.from({ length: 6 + Math.floor(Math.random() * 4) }, () => ({
+      left: between(4, 94),
+      top: between(10, 74),
+      size: between(9, 18),
       delay: -between(0, 2.8),
+      color: pick(SPARKLE_COLORS),
     })),
   };
 }
@@ -183,6 +195,7 @@ export function RobotActivity({
           key={index}
           className="absolute"
           delay={sparkle.delay}
+          color={sparkle.color}
           style={{
             left: `${sparkle.left}%`,
             top: `${sparkle.top}%`,

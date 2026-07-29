@@ -1,11 +1,10 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import { Check, Lock, CalendarDays, Clock, Hourglass } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 import { LeadForm } from '@/components/LeadForm';
 import { AskMaster } from '@/components/AskMaster';
-import { Button } from '@/components/ui/Button';
 import type { Cohort } from '@/lib/cohorts';
 
 type ScheduleViewProps = {
@@ -24,15 +23,22 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
 
   const handleEnroll = (id: string) => {
     setSelected(id);
-    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Скролл ведём через Locomotive (если он активен): нативный scrollIntoView
+    // c включённым Lenis не срабатывает. Флаг handled выставляет провайдер;
+    // если Locomotive выключен (напр. prefers-reduced-motion) — нативный fallback.
+    const detail = { hash: '#zayavka', handled: false };
+    window.dispatchEvent(new CustomEvent('craft:scroll-to', { detail }));
+    if (!detail.handled) {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
     <>
-      <section className="section">
+      <section className="pb-16 pt-10 sm:pb-24 sm:pt-12">
         <div className="container-page">
           <Reveal>
-            <h2 className="heading-lg text-center">Расписание потоков</h2>
+            <h1 className="heading-lg text-center">Расписание потоков</h1>
             <p className="mx-auto mt-4 max-w-2xl text-center text-ink-soft">
               Новый поток стартует в первый вторник каждого месяца (по МСК).
               Выберите удобный старт и запишитесь — места в группах ограничены.
@@ -66,12 +72,26 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
               return (
                 <Reveal key={cohort.id} delay={index * 100}>
                   <li
-                    className={`flex h-full flex-col rounded-2xl border p-6 transition-colors ${
+                    {...(!enrollClosed && {
+                      role: 'button',
+                      tabIndex: 0,
+                      // Клик по карточке скроллит к форме и подставляет поток —
+                      // работает даже если этот поток уже выбран.
+                      onClick: () => handleEnroll(cohort.id),
+                      onKeyDown: (event: KeyboardEvent<HTMLLIElement>) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          handleEnroll(cohort.id);
+                        }
+                      },
+                      'aria-label': `Записаться в поток: ${cohort.monthLabel}, старт ${cohort.startLabel}`,
+                    })}
+                    className={`group flex h-full flex-col rounded-2xl border p-6 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${
                       enrollClosed
                         ? 'border-line bg-surface/40 opacity-60'
                         : isSelected
-                          ? 'border-terracotta bg-surface-soft shadow-soft'
-                          : 'border-line bg-surface/70'
+                          ? 'cursor-pointer border-terracotta bg-surface-soft shadow-soft'
+                          : 'cursor-pointer border-line bg-surface/70 hover:border-terracotta'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-4">
@@ -147,14 +167,11 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
                           Выбран — заполните форму ниже
                         </span>
                       ) : (
-                        <Button
-                          variant="outline"
-                          size="md"
-                          onClick={() => handleEnroll(cohort.id)}
-                          className="w-full"
-                        >
+                        // Визуальный CTA: кликабельна вся карточка (role=button),
+                        // поэтому здесь оформленный span, а не вложенная кнопка.
+                        <span className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-terracotta px-6 py-2.5 text-sm font-semibold text-terracotta transition-colors group-hover:bg-terracotta group-hover:text-ivory sm:text-base">
                           Записаться в этот поток
-                        </Button>
+                        </span>
                       )}
                     </div>
                   </li>
