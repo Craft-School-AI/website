@@ -154,6 +154,34 @@
   }
 }
 
+/* ===== Бегущая строка набора (components/AnnouncementBar.tsx) ===== */
+
+.announce-bar {
+  /* Кислотный жёлто-зелёный — намеренно вне палитры бренда, чтобы цеплять взгляд */
+  background-color: #d4f500;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.announce-bar:hover {
+  background-color: #c8ea00;
+}
+
+.announce-track {
+  animation: announce-scroll 28s linear infinite;
+}
+@keyframes announce-scroll {
+  from { transform: translateX(0); }
+  /* Дорожка содержит 4 копии сообщения; сдвиг на 50% даёт бесшовный цикл */
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .announce-track {
+    animation: none;
+    /* Без анимации показываем ленту от начала */
+    transform: translateX(0);
+  }
+}
+
 /* ===== Анимации роботов-персонажей (components/RobotBackdrop.tsx) ===== */
 
 .rb-drive-a {

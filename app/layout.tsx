@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
 import { Analytics } from '@/components/Analytics';
+import { AnnouncementBar } from '@/components/AnnouncementBar';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { ScrollToTop } from '@/components/ScrollToTop';
@@ -78,6 +79,7 @@ export default function RootLayout({
       </head>
       <body className={body.variable}>
         <SmoothScrollProvider />
+        <AnnouncementBar />
         <Header />
         <main>{children}</main>
         <Footer />

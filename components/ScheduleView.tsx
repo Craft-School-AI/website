@@ -58,7 +58,7 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
             </p>
           </Reveal>
 
-          <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ol id="potoki" className="mt-12 grid scroll-mt-28 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {cohorts.map((cohort, index) => {
               // Записаться нельзя, если поток прошёл или группа уже набрана.
               const enrollClosed = cohort.past || cohort.closed;
