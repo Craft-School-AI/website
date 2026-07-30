@@ -63,6 +63,15 @@
 
   html {
     scroll-behavior: smooth;
+    /* Прячем нативный скроллбар: прокрутка колёсиком, тачпадом и клавиатурой
+       сохраняется, страницу плавно скроллит Locomotive/Lenis. */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* старый Edge / IE */
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none; /* WebKit: Chrome, Safari, новый Edge */
   }
 
   /* Когда активен Locomotive Scroll (Lenis), нативное сглаживание отключаем,
