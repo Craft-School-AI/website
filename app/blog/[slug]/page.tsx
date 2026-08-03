@@ -127,9 +127,6 @@ function BlogContentBlock({ block }: { block: BlogBlock }) {
     case 'note':
       return (
         <div className="rounded-2xl border border-amber/40 bg-amber/10 p-5 text-base leading-relaxed text-ink-soft">
-          <span className="mr-1.5" aria-hidden>
-            💡
-          </span>
           {renderInline(block.text)}
         </div>
       );
@@ -229,7 +226,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         </div>
 
         <footer className="card mt-14 text-center">
-          <h2 className="heading-md">Хотите так же — своими руками?</h2>
+          <h2 className="heading-md">Соберите такой сайт своими руками</h2>
           <p className="mt-2 text-ink-soft">
             Запишитесь в мастерскую: за 2–4 недели соберёте сайт для своего дела.
           </p>

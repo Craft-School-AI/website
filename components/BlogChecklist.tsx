@@ -132,7 +132,7 @@ export function BlogChecklist({ id, items }: BlogChecklistProps) {
           }`}
           aria-hidden={!allDone}
         >
-          Всё готово — увидимся на занятии! 🎉
+          Всё готово, увидимся на занятии.
         </p>
         {done > 0 && (
           <button
