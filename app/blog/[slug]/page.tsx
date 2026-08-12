@@ -200,16 +200,22 @@ export default async function BlogPostPage({ params }: PageProps) {
         </header>
 
         {post.cover && (
-          <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl bg-surface-deep">
-            <Image
-              src={post.cover}
-              alt=""
-              fill
-              sizes="(max-width: 768px) 100vw, 768px"
-              className="object-cover"
-              priority
-            />
-          </div>
+          <figure className="group mx-auto mt-12 w-full max-w-md">
+            <div className="relative aspect-square -rotate-1 overflow-hidden border-[3px] border-ink bg-surface-deep shadow-[14px_14px_0_0_rgb(var(--brand-terracotta))] transition-transform duration-300 ease-out group-hover:rotate-0">
+              <Image
+                src={post.cover}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 100vw, 448px"
+                className="object-cover"
+                priority
+              />
+              {/* Брутальный ярлык поверх рамки: моноширинный, встык к краю */}
+              <span className="absolute left-0 top-0 bg-graphite px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-ivory">
+                Craft School
+              </span>
+            </div>
+          </figure>
         )}
 
         <div className="mt-10 space-y-5">
