@@ -1,5 +1,10 @@
 # dependencies
-/node_modules
+node_modules/
+
+# scratch / рабочие файлы, не для репозитория
+/scratch-pptx/
+*.pptx
+prompts/test.txt
 
 # next.js
 /.next/
