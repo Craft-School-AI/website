@@ -178,47 +178,53 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <article className="section">
       <JsonLd data={[blogPostingJsonLd, breadcrumbJsonLd]} />
-      <div className="container-page mx-auto max-w-3xl">
+      <div className="container-page mx-auto max-w-4xl">
         <Link
           href="/blog"
-          className="text-sm text-terracotta hover:underline"
+          className="font-mono text-xs uppercase tracking-widest text-terracotta transition-colors hover:text-terracotta/70"
         >
           ← Все статьи
         </Link>
 
-        <header className="mt-6">
-          <span
-            className="flex h-14 w-14 items-center justify-center border-[3px] border-ink bg-amber text-graphite"
-            aria-hidden
-          >
-            <post.icon className="h-7 w-7" strokeWidth={2} />
-          </span>
-          <h1 className="heading-xl mt-5 text-balance">{post.title}</h1>
-          <p className="mt-4 font-mono text-xs uppercase tracking-widest text-ink-faint">
-            {dateFormatter.format(new Date(post.date))} · {post.readingTime}
-          </p>
-        </header>
+        {post.cover ? (
+          <figure className="group relative mt-6 aspect-square w-full overflow-hidden border-[3px] border-ink bg-graphite shadow-[16px_16px_0_0_rgb(var(--brand-terracotta))]">
+            <Image
+              src={post.cover}
+              alt=""
+              fill
+              sizes="(max-width: 896px) 100vw, 896px"
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+              priority
+            />
 
-        {post.cover && (
-          <figure className="group mx-auto mt-12 w-full max-w-md">
-            <div className="relative aspect-square -rotate-1 overflow-hidden border-[3px] border-ink bg-surface-deep shadow-[14px_14px_0_0_rgb(var(--brand-terracotta))] transition-transform duration-300 ease-out group-hover:rotate-0">
-              <Image
-                src={post.cover}
-                alt=""
-                fill
-                sizes="(max-width: 768px) 100vw, 448px"
-                className="object-cover"
-                priority
-              />
-              {/* Брутальный ярлык поверх рамки: моноширинный, встык к краю */}
-              <span className="absolute left-0 top-0 bg-graphite px-3 py-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-ivory">
-                Craft School
-              </span>
+            {/* Верхний скрим: держит контраст заголовка на любой картинке */}
+            <div
+              className="absolute inset-x-0 top-0 h-2/3 bg-gradient-to-b from-graphite via-graphite/45 to-transparent"
+              aria-hidden
+            />
+
+            {/* Заголовок поверх картинки — сверху; зеркально карточкам списка */}
+            <div className="absolute inset-x-0 top-0 p-6 sm:p-9 lg:p-11">
+              <p className="inline-block bg-terracotta px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-widest text-ivory">
+                {dateFormatter.format(new Date(post.date))} · {post.readingTime}
+              </p>
+              <h1 className="heading-xl mt-5 max-w-[18ch] text-balance text-ivory">
+                {post.title}
+              </h1>
             </div>
           </figure>
+        ) : (
+          <header className="mt-6">
+            <h1 className="heading-xl text-balance">{post.title}</h1>
+            <p className="mt-4 font-mono text-xs uppercase tracking-widest text-ink-faint">
+              {dateFormatter.format(new Date(post.date))} · {post.readingTime}
+            </p>
+          </header>
         )}
+      </div>
 
-        <div className="mt-10 space-y-5">
+      <div className="container-page mx-auto mt-12 max-w-3xl">
+        <div className="space-y-5">
           {post.body.map((block, index) => (
             <BlogContentBlock
               key={index}
