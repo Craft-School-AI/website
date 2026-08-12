@@ -63,25 +63,25 @@ export function BlogChecklist({ id, items }: BlogChecklistProps) {
   return (
     <section
       aria-label="Чеклист подготовки"
-      className="rounded-2xl border border-line bg-surface-soft p-6 shadow-soft"
+      className="border-[3px] border-ink bg-surface-soft p-6 shadow-[10px_10px_0_0_rgb(var(--brand-terracotta))]"
     >
       <div className="flex items-center justify-between gap-4">
         <h2 className="heading-md">Чеклист подготовки</h2>
-        <span className="shrink-0 text-sm font-semibold text-ink-soft">
+        <span className="shrink-0 font-mono text-xs uppercase tracking-widest text-ink-soft">
           {done} из {total}
         </span>
       </div>
 
       {/* Полоса прогресса */}
       <div
-        className="mt-4 h-2 overflow-hidden rounded-full bg-surface-deep"
+        className="mt-4 h-3 overflow-hidden border-2 border-ink bg-surface"
         role="progressbar"
         aria-valuenow={done}
         aria-valuemin={0}
         aria-valuemax={total}
       >
         <div
-          className={`h-full rounded-full transition-all duration-300 ${
+          className={`h-full transition-all duration-300 ${
             allDone ? 'bg-green' : 'bg-terracotta'
           }`}
           style={{ width: `${progress}%` }}
@@ -93,7 +93,7 @@ export function BlogChecklist({ id, items }: BlogChecklistProps) {
           const isChecked = checked[index];
           return (
             <li key={index}>
-              <label className="flex cursor-pointer items-center gap-3 rounded-xl px-2 py-2 transition-colors hover:bg-surface/70">
+              <label className="flex cursor-pointer items-center gap-3 px-2 py-2 transition-colors hover:bg-surface/70">
                 <input
                   type="checkbox"
                   className="sr-only"
@@ -102,10 +102,8 @@ export function BlogChecklist({ id, items }: BlogChecklistProps) {
                 />
                 <span
                   aria-hidden
-                  className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 transition-colors ${
-                    isChecked
-                      ? 'border-green bg-green text-graphite'
-                      : 'border-line bg-surface'
+                  className={`flex h-6 w-6 shrink-0 items-center justify-center border-2 border-ink transition-colors ${
+                    isChecked ? 'bg-green text-graphite' : 'bg-surface'
                   }`}
                 >
                   {isChecked && <Check className="h-4 w-4" strokeWidth={3} />}

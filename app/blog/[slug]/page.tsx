@@ -126,7 +126,7 @@ function BlogContentBlock({ block }: { block: BlogBlock }) {
       );
     case 'note':
       return (
-        <div className="rounded-2xl border border-amber/40 bg-amber/10 p-5 text-base leading-relaxed text-ink-soft">
+        <div className="border-2 border-l-[6px] border-ink border-l-amber bg-amber/10 p-5 text-base leading-relaxed text-ink-soft">
           {renderInline(block.text)}
         </div>
       );
@@ -188,13 +188,13 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         <header className="mt-6">
           <span
-            className="flex h-14 w-14 items-center justify-center rounded-full bg-terracotta/10 text-terracotta"
+            className="flex h-14 w-14 items-center justify-center border-[3px] border-ink bg-amber text-graphite"
             aria-hidden
           >
-            <post.icon className="h-7 w-7" strokeWidth={1.75} />
+            <post.icon className="h-7 w-7" strokeWidth={2} />
           </span>
-          <h1 className="heading-xl mt-4 text-balance">{post.title}</h1>
-          <p className="mt-4 text-sm text-ink-faint">
+          <h1 className="heading-xl mt-5 text-balance">{post.title}</h1>
+          <p className="mt-4 font-mono text-xs uppercase tracking-widest text-ink-faint">
             {dateFormatter.format(new Date(post.date))} · {post.readingTime}
           </p>
         </header>
@@ -231,7 +231,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           ))}
         </div>
 
-        <footer className="card mt-14 text-center">
+        <footer className="mt-16 border-[3px] border-ink bg-surface-soft p-8 text-center shadow-[12px_12px_0_0_rgb(var(--brand-terracotta))]">
           <h2 className="heading-md">Соберите такой сайт своими руками</h2>
           <p className="mt-2 text-ink-soft">
             Запишитесь в мастерскую: за 2–4 недели соберёте сайт для своего дела.
