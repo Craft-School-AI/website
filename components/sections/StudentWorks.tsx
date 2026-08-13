@@ -53,9 +53,15 @@ const works: Work[] = [
     student: 'Ксения',
     description: 'Тренер по сквошу: программа туров и заявки на участие.',
     url: 'https://squash-nu.vercel.app',
+    image: '/images/works/squash.webp',
     accent: 'amber',
   },
 ];
+
+// Карточки с картинкой — вперёд (порядок внутри групп сохраняется)
+const orderedWorks = [...works].sort(
+  (a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image)),
+);
 
 function hostname(url: string): string {
   try {
@@ -78,7 +84,7 @@ export function StudentWorks() {
         </Reveal>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
-          {works.map((work, index) => {
+          {orderedWorks.map((work, index) => {
             const color = accentColor[work.accent];
             return (
               <Reveal key={work.url} delay={index * 80}>
