@@ -127,21 +127,21 @@ export function StudentWorks() {
                     aria-hidden
                   />
 
-                  {/* Фото автора — правый нижний угол */}
+                  {/* Фото автора — круглый аватар в левом верхнем углу */}
                   {work.photo && (
-                    <div className="absolute bottom-4 right-4 z-20 h-14 w-14 overflow-hidden border-[3px] border-ink shadow-[2px_2px_0_0_rgb(var(--brand-terracotta))]">
+                    <div className="absolute left-4 top-4 z-20 h-[68px] w-[68px] overflow-hidden rounded-full border-[3px] border-ink shadow-[2px_2px_0_0_rgb(var(--brand-terracotta))]">
                       <Image
                         src={work.photo}
                         alt={work.student ?? work.title}
                         fill
-                        sizes="56px"
+                        sizes="68px"
                         className="object-cover"
                       />
                     </div>
                   )}
 
                   {/* Текст поверх картинки */}
-                  <div className={`relative z-10 p-5 ${work.photo ? 'pr-24' : ''}`}>
+                  <div className="relative z-10 p-5">
                     {work.student && (
                       <p className="font-mono text-[11px] uppercase tracking-widest text-amber">
                         {work.student} · ученик
