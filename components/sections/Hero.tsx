@@ -52,7 +52,7 @@ export function Hero() {
 
         <Reveal delay={500} className="mt-10">
           <Link
-            href="#benefits"
+            href="#works"
             aria-label="К следующему разделу"
             className="flex h-12 w-12 items-center justify-center border-[3px] border-ink bg-surface text-ink shadow-[3px_3px_0_0_rgb(var(--brand-terracotta))] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_rgb(var(--brand-terracotta))] active:translate-y-0 active:shadow-[1px_1px_0_0_rgb(var(--brand-terracotta))]"
           >
