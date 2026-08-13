@@ -30,6 +30,18 @@ const START_DAY_OVERRIDES: Record<string, number> = {
   '2026-09': 4,
 };
 
+/**
+ * Обложки потоков (4:3). Ключ — id потока (YYYY-MM). Картинки лежат в
+ * public/images/potoks и сопоставлены по месяцу старта.
+ */
+const COHORT_IMAGES: Record<string, string> = {
+  '2026-08': '/images/potoks/potok-august.webp',
+  '2026-09': '/images/potoks/potok-september.webp',
+  '2026-10': '/images/potoks/potok-october.webp',
+  '2026-11': '/images/potoks/potok-november.webp',
+  '2026-12': '/images/potoks/potok-december.webp',
+};
+
 const MONTHS_NOMINATIVE = [
   'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
   'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
@@ -54,6 +66,8 @@ export type Cohort = {
   startISO: string;
   /** Число дня старта, напр. 3. */
   day: number;
+  /** Обложка потока (4:3), путь от public. */
+  image: string;
   /** Короткая читаемая дата, напр. "3 августа". */
   startLabel: string;
   /** Полная подпись для селекта. */
@@ -123,6 +137,7 @@ function buildCohort(year: number, month0: number, now: Date): Cohort {
     monthLabel,
     startISO,
     day,
+    image: COHORT_IMAGES[id] ?? '/images/potoks/potok-august.webp',
     startLabel,
     selectLabel: `${monthLabel} · старт ${startLabel}`,
     note: closed
