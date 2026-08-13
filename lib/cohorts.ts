@@ -22,6 +22,14 @@ const COHORT_MONTHS = [7, 8, 9, 10, 11]; // авг, сен, окт, ноя, де
  */
 const CLOSED_COHORT_IDS = new Set<string>(['2026-08']);
 
+/**
+ * Ручные переопределения даты старта (число месяца), если поток стартует
+ * не в первый вторник. Сентябрь 2026 стартует 4 сентября, а не с 1-го.
+ */
+const START_DAY_OVERRIDES: Record<string, number> = {
+  '2026-09': 4,
+};
+
 const MONTHS_NOMINATIVE = [
   'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
   'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
@@ -95,7 +103,11 @@ function firstSessions(start: Date): string[] {
 }
 
 function buildCohort(year: number, month0: number, now: Date): Cohort {
-  const start = firstTuesday(year, month0);
+  const idPre = `${year}-${String(month0 + 1).padStart(2, '0')}`;
+  const override = START_DAY_OVERRIDES[idPre];
+  const start = override
+    ? new Date(Date.UTC(year, month0, override))
+    : firstTuesday(year, month0);
   const day = start.getUTCDate();
   const startISO = start.toISOString().slice(0, 10);
   const startLabel = `${day} ${MONTHS_GENITIVE[month0]}`;

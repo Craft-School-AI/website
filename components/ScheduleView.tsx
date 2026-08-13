@@ -60,7 +60,7 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
               </li>
             </ul>
             <p className="mx-auto mt-4 max-w-2xl text-center text-sm text-ink-faint">
-              Старт потока — во вторник, он же день первого занятия.
+              Старт потока — он же день первого занятия.
             </p>
           </Reveal>
 
