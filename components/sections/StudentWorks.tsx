@@ -10,6 +10,8 @@ type Work = {
   url: string;
   /** Скрин сайта — добавим позже: image: '/images/works/espanol.webp' */
   image?: string;
+  /** Фото автора — в правый нижний угол карточки. */
+  photo?: string;
   accent: 'terracotta' | 'amber' | 'green';
 };
 
@@ -29,16 +31,10 @@ const works: Work[] = [
   },
   {
     title: 'Аренда и покупка лошадей',
+    student: 'Алевтина',
     description: 'Витрина лошадей с фильтрами и заявкой на аренду или покупку.',
     url: 'https://horse-nu.vercel.app',
     accent: 'amber',
-  },
-  {
-    title: 'Трекер привычек',
-    student: 'Андрей',
-    description: 'Отмечайте прогресс и держите ритм каждый день.',
-    url: 'https://education-mocha-alpha.vercel.app',
-    accent: 'green',
   },
   {
     title: 'Продажа картин и личный бренд',
@@ -54,6 +50,7 @@ const works: Work[] = [
     description: 'Тренер по сквошу: программа туров и заявки на участие.',
     url: 'https://squash-nu.vercel.app',
     image: '/images/works/squash.webp',
+    photo: '/images/students/ksenia.webp',
     accent: 'amber',
   },
 ];
@@ -130,8 +127,21 @@ export function StudentWorks() {
                     aria-hidden
                   />
 
+                  {/* Фото автора — правый нижний угол */}
+                  {work.photo && (
+                    <div className="absolute bottom-4 right-4 z-20 h-14 w-14 overflow-hidden border-[3px] border-ink shadow-[2px_2px_0_0_rgb(var(--brand-terracotta))]">
+                      <Image
+                        src={work.photo}
+                        alt={work.student ?? work.title}
+                        fill
+                        sizes="56px"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+
                   {/* Текст поверх картинки */}
-                  <div className="relative z-10 p-5">
+                  <div className={`relative z-10 p-5 ${work.photo ? 'pr-24' : ''}`}>
                     {work.student && (
                       <p className="font-mono text-[11px] uppercase tracking-widest text-amber">
                         {work.student} · ученик
