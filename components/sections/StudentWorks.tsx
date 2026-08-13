@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { ArrowUpRight } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 
 type Work = {
@@ -27,6 +26,7 @@ const works: Work[] = [
     student: 'Екатерина',
     description: 'Программа, расписание и запись на занятия.',
     url: 'https://education-beta-snowy.vercel.app',
+    photo: '/images/students/ekaterina.webp',
     accent: 'terracotta',
   },
   {
@@ -34,6 +34,7 @@ const works: Work[] = [
     student: 'Алевтина',
     description: 'Витрина лошадей с фильтрами и заявкой на аренду или покупку.',
     url: 'https://horse-nu.vercel.app',
+    photo: '/images/students/alevtina.webp',
     accent: 'amber',
   },
   {
@@ -42,6 +43,7 @@ const works: Work[] = [
     description: 'Сайт художника: витрина работ и продажа картин.',
     url: 'https://fd-coral.vercel.app/',
     image: '/images/works/artist.webp',
+    photo: '/images/students/anastasia.webp',
     accent: 'terracotta',
   },
   {
@@ -85,12 +87,7 @@ export function StudentWorks() {
             const color = accentColor[work.accent];
             return (
               <Reveal key={work.url} delay={index * 80}>
-                <a
-                  href={work.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden border-[3px] border-ink bg-surface-deep shadow-[8px_8px_0_0_rgb(var(--brand-terracotta))] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_rgb(var(--brand-terracotta))]"
-                >
+                <article className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden border-[3px] border-ink bg-surface-deep shadow-[8px_8px_0_0_rgb(var(--brand-terracotta))]">
                   {/* Картинка на всю карточку (скрин) либо браузер-заглушка с адресом */}
                   {work.image ? (
                     <Image
@@ -153,12 +150,8 @@ export function StudentWorks() {
                     <p className="mt-1.5 line-clamp-2 text-sm leading-snug text-ivory/80">
                       {work.description}
                     </p>
-                    <span className="mt-3 inline-flex items-center gap-1 font-semibold text-ivory">
-                      Открыть сайт
-                      <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </span>
                   </div>
-                </a>
+                </article>
               </Reveal>
             );
           })}
