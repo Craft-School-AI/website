@@ -23,7 +23,7 @@ const benefits: Benefit[] = [
 
 export function Benefits() {
   return (
-    <section className="section bg-surface-soft">
+    <section id="benefits" className="section scroll-mt-24 bg-surface-soft">
       <div className="container-page">
         <Reveal>
           <h2 className="heading-lg text-center">Что вы получите</h2>

@@ -1,4 +1,5 @@
-import { Sparkles } from 'lucide-react';
+import { ChevronDown, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/Reveal';
 import { RobotBackdrop } from '@/components/RobotBackdrop';
@@ -47,6 +48,16 @@ export function Hero() {
           <p className="mt-8 text-sm text-ink-faint">
             Формат спринтов · Первый сайт — уже на первой неделе
           </p>
+        </Reveal>
+
+        <Reveal delay={500} className="mt-10">
+          <Link
+            href="#benefits"
+            aria-label="К следующему разделу"
+            className="flex h-12 w-12 items-center justify-center border-[3px] border-ink bg-surface text-ink shadow-[3px_3px_0_0_rgb(var(--brand-terracotta))] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_rgb(var(--brand-terracotta))] active:translate-y-0 active:shadow-[1px_1px_0_0_rgb(var(--brand-terracotta))]"
+          >
+            <ChevronDown className="h-6 w-6 motion-safe:animate-bounce" strokeWidth={2.5} />
+          </Link>
         </Reveal>
       </div>
     </section>
