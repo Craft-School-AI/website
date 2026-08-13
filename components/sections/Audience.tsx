@@ -1,52 +1,102 @@
+import Image from 'next/image';
 import {
-  Car,
+  Calculator,
   Dumbbell,
-  Gem,
+  Languages,
+  Music,
   Palette,
+  Rocket,
   Scissors,
   ShoppingBag,
   type LucideIcon,
 } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 
+type Accent = 'terracotta' | 'amber' | 'green';
+
 type AudienceItem = {
   icon: LucideIcon;
-  title: string;
-  text: string;
+  role: string;
+  quote: string;
+  accent: Accent;
+  /** Путь к фото ученика — вставим позже: photo: '/images/students/anna.webp' */
+  photo?: string;
 };
 
+const accentColor: Record<Accent, string> = {
+  terracotta: 'rgb(var(--brand-terracotta))',
+  amber: 'rgb(var(--brand-amber))',
+  green: 'rgb(var(--brand-green))',
+};
+
+// Роли под реальные сферы учеников (без выдуманных имён — честно «для кого»).
+// Когда пришлёшь реальных учеников — заменим role/quote и добавим photo.
 const audience: AudienceItem[] = [
   {
-    icon: Dumbbell,
-    title: 'Фитнес-тренеры',
-    text: 'Страница с расписанием, ценами и записью на тренировку',
+    icon: Languages,
+    role: 'Репетитор по языкам',
+    quote: 'Хочу сайт с расписанием, ценами и записью на пробный урок. Без переписки в мессенджерах.',
+    accent: 'terracotta',
+  },
+  {
+    icon: Calculator,
+    role: 'Репетитор по математике',
+    quote: 'Нужна страница с программой, форматами занятий и заявкой на пробный урок.',
+    accent: 'amber',
   },
   {
     icon: Scissors,
-    title: 'Салоны красоты',
-    text: 'Витрина услуг, портфолио мастеров и онлайн-запись',
+    role: 'Бьюти-мастер и салон',
+    quote: 'Записываю клиентов в переписке. Нужна витрина услуг с ценами и онлайн-запись.',
+    accent: 'green',
   },
   {
     icon: Palette,
-    title: 'Фрилансеры',
-    text: 'Портфолио, которое продаёт ваши услуги без вашего участия',
+    role: 'Художник и иллюстратор',
+    quote: 'Портфолио, которое показывает работы и принимает заказы на них.',
+    accent: 'terracotta',
+  },
+  {
+    icon: Music,
+    role: 'Преподаватель танцев',
+    quote: 'Сайт студии с расписанием групп, ценами и записью на первое занятие.',
+    accent: 'amber',
+  },
+  {
+    icon: Dumbbell,
+    role: 'Фитнес-тренер',
+    quote: 'Программы тренировок, цены и онлайн-запись на одной странице.',
+    accent: 'green',
+  },
+  {
+    icon: Rocket,
+    role: 'Основатель стартапа',
+    quote: 'Проверяю идею продукта. Нужен лендинг с описанием, ценами и заявками, который правлю сам.',
+    accent: 'terracotta',
   },
   {
     icon: ShoppingBag,
-    title: 'Интернет-магазины',
-    text: 'Каталог товаров с корзиной и приёмом заявок',
-  },
-  {
-    icon: Car,
-    title: 'Продавцы авто',
-    text: 'Витрина автомобилей с фильтрами и формой обратной связи',
-  },
-  {
-    icon: Gem,
-    title: 'Ювелиры',
-    text: 'Каталог украшений, который передаёт красоту изделий',
+    role: 'Продавец на маркетплейсах',
+    quote: 'Продаю на Wildberries и Ozon, а хочу свой сайт бренда с каталогом и заказами напрямую.',
+    accent: 'amber',
   },
 ];
+
+/** Рисованный аватар-заглушка (силуэт). Заменяется реальным фото при наличии. */
+function PersonAvatar({ accent }: { accent: string }) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      className="h-full w-full"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden
+    >
+      <rect width="100" height="100" fill="rgb(var(--bg-tertiary))" />
+      <circle cx="50" cy="42" r="17" fill={accent} />
+      <path d="M22,95 C22,72 78,72 78,95 Z" fill={accent} />
+    </svg>
+  );
+}
 
 export function Audience() {
   return (
@@ -61,22 +111,47 @@ export function Audience() {
         </Reveal>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {audience.map((item, index) => (
-            <Reveal key={item.title} delay={index * 80}>
-              <article className="card flex h-full items-start gap-4">
-                <span
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber/15 text-amber"
-                  aria-hidden
-                >
-                  <item.icon className="h-6 w-6" strokeWidth={1.75} />
-                </span>
-                <div>
-                  <h3 className="font-display text-lg font-semibold">{item.title}</h3>
-                  <p className="mt-1 text-sm text-ink-soft">{item.text}</p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
+          {audience.map((item, index) => {
+            const color = accentColor[item.accent];
+            return (
+              <Reveal key={item.role} delay={index * 80}>
+                <article className="group flex h-full flex-col border-[3px] border-ink bg-surface p-5 shadow-[6px_6px_0_0_rgb(var(--brand-terracotta))] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0_0_rgb(var(--brand-terracotta))]">
+                  <div className="flex items-center gap-4">
+                    {/* Слот под фото ученика: сейчас рисованный аватар */}
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden border-2 border-ink">
+                      {item.photo ? (
+                        <Image
+                          src={item.photo}
+                          alt={item.role}
+                          fill
+                          sizes="64px"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <PersonAvatar accent={color} />
+                      )}
+                      {/* Бейдж сферы */}
+                      <span
+                        className="absolute -bottom-1.5 -right-1.5 flex h-7 w-7 items-center justify-center border-2 border-ink text-graphite"
+                        style={{ backgroundColor: color }}
+                        aria-hidden
+                      >
+                        <item.icon className="h-4 w-4" strokeWidth={2} />
+                      </span>
+                    </div>
+
+                    <h3 className="font-display text-lg font-semibold leading-tight text-ink">
+                      {item.role}
+                    </h3>
+                  </div>
+
+                  <p className="mt-4 text-sm leading-snug text-ink-soft">
+                    «{item.quote}»
+                  </p>
+                </article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
