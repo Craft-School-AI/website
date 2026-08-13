@@ -19,13 +19,13 @@ export function LeadSection() {
             </span>
           </h2>
           <p className="mt-4 max-w-md text-ink-soft">
-            Оставьте заявку — мастер лично свяжется с вами, расспросит про ваш
+            Оставьте заявку — преподаватель лично свяжется с вами, расспросит про ваш
             бизнес и подскажет, какой формат подойдёт. Это ни к чему не обязывает.
           </p>
           <ul className="mt-6 space-y-3 text-sm text-ink-soft">
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green" aria-hidden />
-              Небольшие группы — мастер успевает уделить время каждому
+              Небольшие группы — преподаватель успевает уделить время каждому
             </li>
             <li className="flex items-start gap-2">
               <Check className="mt-0.5 h-4 w-4 shrink-0 text-green" aria-hidden />

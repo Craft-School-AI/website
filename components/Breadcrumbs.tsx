@@ -8,7 +8,7 @@ import { SITE_NAME, SITE_URL } from '@/lib/site';
 const SECTION_LABELS: Record<string, string> = {
   program: 'О программе',
   modules: 'Модули',
-  master: 'О мастере',
+  master: 'О преподавателе',
   pricing: 'Тарифы',
   schedule: 'Расписание',
   blog: 'Блог',

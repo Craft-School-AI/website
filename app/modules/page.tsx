@@ -24,7 +24,7 @@ const sprints: Sprint[] = [
   {
     number: 'Спринт 1',
     duration: '1 неделя · 2 занятия',
-    title: 'Знакомство с ИИ-станком',
+    title: 'Знакомство с ИИ-агентом',
     result: 'Первая версия вашего сайта на компьютере',
     tiers: 'Все тарифы',
     points: [
@@ -121,7 +121,7 @@ export default function ModulesPage() {
       <section className="section bg-surface-soft text-center">
         <div className="container-page">
           <Reveal>
-            <h2 className="heading-lg">Готовы встать за станок?</h2>
+            <h2 className="heading-lg">Готовы освоить ИИ-агента?</h2>
             <p className="mx-auto mt-4 max-w-xl text-ink-soft">
               Оставьте заявку — обсудим ваш проект, подберём тариф и поток.
             </p>

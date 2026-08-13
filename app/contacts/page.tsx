@@ -15,7 +15,7 @@ const contacts = [
     label: 'Telegram',
     value: WRITE_MASTER_LABEL,
     href: PERSONAL_TELEGRAM_URL,
-    note: 'Напишите мастеру напрямую — отвечаю лично, обычно в течение пары часов',
+    note: 'Напишите преподавателю напрямую — отвечаю лично, обычно в течение пары часов',
   },
   {
     label: 'Email',
@@ -37,7 +37,7 @@ export default function ContactsPage() {
       <PageHero
         tag="Контакты"
         title="Дверь в мастерскую открыта"
-        subtitle="Напишите нам любым удобным способом — или оставьте заявку, и мастер свяжется сам."
+        subtitle="Напишите нам любым удобным способом — или оставьте заявку, и преподаватель свяжется сам."
       />
 
       <section className="section">

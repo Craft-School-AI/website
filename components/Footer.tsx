@@ -7,7 +7,7 @@ import { PERSONAL_TELEGRAM_URL, WRITE_MASTER_LABEL } from '@/lib/site';
 const navLinks = [
   { href: '/program', label: 'О программе' },
   { href: '/modules', label: 'Модули' },
-  { href: '/master', label: 'О мастере' },
+  { href: '/master', label: 'О преподавателе' },
   { href: '/pricing', label: 'Тарифы' },
   { href: '/blog', label: 'Блог' },
   { href: '/contacts', label: 'Контакты' },
