@@ -143,7 +143,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
         </span>
         <h3 className="heading-md mt-4">Заявка принята!</h3>
         <p className="mt-2 text-ink-soft">
-          Мастер свяжется с вами в ближайшее время — обычно в течение пары часов.
+          Преподаватель свяжется с вами в ближайшее время — обычно в течение пары часов.
         </p>
         <div className="mt-6">
           <Button variant="outline" onClick={() => setSubmitState('idle')}>
@@ -192,7 +192,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
           className={inputClasses}
           aria-invalid={Boolean(errors.social)}
           {...register('social', {
-            required: 'Оставьте ссылку на соцсеть — так мастер напишет вам напрямую',
+            required: 'Оставьте ссылку на соцсеть — так преподаватель напишет вам напрямую',
             pattern: {
               value: /(https?:\/\/|t\.me\/|vk\.com\/|@|\.[a-z]{2,})/i,
               message: 'Вставьте ссылку на профиль или @ник (Telegram, VK, Instagram)',
@@ -200,7 +200,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
           })}
         />
         <p className="mt-1.5 text-xs text-ink-faint">
-          Telegram, VK или Instagram — куда вам удобнее ответить. Сюда мастер
+          Telegram, VK или Instagram — куда вам удобнее ответить. Сюда преподаватель
           напишет по заявке.
         </p>
         {errors.social && (
@@ -268,7 +268,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
           <p className="mt-1.5 text-xs text-ink-faint">
             {promoApplied
               ? `Цены показаны со скидкой ${PROMO_LABEL} по промокоду.`
-              : 'Точный тариф подтвердите с мастером — он подскажет, какой формат подойдёт вашему проекту.'}
+              : 'Точный тариф подтвердите с преподавателем — он подскажет, какой формат подойдёт вашему проекту.'}
           </p>
           {errors.tariff && (
             <p role="alert" className="mt-1 text-sm text-terracotta">

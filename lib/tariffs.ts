@@ -10,7 +10,7 @@
 export type Tariff = {
   /** Технический id тарифа. */
   id: string;
-  /** Название, напр. «Мастер». */
+  /** Название, напр. «Стандарт». */
   name: string;
   /** Цена первого потока в рублях, напр. 49000. */
   amount: number;
@@ -19,9 +19,9 @@ export type Tariff = {
 };
 
 export const TARIFFS: Tariff[] = [
-  { id: 'podmasterye', name: 'Подмастерье', amount: 19900 },
-  { id: 'master', name: 'Мастер', amount: 49000, recommended: true },
-  { id: 'ceh', name: 'Цех', amount: 99000 },
+  { id: 'podmasterye', name: 'Базовый', amount: 19900 },
+  { id: 'master', name: 'Стандарт', amount: 49000, recommended: true },
+  { id: 'ceh', name: 'Индивидуальный', amount: 99000 },
 ];
 
 /** Промокод для друзей: даёт скидку на любой тариф. */
@@ -46,12 +46,12 @@ export function discountedAmount(tariff: Tariff): number {
   return Math.round(tariff.amount * (1 - PROMO_DISCOUNT));
 }
 
-/** Подпись тарифа для селекта и заявки, напр. «Мастер · 49 000 ₽». */
+/** Подпись тарифа для селекта и заявки, напр. «Стандарт · 49 000 ₽». */
 export function tariffLabel(tariff: Tariff): string {
   return `${tariff.name} · ${formatRub(tariff.amount)}`;
 }
 
-/** Подпись тарифа со скидкой, напр. «Мастер · 34 300 ₽ (−30%)». */
+/** Подпись тарифа со скидкой, напр. «Стандарт · 34 300 ₽ (−30%)». */
 export function tariffLabelDiscounted(tariff: Tariff): string {
   return `${tariff.name} · ${formatRub(discountedAmount(tariff))} (${PROMO_LABEL})`;
 }

@@ -8,9 +8,9 @@ import { Button } from '@/components/ui/Button';
 import { MASTER_TELEGRAM_CHANNEL_URL, TELEGRAM_CHANNEL_LABEL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'О мастере',
+  title: 'О преподавателе',
   description:
-    '10+ лет в разработке сайтов и приложений: Яндекс, Avito, Huntflow, X5, своя студия на заказ. Мастер сам был тем подрядчиком — и лично ведёт каждый поток Craft School.',
+    '10+ лет в разработке сайтов и приложений: Яндекс, Avito, Huntflow, X5, своя студия на заказ. Сам был тем подрядчиком — и лично ведёт каждый поток Craft School.',
 };
 
 const facts = [
@@ -25,11 +25,11 @@ const companies = ['Яндекс', 'Avito', 'Huntflow', 'X5', 'FlowMapp', 'ManyC
 const principles = [
   {
     title: 'Код — инструмент, а не цель',
-    text: 'Столяру не нужно уметь выплавлять сталь для рубанка. Вам не нужно писать код, чтобы сделать сайт: нужно уметь управлять инструментом, который его пишет.',
+    text: 'Водителю не нужно уметь собирать двигатель, чтобы водить машину. Вам не нужно писать код, чтобы сделать сайт: нужно уметь управлять инструментом, который его пишет.',
   },
   {
-    title: 'Мастерская, а не лекторий',
-    text: 'Здесь не слушают — здесь делают. Каждое занятие вы работаете руками над своим проектом, а я хожу между станками и помогаю.',
+    title: 'Практика, а не лекторий',
+    text: 'Здесь не слушают — здесь делают. Каждое занятие вы работаете над своим проектом, а я подключаюсь к каждому и помогаю.',
   },
   {
     title: 'Без жаргона',
@@ -40,7 +40,7 @@ const principles = [
 export default function MasterPage() {
   return (
     <>
-      {/* Фото + имя мастера — уникальная «шапка» профиля прямо в контенте */}
+      {/* Фото + имя преподавателя — уникальная «шапка» профиля прямо в контенте */}
       <section className="section">
         <div className="container-page grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
           <Reveal className="relative mx-auto w-full max-w-sm lg:max-w-none">
@@ -51,7 +51,7 @@ export default function MasterPage() {
             />
             <Image
               src="/images/master-portrait.jpg"
-              alt="Роман Бабанов — мастер и наставник Craft School"
+              alt="Роман Бабанов — преподаватель Craft School"
               width={1024}
               height={1404}
               priority
@@ -68,7 +68,7 @@ export default function MasterPage() {
               учу предпринимателей делать это самим, с помощью ИИ-агентов.
             </p>
 
-            {/* Прямой контакт и личный канал мастера в Telegram */}
+            {/* Прямой контакт и личный канал преподавателя в Telegram */}
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <AskMaster />
               <a
@@ -166,8 +166,8 @@ export default function MasterPage() {
               </p>
               <p className="mt-4 text-lg leading-relaxed text-ink-soft">
                 Так появилась эта мастерская. Я не делаю из предпринимателей
-                программистов — я учу их управлять новым станком. Как мастер учит
-                подмастерьев: показываю, страхую, отпускаю в самостоятельную работу.
+                программистов — я учу их управлять новым инструментом: показываю,
+                страхую, отпускаю в самостоятельную работу.
               </p>
               <p className="mt-6 text-sm text-ink-faint">
                 Образование: НИЯУ МИФИ, факультет «Кибернетика и безопасность»,
@@ -199,7 +199,7 @@ export default function MasterPage() {
       <section className="section text-center">
         <div className="container-page">
           <Reveal>
-            <h2 className="heading-lg">Приходите — покажу станок в деле</h2>
+            <h2 className="heading-lg">Приходите — покажу ИИ-агента в деле</h2>
             <div className="mt-8">
               <Button href="/#zayavka" size="lg">
                 Записаться в мастерскую
