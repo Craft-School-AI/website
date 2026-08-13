@@ -316,3 +316,12 @@
     display: none;
   }
 }
+
+/* ===== Скрытый скроллбар для горизонтальных лент (слайдеры) ===== */
+.hide-scrollbar {
+  -ms-overflow-style: none; /* старый Edge / IE */
+  scrollbar-width: none; /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
