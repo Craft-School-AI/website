@@ -22,22 +22,6 @@ const accentColor: Record<Work['accent'], string> = {
 
 const works: Work[] = [
   {
-    title: 'Школа испанского языка',
-    student: 'Екатерина',
-    description: 'Программа, расписание и запись на занятия.',
-    url: 'https://education-beta-snowy.vercel.app',
-    photo: '/images/students/ekaterina.webp',
-    accent: 'terracotta',
-  },
-  {
-    title: 'Аренда и покупка лошадей',
-    student: 'Алевтина',
-    description: 'Витрина лошадей с фильтрами и заявкой на аренду или покупку.',
-    url: 'https://horse-nu.vercel.app',
-    photo: '/images/students/alevtina.webp',
-    accent: 'amber',
-  },
-  {
     title: 'Продажа картин и личный бренд',
     student: 'Анастасия',
     description: 'Сайт художника: витрина работ и продажа картин.',
@@ -150,6 +134,15 @@ export function StudentWorks() {
                     <p className="mt-1.5 line-clamp-2 text-sm leading-snug text-ivory/80">
                       {work.description}
                     </p>
+                    <a
+                      href={work.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-1.5 self-start border-2 border-ivory bg-transparent px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-ivory transition-colors hover:bg-ivory hover:text-ink"
+                    >
+                      Перейти
+                      <span aria-hidden>→</span>
+                    </a>
                   </div>
                 </article>
               </Reveal>
