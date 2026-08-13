@@ -1,9 +1,9 @@
 /**
- * Нарисованные визуалы для карточек преимуществ на главной.
+ * Нарисованные визуалы для карточек «Чему вы научитесь» на главной.
  * Чистый SVG во флэт-стиле бренда. Цвета — токены темы, поэтому сцена
  * светлая в светлой теме и тёмная в тёмной (обводки/текст — ink, фон — surface).
  * Заполняют карточку как фон (preserveAspectRatio slice), поверх — скрим и текст.
- * Декоративны (aria-hidden). variant: 0 — скорость, 1 — экономия, 2 — контроль.
+ * Декоративны (aria-hidden). variant: 0 — ИИ-агент, 1 — рабочие сайты, 2 — подход.
  */
 
 const T = 'rgb(var(--brand-terracotta))';
@@ -12,6 +12,8 @@ const G = 'rgb(var(--brand-green))';
 const INK = 'rgb(var(--text-primary))';
 const BG = 'rgb(var(--bg-secondary))'; // фон сцены = фон карточки
 const PANEL = 'rgb(var(--bg-primary))'; // внутренняя панель — светлее фона
+
+const sparkle = 'M0,-9 L2.3,-2.3 L9,0 L2.3,2.3 L0,9 L-2.3,2.3 L-9,0 L-2.3,-2.3 Z';
 
 type Props = { variant: number; className?: string };
 
@@ -23,8 +25,36 @@ export function BenefitScene({ variant, className = '' }: Props) {
     'aria-hidden': true as const,
   };
 
-  // 0 — Скорость: браузер-сайт собирается + молния
+  // 0 — ИИ-агент: дружелюбный робот-помощник
   if (variant === 0) {
+    return (
+      <svg {...common}>
+        <rect width="400" height="500" fill={BG} />
+        {/* искры ИИ */}
+        <path d={sparkle} transform="translate(316 150)" fill={A} />
+        <path d={sparkle} transform="translate(92 232) scale(0.7)" fill={T} />
+        {/* антенна */}
+        <line x1="200" y1="98" x2="200" y2="122" stroke={INK} strokeWidth="6" strokeLinecap="round" />
+        <circle cx="200" cy="90" r="10" fill={A} />
+        {/* голова */}
+        <rect x="120" y="120" width="160" height="122" rx="28" fill={T} />
+        <rect x="142" y="144" width="116" height="66" rx="16" fill={PANEL} />
+        <circle cx="180" cy="176" r="9" fill={INK} />
+        <circle cx="220" cy="176" r="9" fill={INK} />
+        <path d="M184,197 Q200,208 216,197" stroke={INK} strokeWidth="4" fill="none" strokeLinecap="round" />
+        <circle cx="120" cy="182" r="10" fill={A} />
+        <circle cx="280" cy="182" r="10" fill={A} />
+        {/* шея и корпус */}
+        <rect x="176" y="242" width="48" height="18" fill={INK} />
+        <rect x="132" y="260" width="136" height="88" rx="22" fill={G} />
+        <circle cx="200" cy="302" r="15" fill={PANEL} />
+        <circle cx="200" cy="302" r="6" fill={T} />
+      </svg>
+    );
+  }
+
+  // 1 — Рабочие сайты: собранное окно браузера
+  if (variant === 1) {
     return (
       <svg {...common}>
         <rect width="400" height="500" fill={BG} />
@@ -33,7 +63,6 @@ export function BenefitScene({ variant, className = '' }: Props) {
           <line x1="-20" y1="210" x2="420" y2="210" />
           <line x1="-20" y1="300" x2="420" y2="300" />
         </g>
-        {/* окно браузера — собираемый сайт */}
         <rect x="52" y="92" width="250" height="228" rx="12" fill={PANEL} stroke={INK} strokeWidth="4" />
         <line x1="52" y1="132" x2="302" y2="132" stroke={INK} strokeWidth="3" />
         <circle cx="76" cy="112" r="7" fill={T} />
@@ -44,65 +73,25 @@ export function BenefitScene({ variant, className = '' }: Props) {
         <rect x="74" y="208" width="120" height="12" rx="4" fill={INK} fillOpacity="0.28" />
         <rect x="214" y="152" width="72" height="60" rx="8" fill={T} fillOpacity="0.85" />
         <rect x="74" y="244" width="104" height="34" rx="17" fill={G} />
-        {/* молния — скорость */}
-        <path d="M330,40 L286,150 L322,150 L280,272 L372,138 L336,138 Z" fill={A} stroke={INK} strokeWidth="4" strokeLinejoin="round" />
-        {/* блок вот-вот встанет на место */}
-        <g stroke={G} strokeWidth="8" strokeLinecap="round">
-          <line x1="322" y1="288" x2="322" y2="332" />
-          <line x1="300" y1="310" x2="344" y2="310" />
-        </g>
+        {/* галочка «готово» */}
+        <path d="M300,286 l14,14 l24,-28" fill="none" stroke={G} strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     );
   }
 
-  // 1 — Экономия: перечёркнутый ценник, монеты, кошелёк
-  if (variant === 1) {
-    return (
-      <svg {...common}>
-        <rect width="400" height="500" fill={BG} />
-        {/* перечёркнутый ценник студии */}
-        <rect x="60" y="86" width="220" height="62" rx="12" fill={PANEL} stroke={INK} strokeWidth="3" />
-        <circle cx="84" cy="117" r="7" fill={BG} stroke={INK} strokeWidth="3" />
-        <text x="172" y="126" textAnchor="middle" fontFamily="ui-monospace, monospace" fontWeight="700" fontSize="26" fill={INK}>150 000 ₽</text>
-        <line x1="72" y1="144" x2="272" y2="92" stroke={T} strokeWidth="8" strokeLinecap="round" />
-        {/* стрелка вниз — расходы падают */}
-        <g stroke={G} strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" fill="none">
-          <line x1="330" y1="182" x2="330" y2="252" />
-          <path d="M309,233 L330,256 L351,233" />
-        </g>
-        {/* стопка монет */}
-        <g stroke={INK} strokeOpacity="0.3" strokeWidth="3">
-          <ellipse cx="150" cy="304" rx="60" ry="18" fill={A} />
-          <ellipse cx="150" cy="282" rx="60" ry="18" fill={A} />
-          <ellipse cx="150" cy="260" rx="60" ry="18" fill={A} />
-          <ellipse cx="150" cy="238" rx="60" ry="18" fill={A} />
-        </g>
-        <text x="150" y="246" textAnchor="middle" fontFamily="ui-monospace, monospace" fontWeight="700" fontSize="22" fill={INK}>₽</text>
-        {/* кошелёк */}
-        <rect x="250" y="276" width="118" height="82" rx="14" fill={T} />
-        <rect x="250" y="276" width="118" height="26" rx="13" fill={PANEL} fillOpacity="0.35" />
-        <circle cx="348" cy="317" r="10" fill={A} />
-      </svg>
-    );
-  }
-
-  // 2 — Контроль: панель со слайдерами + мишень
+  // 2 — Правильный подход: панель со слайдерами + мишень
   return (
     <svg {...common}>
       <rect width="400" height="500" fill={BG} />
-      {/* панель управления */}
       <rect x="48" y="92" width="212" height="236" rx="16" fill={PANEL} stroke={INK} strokeWidth="4" />
-      {/* слайдеры */}
       <line x1="76" y1="140" x2="232" y2="140" stroke={INK} strokeOpacity="0.25" strokeWidth="8" strokeLinecap="round" />
       <circle cx="150" cy="140" r="14" fill={T} stroke={INK} strokeWidth="3" />
       <line x1="76" y1="184" x2="232" y2="184" stroke={INK} strokeOpacity="0.25" strokeWidth="8" strokeLinecap="round" />
       <circle cx="198" cy="184" r="14" fill={A} stroke={INK} strokeWidth="3" />
       <line x1="76" y1="228" x2="232" y2="228" stroke={INK} strokeOpacity="0.25" strokeWidth="8" strokeLinecap="round" />
       <circle cx="110" cy="228" r="14" fill={G} stroke={INK} strokeWidth="3" />
-      {/* тумблер «вкл» */}
       <rect x="76" y="270" width="66" height="32" rx="16" fill={G} />
       <circle cx="126" cy="286" r="12" fill={PANEL} />
-      {/* мишень — точный результат */}
       <circle cx="312" cy="196" r="52" fill="none" stroke={T} strokeWidth="12" />
       <circle cx="312" cy="196" r="30" fill="none" stroke={A} strokeWidth="12" />
       <circle cx="312" cy="196" r="10" fill={T} />
