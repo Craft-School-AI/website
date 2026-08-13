@@ -3,7 +3,9 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import { Reveal } from '@/components/Reveal';
 import { AskMaster } from '@/components/AskMaster';
+import { TelegramIcon } from '@/components/SocialIcons';
 import { Button } from '@/components/ui/Button';
+import { MASTER_TELEGRAM_CHANNEL_URL, TELEGRAM_CHANNEL_LABEL } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'О мастере',
@@ -66,9 +68,18 @@ export default function MasterPage() {
               учу предпринимателей делать это самим, с помощью ИИ-агентов.
             </p>
 
-            {/* Прямой контакт — написать мастеру в Telegram */}
-            <div className="mt-6">
+            {/* Прямой контакт и личный канал мастера в Telegram */}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <AskMaster />
+              <a
+                href={MASTER_TELEGRAM_CHANNEL_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink-soft transition-colors hover:border-terracotta hover:text-terracotta"
+              >
+                <TelegramIcon className="h-4 w-4" />
+                {TELEGRAM_CHANNEL_LABEL}
+              </a>
             </div>
 
             <h2 className="heading-md mt-8">

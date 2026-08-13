@@ -13,3 +13,9 @@ export const PERSONAL_TELEGRAM_URL = 'https://t.me/c_o_o_n';
 
 /** Подпись для ссылки/кнопки на личный Telegram мастера. */
 export const WRITE_MASTER_LABEL = 'Написать мастеру';
+
+/** Личный Telegram-канал мастера — на него можно подписаться. */
+export const MASTER_TELEGRAM_CHANNEL_URL = 'https://t.me/roman_babanov';
+
+/** Подпись для ссылки/кнопки на Telegram-канал мастера. */
+export const TELEGRAM_CHANNEL_LABEL = 'Telegram-канал мастера';
