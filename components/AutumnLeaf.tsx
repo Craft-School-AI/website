@@ -78,17 +78,17 @@ type FallingLeaf = {
 };
 
 const LEAVES: FallingLeaf[] = [
-  { left: '6%', size: 26, color: terracotta, variant: 1, fallDur: 13, fallDelay: -2, swayDur: 3.4, swayDelay: -0.5 },
-  { left: '15%', size: 18, color: amber, variant: 0, fallDur: 10, fallDelay: -6, swayDur: 2.8, swayDelay: -1.2 },
-  { left: '24%', size: 30, color: rust, variant: 1, fallDur: 16, fallDelay: -9, swayDur: 4.2, swayDelay: -0.2 },
-  { left: '33%', size: 16, color: amber, variant: 0, fallDur: 11, fallDelay: -1, swayDur: 3.0, swayDelay: -2.0 },
-  { left: '44%', size: 22, color: pumpkin, variant: 1, fallDur: 14, fallDelay: -11, swayDur: 3.7, swayDelay: -0.8 },
-  { left: '54%', size: 19, color: olive, variant: 0, fallDur: 12, fallDelay: -4, swayDur: 3.2, swayDelay: -1.6 },
-  { left: '63%', size: 28, color: terracotta, variant: 1, fallDur: 15, fallDelay: -8, swayDur: 4.0, swayDelay: -0.4 },
-  { left: '72%', size: 17, color: rust, variant: 0, fallDur: 10.5, fallDelay: -3, swayDur: 2.9, swayDelay: -1.0 },
-  { left: '81%', size: 24, color: amber, variant: 1, fallDur: 13.5, fallDelay: -12, swayDur: 3.6, swayDelay: -2.3 },
-  { left: '89%', size: 20, color: pumpkin, variant: 1, fallDur: 12.5, fallDelay: -5, swayDur: 3.3, swayDelay: -0.6 },
-  { left: '95%', size: 16, color: olive, variant: 0, fallDur: 11.5, fallDelay: -7, swayDur: 3.1, swayDelay: -1.8 },
+  { left: '6%', size: 26, color: terracotta, variant: 1, fallDur: 24, fallDelay: -3, swayDur: 4.4, swayDelay: -0.5 },
+  { left: '15%', size: 18, color: amber, variant: 0, fallDur: 19, fallDelay: -11, swayDur: 3.8, swayDelay: -1.2 },
+  { left: '24%', size: 30, color: rust, variant: 1, fallDur: 29, fallDelay: -16, swayDur: 5.2, swayDelay: -0.2 },
+  { left: '33%', size: 16, color: amber, variant: 0, fallDur: 21, fallDelay: -2, swayDur: 4.0, swayDelay: -2.0 },
+  { left: '44%', size: 22, color: pumpkin, variant: 1, fallDur: 26, fallDelay: -20, swayDur: 4.7, swayDelay: -0.8 },
+  { left: '54%', size: 19, color: olive, variant: 0, fallDur: 22, fallDelay: -7, swayDur: 4.2, swayDelay: -1.6 },
+  { left: '63%', size: 28, color: terracotta, variant: 1, fallDur: 28, fallDelay: -14, swayDur: 5.0, swayDelay: -0.4 },
+  { left: '72%', size: 17, color: rust, variant: 0, fallDur: 19, fallDelay: -5, swayDur: 3.9, swayDelay: -1.0 },
+  { left: '81%', size: 24, color: amber, variant: 1, fallDur: 25, fallDelay: -22, swayDur: 4.6, swayDelay: -2.3 },
+  { left: '89%', size: 20, color: pumpkin, variant: 1, fallDur: 23, fallDelay: -9, swayDur: 4.3, swayDelay: -0.6 },
+  { left: '95%', size: 16, color: olive, variant: 0, fallDur: 22, fallDelay: -12, swayDur: 4.1, swayDelay: -1.8 },
 ];
 
 export function FallingLeaves() {
