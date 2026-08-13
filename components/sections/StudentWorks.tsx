@@ -10,8 +10,6 @@ type Work = {
   url: string;
   /** Скрин сайта — добавим позже: image: '/images/works/espanol.webp' */
   image?: string;
-  /** Фото ученика — добавим позже: photo: '/images/students/ekaterina.webp' */
-  photo?: string;
   accent: 'terracotta' | 'amber' | 'green';
 };
 
@@ -79,7 +77,7 @@ export function StudentWorks() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {works.map((work, index) => {
             const color = accentColor[work.accent];
             return (
@@ -88,71 +86,58 @@ export function StudentWorks() {
                   href={work.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex h-full flex-col overflow-hidden border-[3px] border-ink bg-surface shadow-[8px_8px_0_0_rgb(var(--brand-terracotta))] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_rgb(var(--brand-terracotta))]"
+                  className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden border-[3px] border-ink bg-surface-deep shadow-[8px_8px_0_0_rgb(var(--brand-terracotta))] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_rgb(var(--brand-terracotta))]"
                 >
-                  {/* Превью сайта: скрин (если есть) либо браузер-заглушка с адресом */}
-                  <div className="relative aspect-[16/10] overflow-hidden border-b-[3px] border-ink bg-surface-deep">
-                    {work.image ? (
-                      <Image
-                        src={work.image}
-                        alt={work.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
-                      />
-                    ) : (
-                      <div className="flex h-full flex-col">
-                        <div className="flex items-center gap-1.5 border-b border-line bg-surface px-3 py-2">
-                          <span className="h-2.5 w-2.5 rounded-full bg-terracotta" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-amber" />
-                          <span className="h-2.5 w-2.5 rounded-full bg-green" />
-                          <span className="ml-2 truncate font-mono text-[11px] text-ink-faint">
-                            {hostname(work.url)}
-                          </span>
-                        </div>
-                        <div className="flex flex-1 items-center justify-center">
-                          <span
-                            className="font-display text-6xl font-black opacity-90"
-                            style={{ color }}
-                          >
-                            {work.title.charAt(0)}
-                          </span>
-                        </div>
+                  {/* Картинка на всю карточку (скрин) либо браузер-заглушка с адресом */}
+                  {work.image ? (
+                    <Image
+                      src={work.image}
+                      alt={work.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      className="object-cover object-top transition-transform duration-500 ease-out group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex flex-col bg-surface-deep">
+                      <div className="flex items-center gap-1.5 border-b border-line bg-surface px-3 py-2">
+                        <span className="h-2.5 w-2.5 rounded-full bg-terracotta" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-amber" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-green" />
+                        <span className="ml-2 truncate font-mono text-[11px] text-ink-faint">
+                          {hostname(work.url)}
+                        </span>
                       </div>
-                    )}
-                  </div>
-
-                  {/* Описание */}
-                  <div className="flex flex-1 flex-col p-5">
-                    {work.student && (
-                      <div className="mb-2 flex items-center gap-2">
+                      <div className="flex flex-1 items-center justify-center pb-10">
                         <span
-                          className="flex h-6 w-6 items-center justify-center overflow-hidden border-2 border-ink text-[11px] font-bold text-graphite"
-                          style={{ backgroundColor: color }}
-                          aria-hidden
+                          className="font-display text-6xl font-black opacity-90"
+                          style={{ color }}
                         >
-                          {work.photo ? (
-                            <Image
-                              src={work.photo}
-                              alt={work.student}
-                              width={24}
-                              height={24}
-                              className="h-full w-full object-cover"
-                            />
-                          ) : (
-                            work.student.charAt(0)
-                          )}
-                        </span>
-                        <span className="font-mono text-[11px] uppercase tracking-widest text-ink-faint">
-                          {work.student} · ученик
+                          {work.title.charAt(0)}
                         </span>
                       </div>
+                    </div>
+                  )}
+
+                  {/* Скрим снизу — держит контраст текста поверх картинки */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-graphite via-graphite/55 to-transparent"
+                    aria-hidden
+                  />
+
+                  {/* Текст поверх картинки */}
+                  <div className="relative z-10 p-5">
+                    {work.student && (
+                      <p className="font-mono text-[11px] uppercase tracking-widest text-amber">
+                        {work.student} · ученик
+                      </p>
                     )}
-                    <h3 className="heading-md text-ink">{work.title}</h3>
-                    <p className="mt-2 flex-1 text-sm leading-snug text-ink-soft">
+                    <h3 className="mt-1.5 font-display text-xl font-bold leading-tight text-ivory">
+                      {work.title}
+                    </h3>
+                    <p className="mt-1.5 line-clamp-2 text-sm leading-snug text-ivory/80">
                       {work.description}
                     </p>
-                    <span className="mt-4 inline-flex items-center gap-1 font-semibold text-terracotta">
+                    <span className="mt-3 inline-flex items-center gap-1 font-semibold text-ivory">
                       Открыть сайт
                       <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
