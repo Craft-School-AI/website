@@ -281,3 +281,38 @@
     animation: none !important;
   }
 }
+
+/* ===== Осень: падающие листья (components/AutumnLeaf.tsx) ===== */
+
+.leaf-fall {
+  position: absolute;
+  top: -12%;
+  pointer-events: none;
+  opacity: 0.2; /* совсем бледные — едва заметный фоновый акцент */
+  animation: leaf-fall linear infinite;
+  will-change: top;
+}
+@keyframes leaf-fall {
+  from { top: -12%; }
+  to { top: 112%; }
+}
+
+/* Боковой снос и покачивание — отдельная анимация на внутреннем слое,
+   чтобы не конфликтовать с вертикальным падением (top) */
+.leaf-sway {
+  display: block;
+  transform-origin: center;
+  animation: leaf-sway ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes leaf-sway {
+  from { transform: translateX(-14px) rotate(-28deg); }
+  to { transform: translateX(14px) rotate(28deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Листья — чистая декорация: при «меньше движения» просто прячем */
+  .leaf-fall {
+    display: none;
+  }
+}

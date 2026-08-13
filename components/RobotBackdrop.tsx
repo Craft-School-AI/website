@@ -12,6 +12,7 @@
  */
 
 import type { CSSProperties } from 'react';
+import { FallingLeaves } from '@/components/AutumnLeaf';
 
 const terracotta = 'rgb(var(--brand-terracotta))';
 const amber = 'rgb(var(--brand-amber))';
@@ -156,18 +157,8 @@ export function RobotBackdrop() {
       {/* Шестерёнка в левом верхнем углу */}
       <Gear className="absolute left-[6%] top-10 h-14 w-14 opacity-20" />
 
-      {/* Искры ИИ — разноцветные звёздочки бренда (янтарь / терракот / зелень) */}
-      <Sparkle className="absolute left-[12%] top-[42%] h-4 w-4" color={amber} />
-      <Sparkle className="absolute right-[18%] top-[30%] h-3.5 w-3.5" delay={-1} color={terracotta} />
-      <Sparkle className="absolute right-[7%] top-[58%] h-3 w-3" delay={-1.9} color={green} />
-      <Sparkle className="absolute left-[22%] top-[16%] h-3 w-3" delay={-0.6} color={amber} />
-      <Sparkle className="absolute left-[6%] top-[68%] h-3.5 w-3.5" delay={-2.3} color={green} />
-      <Sparkle className="absolute left-[34%] top-[22%] h-2.5 w-2.5" delay={-1.4} color={terracotta} />
-      <Sparkle className="absolute right-[30%] top-[64%] h-3 w-3" delay={-0.9} color={amber} />
-      <Sparkle className="absolute right-[40%] top-[13%] h-2.5 w-2.5" delay={-2.7} color={green} />
-      <Sparkle className="absolute right-[24%] top-[46%] h-4 w-4" delay={-0.4} color={terracotta} />
-      <Sparkle className="absolute left-[16%] top-[80%] h-2.5 w-2.5" delay={-1.6} color={amber} />
-      <Sparkle className="absolute right-[10%] top-[76%] h-3 w-3" delay={-2.1} color={green} />
+      {/* Осень: падающие листья вместо искр (клён / простой лист, тёплые цвета) */}
+      <FallingLeaves />
     </div>
   );
 }

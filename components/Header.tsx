@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { LogoMark } from '@/components/Logo';
+import { MapleLeaf } from '@/components/AutumnLeaf';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 const navLinks = [
@@ -33,7 +34,15 @@ export function Header() {
         <Link href="/" className="group flex items-center gap-2.5 whitespace-nowrap">
           <LogoMark className="h-10 w-auto transition-transform duration-300 group-hover:rotate-[-6deg] sm:h-11" />
           <span className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
-            Craft School
+            Craft Schoo
+            {/* Осенний акцент: кленовый лист на букве «l» */}
+            <span className="relative inline-block">
+              l
+              <MapleLeaf
+                color="rgb(var(--brand-terracotta))"
+                className="absolute left-1/2 -top-[0.5em] h-[0.72em] w-[0.72em] -translate-x-1/2 rotate-[18deg] transition-transform duration-300 group-hover:rotate-[32deg]"
+              />
+            </span>
           </span>
         </Link>
 
