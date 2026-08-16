@@ -5,8 +5,7 @@ import { TelegramIcon, VkIcon } from '@/components/SocialIcons';
 import { PERSONAL_TELEGRAM_URL, WRITE_MASTER_LABEL } from '@/lib/site';
 
 const navLinks = [
-  { href: '/program', label: 'О программе' },
-  { href: '/modules', label: 'Модули' },
+  { href: '/program', label: 'Программа' },
   { href: '/master', label: 'О преподавателе' },
   { href: '/pricing', label: 'Тарифы' },
   { href: '/blog', label: 'Блог' },

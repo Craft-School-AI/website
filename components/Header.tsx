@@ -9,8 +9,7 @@ import { MapleLeaf } from '@/components/AutumnLeaf';
 import { ThemeToggle } from '@/components/ThemeToggle';
 
 const navLinks = [
-  { href: '/program', label: 'О программе' },
-  { href: '/modules', label: 'Модули' },
+  { href: '/program', label: 'Программа' },
   { href: '/master', label: 'О преподавателе' },
   { href: '/pricing', label: 'Тарифы' },
   { href: '/schedule', label: 'Расписание' },
