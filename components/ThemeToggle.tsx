@@ -11,7 +11,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       aria-label={theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему'}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-line transition-colors hover:border-terracotta hover:text-terracotta"
+      className="flex h-10 w-10 items-center justify-center transition-colors hover:text-terracotta"
     >
       {/* До гидратации тема неизвестна — показываем нейтральный символ */}
       {theme === null ? (

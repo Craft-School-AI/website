@@ -110,7 +110,7 @@ export function StudentWorks() {
 
                   {/* Фото автора — круглый аватар в левом верхнем углу */}
                   {work.photo && (
-                    <div className="absolute left-4 top-4 z-20 h-[68px] w-[68px] overflow-hidden rounded-full border-[3px] border-ink shadow-[2px_2px_0_0_rgb(var(--brand-terracotta))]">
+                    <div className="absolute left-4 top-4 z-20 h-[68px] w-[68px] overflow-hidden rounded-none border-[3px] border-ink shadow-[2px_2px_0_0_rgb(var(--brand-terracotta))]">
                       <Image
                         src={work.photo}
                         alt={work.student ?? work.title}

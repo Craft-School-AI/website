@@ -83,14 +83,14 @@ export function Analytics({ metrikaId }: { metrikaId: string }) {
               <button
                 type="button"
                 onClick={() => choose('declined')}
-                className="rounded-lg px-4 py-2 text-sm font-medium text-ink-soft underline underline-offset-4 transition-colors hover:text-ink"
+                className="rounded-none px-4 py-2 text-sm font-medium text-ink-soft underline underline-offset-4 transition-colors hover:text-ink"
               >
                 Отказаться
               </button>
               <button
                 type="button"
                 onClick={() => choose('accepted')}
-                className="rounded-lg bg-ink px-5 py-2 text-sm font-semibold text-surface transition-opacity hover:opacity-90"
+                className="rounded-none bg-ink px-5 py-2 text-sm font-semibold text-surface transition-opacity hover:opacity-90"
               >
                 Принимаю
               </button>

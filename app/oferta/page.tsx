@@ -340,7 +340,7 @@ export default function OfertaPage() {
             </section>
           ))}
 
-          <p className="mt-4 rounded-xl bg-amber/10 px-4 py-3 text-sm text-ink-soft">
+          <p className="mt-4 rounded-none bg-amber/10 px-4 py-3 text-sm text-ink-soft">
             Вопросы по условиям Оферты направляйте на{' '}
             <Link
               href="mailto:craft-school-ai@yandex.ru"

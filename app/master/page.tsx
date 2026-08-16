@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { MASTER_TELEGRAM_CHANNEL_URL, TELEGRAM_CHANNEL_LABEL } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'О преподавателе',
+  title: 'Преподаватель',
   description:
     '10+ лет в разработке сайтов и приложений: Яндекс, Avito, Huntflow, X5, своя студия на заказ. Сам был тем подрядчиком — и лично ведёт каждый поток Craft School.',
 };
@@ -47,7 +47,7 @@ export default function MasterPage() {
             {/* Тёплое свечение позади — портрет «парит», без жёсткой рамки */}
             <div
               aria-hidden
-              className="absolute inset-x-6 bottom-2 top-10 rounded-[3rem] bg-terracotta/20 blur-3xl"
+              className="absolute inset-x-6 bottom-2 top-10 rounded-none bg-terracotta/20 blur-3xl"
             />
             <Image
               src="/images/master-portrait.webp"
@@ -55,7 +55,7 @@ export default function MasterPage() {
               width={1024}
               height={1404}
               priority
-              className="relative h-auto w-full rounded-[2rem] shadow-hover"
+              className="relative h-auto w-full rounded-none shadow-hover"
               sizes="(min-width: 1024px) 40vw, 24rem"
             />
           </Reveal>
@@ -75,7 +75,7 @@ export default function MasterPage() {
                 href={MASTER_TELEGRAM_CHANNEL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm font-semibold text-ink-soft transition-colors hover:border-terracotta hover:text-terracotta"
+                className="inline-flex items-center gap-2 rounded-none border-[3px] border-ink bg-[#229ED9] px-4 py-2 text-sm font-semibold text-white transition-all duration-150 shadow-[3px_3px_0_0_rgb(var(--text-primary))] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_rgb(var(--text-primary))] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0_0_rgb(var(--text-primary))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#229ED9]"
               >
                 <TelegramIcon className="h-4 w-4" />
                 {TELEGRAM_CHANNEL_LABEL}
@@ -98,7 +98,7 @@ export default function MasterPage() {
               href="https://clutch.co/profile/sourcemappro"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 rounded-full border border-terracotta/50 bg-terracotta/10 px-4 py-2 text-sm font-semibold text-terracotta transition-colors hover:bg-terracotta/20"
+              className="mt-5 inline-flex items-center gap-2 rounded-none border-[3px] border-ink bg-surface px-4 py-2 text-sm font-semibold text-terracotta transition-all duration-150 shadow-[3px_3px_0_0_rgb(var(--brand-terracotta))] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-terracotta hover:text-ivory hover:shadow-[5px_5px_0_0_rgb(var(--brand-terracotta))] active:translate-x-0 active:translate-y-0 active:shadow-[1px_1px_0_0_rgb(var(--brand-terracotta))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
             >
               <Star className="h-4 w-4 fill-amber text-amber" aria-hidden />
               4.9 из 5 · отзывы клиентов студии на Clutch
@@ -111,7 +111,7 @@ export default function MasterPage() {
               {companies.map((company) => (
                 <span
                   key={company}
-                  className="rounded-full border border-line bg-surface-soft px-3 py-1 text-sm font-semibold"
+                  className="rounded-none border border-line bg-surface-soft px-3 py-1 text-sm font-semibold"
                 >
                   {company}
                 </span>

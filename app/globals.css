@@ -156,12 +156,12 @@
   }
 
   .card {
-    @apply rounded-2xl border border-line bg-surface-soft p-6 shadow-soft;
+    @apply rounded-none border border-line bg-surface-soft p-6 shadow-soft;
   }
 
   /* Янтарная метка для всего, что про ИИ */
   .ai-tag {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-amber/50 bg-amber/15 px-3 py-1 text-xs font-semibold tracking-wide text-ink-soft;
+    @apply inline-flex items-center gap-1.5 rounded-none border border-amber/50 bg-amber/15 px-3 py-1 text-xs font-semibold tracking-wide text-ink-soft;
   }
 }
 

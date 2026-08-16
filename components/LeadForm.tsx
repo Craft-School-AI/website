@@ -39,7 +39,7 @@ type LeadFormProps = {
 };
 
 const inputClasses =
-  'w-full rounded-xl border border-line bg-surface px-4 py-3 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-terracotta';
+  'w-full rounded-none border border-line bg-surface px-4 py-3 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-terracotta';
 
 export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormProps) {
   const defaultCohort = cohortId ?? cohorts[0]?.id ?? '';
@@ -136,7 +136,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
     return (
       <div className="card text-center">
         <span
-          className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green/15 text-green"
+          className="mx-auto flex h-14 w-14 items-center justify-center rounded-none bg-green/15 text-green"
           aria-hidden
         >
           <Handshake className="h-7 w-7" strokeWidth={1.75} />
@@ -330,7 +330,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
       </div>
 
       {submitState === 'error' && serverError && (
-        <p role="alert" className="rounded-xl bg-terracotta/10 px-4 py-3 text-sm text-terracotta">
+        <p role="alert" className="rounded-none bg-terracotta/10 px-4 py-3 text-sm text-terracotta">
           {serverError}
         </p>
       )}
@@ -339,7 +339,7 @@ export function LeadForm({ cohorts = [], cohortId, onCohortChange }: LeadFormPro
       <div>
         <label
           htmlFor="lead-consent"
-          className={`flex cursor-pointer items-start gap-3 rounded-xl border px-3 py-2.5 transition-colors ${
+          className={`flex cursor-pointer items-start gap-3 rounded-none border px-3 py-2.5 transition-colors ${
             errors.consent
               ? 'border-red-500 bg-red-500/10'
               : 'border-transparent'

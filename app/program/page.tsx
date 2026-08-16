@@ -166,7 +166,7 @@ export default function ProgramPage() {
             {formatFacts.map((fact, index) => (
               <Reveal key={fact.title} delay={index * 100}>
                 <article className="card flex h-full items-start gap-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber/20 text-terracotta">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-none bg-amber/20 text-terracotta">
                     <fact.icon className="h-5 w-5" aria-hidden />
                   </span>
                   <div>
@@ -239,10 +239,10 @@ export default function ProgramPage() {
                       {sprint.number}
                     </p>
                     <p className="mt-1 text-sm text-ink-faint">{sprint.duration}</p>
-                    <p className="mt-3 inline-block rounded-full border border-line px-3 py-1 text-xs font-semibold text-ink-soft">
+                    <p className="mt-3 inline-block rounded-none border border-line px-3 py-1 text-xs font-semibold text-ink-soft">
                       {sprint.tiers}
                     </p>
-                    <p className="mt-4 inline-block rounded-xl bg-amber/20 px-3 py-2 text-sm font-semibold">
+                    <p className="mt-4 inline-block rounded-none bg-amber/20 px-3 py-2 text-sm font-semibold">
                       Результат: {sprint.result}
                     </p>
                   </div>

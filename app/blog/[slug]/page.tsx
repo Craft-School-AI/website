@@ -76,7 +76,7 @@ function renderInline(text: string): ReactNode[] {
       nodes.push(
         <code
           key={key++}
-          className="rounded-md bg-surface-deep px-1.5 py-0.5 font-mono text-[0.9em] text-ink"
+          className="rounded-none bg-surface-deep px-1.5 py-0.5 font-mono text-[0.9em] text-ink"
         >
           {match[3]}
         </code>,
