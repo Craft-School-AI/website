@@ -19,11 +19,8 @@ export function Hero() {
 
         <Reveal delay={100}>
           <h1 className="heading-xl mt-6 max-w-4xl text-balance">
-            Вашему бизнесу больше не нужны подрядчики.
-            <br />
-            <span className="text-terracotta">
-              Сайт вы сделаете сами
-            </span> — с помощью ИИ-агентов.
+            Учим предпринимателей{' '}
+            <span className="text-terracotta">создавать сайты с помощью ИИ</span>
           </h1>
         </Reveal>
 
