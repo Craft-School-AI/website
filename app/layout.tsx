@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Manrope } from 'next/font/google';
+import { Golos_Text } from 'next/font/google';
 import { Analytics } from '@/components/Analytics';
 import { AnnouncementBar } from '@/components/AnnouncementBar';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
@@ -32,7 +32,7 @@ const websiteJsonLd = {
   publisher: { '@type': 'Organization', name: SITE_NAME },
 };
 
-const body = Manrope({
+const body = Golos_Text({
   subsets: ['latin', 'cyrillic'],
   variable: '--font-body',
 });

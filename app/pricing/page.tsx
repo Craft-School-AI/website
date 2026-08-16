@@ -107,7 +107,7 @@ export default function PricingPage() {
           </Reveal>
 
           <Reveal>
-            <div className="mx-auto mb-10 mt-10 flex max-w-2xl flex-col items-center gap-2 rounded-2xl border border-terracotta/40 bg-terracotta/10 px-5 py-4 text-center">
+            <div className="mx-auto mb-10 mt-10 flex max-w-2xl flex-col items-center gap-2 rounded-none border border-terracotta/40 bg-terracotta/10 px-5 py-4 text-center">
               <span className="inline-flex items-center gap-1.5 text-sm font-bold uppercase tracking-wider text-terracotta">
                 <Flame className="h-4 w-4" aria-hidden /> Идёт набор первого потока
               </span>
@@ -124,18 +124,18 @@ export default function PricingPage() {
                 {plan.highlighted && (
                   <div
                     aria-hidden
-                    className="absolute -inset-2 rounded-[2.5rem] bg-terracotta/20 blur-2xl"
+                    className="absolute -inset-2 rounded-none bg-terracotta/20 blur-2xl"
                   />
                 )}
                 <article
-                  className={`relative flex h-full flex-col rounded-3xl bg-white p-8 shadow-soft dark:bg-[#0E0C0C] ${
+                  className={`relative flex h-full flex-col rounded-none bg-white p-8 shadow-soft dark:bg-[#0E0C0C] ${
                     plan.highlighted
                       ? 'border-2 border-terracotta lg:-translate-y-3'
                       : 'border border-ink/10 dark:border-white/10'
                   }`}
                 >
                   {plan.highlighted && (
-                    <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-terracotta px-4 py-1 text-xs font-bold uppercase tracking-wider text-ivory">
+                    <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-none bg-terracotta px-4 py-1 text-xs font-bold uppercase tracking-wider text-ivory">
                       <Star className="h-3.5 w-3.5 fill-ivory" aria-hidden /> Выбор большинства
                     </span>
                   )}
@@ -170,7 +170,7 @@ export default function PricingPage() {
 
                   <p className="mt-6 text-sm text-ink-soft">{plan.description}</p>
 
-                  <p className="mt-4 rounded-xl bg-amber/15 px-4 py-3 text-sm font-semibold">
+                  <p className="mt-4 rounded-none bg-amber/15 px-4 py-3 text-sm font-semibold">
                     Результат: {plan.result}
                   </p>
 

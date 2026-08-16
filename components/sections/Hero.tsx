@@ -1,4 +1,4 @@
-import { ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/Reveal';
@@ -12,13 +12,7 @@ export function Hero() {
 
       <div className="container-page section relative z-10 flex flex-col items-center pb-48 text-center sm:pb-56">
         <Reveal>
-          <span className="ai-tag bg-surface/80 backdrop-blur-sm">
-            <Sparkles className="h-3.5 w-3.5" aria-hidden /> Сайты делают ИИ-агенты
-          </span>
-        </Reveal>
-
-        <Reveal delay={100}>
-          <h1 className="heading-xl mt-6 max-w-4xl text-balance">
+          <h1 className="heading-xl max-w-4xl text-balance">
             Учим предпринимателей{' '}
             <span className="text-terracotta">создавать сайты с помощью ИИ</span>
           </h1>

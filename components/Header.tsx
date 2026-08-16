@@ -10,7 +10,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 
 const navLinks = [
   { href: '/program', label: 'Программа' },
-  { href: '/master', label: 'О преподавателе' },
+  { href: '/master', label: 'Преподаватель' },
   { href: '/pricing', label: 'Тарифы' },
   { href: '/schedule', label: 'Расписание' },
   { href: '/blog', label: 'Блог' },
@@ -73,7 +73,7 @@ export function Header() {
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-full border border-line lg:hidden"
+            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-none border border-line lg:hidden"
           >
             {/* Сдвиг на 8px: центр верхней полоски совпадает с центром стека */}
             <span

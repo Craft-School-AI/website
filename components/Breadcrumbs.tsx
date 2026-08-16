@@ -7,7 +7,7 @@ import { SITE_NAME, SITE_URL } from '@/lib/site';
 // Человеческие названия разделов для хлебных крошек.
 const SECTION_LABELS: Record<string, string> = {
   program: 'Программа обучения',
-  master: 'О преподавателе',
+  master: 'Преподаватель',
   pricing: 'Тарифы',
   schedule: 'Расписание',
   blog: 'Блог',

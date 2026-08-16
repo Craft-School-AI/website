@@ -454,7 +454,7 @@ export default function PrivacyPage() {
                 ))}
               </div>
               {section.note && (
-                <p className="mt-4 rounded-xl bg-amber/10 px-4 py-3 text-sm text-ink-soft">
+                <p className="mt-4 rounded-none bg-amber/10 px-4 py-3 text-sm text-ink-soft">
                   {section.note}
                 </p>
               )}

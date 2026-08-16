@@ -52,15 +52,15 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
 
             {/* Единый режим занятий для всех потоков */}
             <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-3">
-              <li className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-4 py-2 text-sm font-medium text-ink-soft">
+              <li className="inline-flex items-center gap-2 rounded-none border border-line bg-surface/70 px-4 py-2 text-sm font-medium text-ink-soft">
                 <CalendarDays className="h-4 w-4 text-terracotta" aria-hidden />
                 Вторник и четверг
               </li>
-              <li className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-4 py-2 text-sm font-medium text-ink-soft">
+              <li className="inline-flex items-center gap-2 rounded-none border border-line bg-surface/70 px-4 py-2 text-sm font-medium text-ink-soft">
                 <Clock className="h-4 w-4 text-terracotta" aria-hidden />
                 20:00 по МСК
               </li>
-              <li className="inline-flex items-center gap-2 rounded-full border border-line bg-surface/70 px-4 py-2 text-sm font-medium text-ink-soft">
+              <li className="inline-flex items-center gap-2 rounded-none border border-line bg-surface/70 px-4 py-2 text-sm font-medium text-ink-soft">
                 <Hourglass className="h-4 w-4 text-terracotta" aria-hidden />
                 1,5 часа занятие
               </li>
@@ -92,7 +92,7 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
                       },
                       'aria-label': `Записаться в поток: ${cohort.monthLabel}, старт ${cohort.startLabel}`,
                     })}
-                    className={`group flex h-full flex-col overflow-hidden rounded-2xl border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${
+                    className={`group flex h-full flex-col overflow-hidden rounded-none border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${
                       enrollClosed
                         ? 'border-line bg-surface/40 opacity-60'
                         : isSelected
@@ -114,23 +114,23 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
                       {/* Плашка статуса поверх фото */}
                       <div className="absolute right-3 top-3">
                         {cohort.past ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-ink/70 px-3 py-1 text-xs font-semibold text-ivory backdrop-blur">
+                          <span className="inline-flex items-center gap-1 rounded-none bg-ink/70 px-3 py-1 text-xs font-semibold text-ivory backdrop-blur">
                             <Lock className="h-3.5 w-3.5" aria-hidden />
                             Закрыт
                           </span>
                         ) : cohort.closed ? (
-                          <span className="inline-flex items-center gap-1 rounded-full bg-ink/70 px-3 py-1 text-xs font-semibold text-ivory backdrop-blur">
+                          <span className="inline-flex items-center gap-1 rounded-none bg-ink/70 px-3 py-1 text-xs font-semibold text-ivory backdrop-blur">
                             <Lock className="h-3.5 w-3.5" aria-hidden />
                             Мест нет
                           </span>
                         ) : (
-                          <span className="inline-flex items-center rounded-full bg-terracotta px-3 py-1 text-xs font-semibold text-ivory">
+                          <span className="inline-flex items-center rounded-none bg-terracotta px-3 py-1 text-xs font-semibold text-ivory">
                             Платный
                           </span>
                         )}
                       </div>
                       {/* Мини-плитка календаря с датой старта */}
-                      <div className="absolute left-3 top-3 flex flex-col items-center rounded-xl border border-white/40 bg-surface/90 px-3 py-1.5 text-center leading-none shadow-soft backdrop-blur">
+                      <div className="absolute left-3 top-3 flex flex-col items-center rounded-none border border-white/40 bg-surface/90 px-3 py-1.5 text-center leading-none shadow-soft backdrop-blur">
                         <span
                           className={`font-display text-2xl font-bold text-terracotta ${
                             cohort.past ? 'line-through decoration-2' : ''
@@ -192,10 +192,10 @@ export function ScheduleView({ cohorts, defaultCohortId }: ScheduleViewProps) {
                               event.stopPropagation();
                               handleEnroll(cohort.id);
                             }}
-                            className={`inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-colors sm:text-base ${
+                            className={`inline-flex w-full items-center justify-center gap-2 rounded-none border-[3px] border-ink px-6 py-2.5 text-sm font-semibold shadow-[3px_3px_0_0_rgb(var(--brand-terracotta))] transition-all duration-150 sm:text-base ${
                               isSelected
                                 ? 'bg-terracotta text-ivory'
-                                : 'border-2 border-terracotta text-terracotta group-hover:bg-terracotta group-hover:text-ivory'
+                                : 'bg-surface text-terracotta group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:bg-terracotta group-hover:text-ivory group-hover:shadow-[5px_5px_0_0_rgb(var(--brand-terracotta))]'
                             }`}
                           >
                             {isSelected ? (

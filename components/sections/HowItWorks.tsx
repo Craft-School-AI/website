@@ -37,7 +37,7 @@ export function HowItWorks() {
         <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((step, index) => (
             <Reveal key={step.number} delay={index * 120}>
-              <li className="h-full rounded-2xl border border-line bg-surface/70 p-6">
+              <li className="h-full rounded-none border border-line bg-surface/70 p-6">
                 <span className="font-display text-4xl font-bold text-amber">
                   {step.number}
                 </span>

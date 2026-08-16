@@ -34,7 +34,7 @@ export function ScrollToTop() {
       onClick={scrollToTop}
       aria-label="Наверх"
       tabIndex={visible ? 0 : -1}
-      className={`fixed bottom-5 right-5 z-[60] flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-ink-soft shadow-soft transition-all duration-300 hover:border-terracotta hover:text-terracotta ${
+      className={`fixed bottom-5 right-5 z-[60] flex h-11 w-11 items-center justify-center rounded-none border border-line bg-surface text-ink-soft shadow-soft transition-all duration-300 hover:border-terracotta hover:text-terracotta ${
         visible
           ? 'translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-3 opacity-0'
