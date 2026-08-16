@@ -50,7 +50,7 @@ export default function MasterPage() {
               className="absolute inset-x-6 bottom-2 top-10 rounded-[3rem] bg-terracotta/20 blur-3xl"
             />
             <Image
-              src="/images/master-portrait.jpg"
+              src="/images/master-portrait.webp"
               alt="Роман Бабанов — преподаватель Craft School"
               width={1024}
               height={1404}
