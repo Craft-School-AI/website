@@ -9,7 +9,7 @@ export function Audience() {
           <h2 className="heading-lg text-center">Для кого эта мастерская</h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-ink-soft">
             Для тех, кто ведёт своё дело и устал зависеть от подрядчиков.
-            Опыт в IT не нужен — нужен ваш бизнес и 5–7 часов в неделю.
+            Опыт в IT не нужен, нужен ваш бизнес и 3 часа в неделю.
           </p>
         </Reveal>
       </div>
