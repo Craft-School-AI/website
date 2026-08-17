@@ -33,19 +33,19 @@ export function CourierRobot({ className = '', style }: SpriteProps) {
   return (
     <svg viewBox="-32 -68 102 80" className={className} style={style} aria-hidden>
       <line x1="0" y1="-46" x2="0" y2="-58" stroke={ink} strokeWidth="2.5" />
-      <circle className="rb-pulse" cx="0" cy="-61" r="4" fill={amber} />
-      <rect x="-28" y="-46" width="56" height="38" rx="10" fill={terracotta} />
-      <rect x="-20" y="-40" width="40" height="18" rx="6" fill={surface} />
-      <circle className="rb-blink" cx="-8" cy="-31" r="3.5" fill={ink} />
-      <circle className="rb-blink" cx="8" cy="-31" r="3.5" fill={ink} style={{ animationDelay: '-0.1s' }} />
-      <path d="M28,-34 L46,-26" stroke={terracotta} strokeWidth="5" strokeLinecap="round" />
-      <rect x="42" y="-26" width="22" height="14" rx="7" fill={green} />
+      <rect className="rb-pulse" x="-4" y="-65" width="8" height="8" fill={amber} />
+      <rect x="-28" y="-46" width="56" height="38" fill={terracotta} />
+      <rect x="-20" y="-40" width="40" height="18" fill={surface} />
+      <rect className="rb-blink" x="-11" y="-34" width="7" height="7" fill={ink} />
+      <rect className="rb-blink" x="4" y="-34" width="7" height="7" fill={ink} style={{ animationDelay: '-0.1s' }} />
+      <path d="M28,-34 L46,-26" stroke={terracotta} strokeWidth="5" />
+      <rect x="42" y="-26" width="22" height="14" fill={green} />
       <g className="rb-wheel">
-        <circle cx="-14" cy="0" r="10" fill={ink} />
+        <rect x="-24" y="-10" width="20" height="20" fill={ink} />
         <line x1="-14" y1="-6" x2="-14" y2="6" stroke={surface} strokeWidth="2.5" />
       </g>
       <g className="rb-wheel">
-        <circle cx="14" cy="0" r="10" fill={ink} />
+        <rect x="4" y="-10" width="20" height="20" fill={ink} />
         <line x1="14" y1="-6" x2="14" y2="6" stroke={surface} strokeWidth="2.5" />
       </g>
     </svg>
@@ -57,17 +57,17 @@ export function ForkliftRobot({ className = '', style }: SpriteProps) {
   return (
     <svg viewBox="-44 -42 68 52" className={className} style={style} aria-hidden>
       <line x1="-26" y1="-36" x2="-26" y2="-4" stroke={ink} strokeWidth="3.5" />
-      <line x1="-26" y1="-10" x2="-40" y2="-10" stroke={ink} strokeWidth="3.5" strokeLinecap="round" />
-      <rect x="-40" y="-24" width="13" height="13" rx="2.5" fill={amber} />
-      <rect x="-20" y="-30" width="40" height="24" rx="7" fill={amber} />
-      <rect x="-12" y="-26" width="13" height="9" rx="3" fill={surface} />
-      <circle className="rb-pulse" cx="14" cy="-33" r="3" fill={terracotta} style={{ animationDelay: '-0.8s' }} />
+      <line x1="-26" y1="-10" x2="-40" y2="-10" stroke={ink} strokeWidth="3.5" />
+      <rect x="-40" y="-24" width="13" height="13" fill={amber} />
+      <rect x="-20" y="-30" width="40" height="24" fill={amber} />
+      <rect x="-12" y="-26" width="13" height="9" fill={surface} />
+      <rect className="rb-pulse" x="11" y="-36" width="6" height="6" fill={terracotta} style={{ animationDelay: '-0.8s' }} />
       <g className="rb-wheel rb-wheel-rev">
-        <circle cx="-10" cy="0" r="7" fill={ink} />
+        <rect x="-17" y="-7" width="14" height="14" fill={ink} />
         <line x1="-10" y1="-4" x2="-10" y2="4" stroke={surface} strokeWidth="2" />
       </g>
       <g className="rb-wheel rb-wheel-rev">
-        <circle cx="10" cy="0" r="7" fill={ink} />
+        <rect x="3" y="-7" width="14" height="14" fill={ink} />
         <line x1="10" y1="-4" x2="10" y2="4" stroke={surface} strokeWidth="2" />
       </g>
     </svg>
@@ -78,35 +78,42 @@ export function ForkliftRobot({ className = '', style }: SpriteProps) {
 export function Drone({ className = '', style }: SpriteProps) {
   return (
     <svg viewBox="272 96 56 44" className={className} style={style} aria-hidden>
-      <line className="rb-rotor" x1="278" y1="104" x2="294" y2="104" stroke={ink} strokeWidth="3" strokeLinecap="round" />
-      <line className="rb-rotor" x1="306" y1="104" x2="322" y2="104" stroke={ink} strokeWidth="3" strokeLinecap="round" style={{ animationDelay: '-0.2s' }} />
+      <line className="rb-rotor" x1="278" y1="104" x2="294" y2="104" stroke={ink} strokeWidth="3" />
+      <line className="rb-rotor" x1="306" y1="104" x2="322" y2="104" stroke={ink} strokeWidth="3" style={{ animationDelay: '-0.2s' }} />
       <line x1="286" y1="106" x2="292" y2="114" stroke={ink} strokeWidth="2.5" />
       <line x1="314" y1="106" x2="308" y2="114" stroke={ink} strokeWidth="2.5" />
-      <rect x="284" y="112" width="32" height="18" rx="8" fill={terracotta} />
-      <circle cx="300" cy="121" r="4" fill={surface} />
-      <circle className="rb-pulse" cx="300" cy="134" r="3" fill={amber} />
+      <rect x="284" y="112" width="32" height="18" fill={terracotta} />
+      <rect x="296" y="117" width="8" height="8" fill={surface} />
+      <rect className="rb-pulse" x="297" y="131" width="6" height="6" fill={amber} />
     </svg>
   );
 }
 
-/** Медленная шестерёнка */
+/** Медленная шестерёнка — квадратная обойма с зубьями по сторонам и углам */
 export function Gear({ className = '', style }: SpriteProps) {
+  // Зубья по сторонам стартуют от грани обоймы, угловые — от её угла
+  const teeth = [0, 45, 90, 135, 180, 225, 270, 315];
+
   return (
     <svg viewBox="325 45 54 54" className={className} style={style} aria-hidden>
       <g className="rb-gear">
-        <circle cx="352" cy="72" r="15" fill="none" stroke={faint} strokeWidth="5" />
-        {[0, 60, 120, 180, 240, 300].map((angle) => (
-          <line
-            key={angle}
-            x1={352 + 15 * Math.cos((angle * Math.PI) / 180)}
-            y1={72 + 15 * Math.sin((angle * Math.PI) / 180)}
-            x2={352 + 22 * Math.cos((angle * Math.PI) / 180)}
-            y2={72 + 22 * Math.sin((angle * Math.PI) / 180)}
-            stroke={faint}
-            strokeWidth="5"
-            strokeLinecap="round"
-          />
-        ))}
+        <rect x="337" y="57" width="30" height="30" fill="none" stroke={faint} strokeWidth="5" />
+        {teeth.map((angle) => {
+          const rad = (angle * Math.PI) / 180;
+          const from = angle % 90 === 0 ? 15 : 21.2;
+
+          return (
+            <line
+              key={angle}
+              x1={352 + from * Math.cos(rad)}
+              y1={72 + from * Math.sin(rad)}
+              x2={352 + (from + 7) * Math.cos(rad)}
+              y2={72 + (from + 7) * Math.sin(rad)}
+              stroke={faint}
+              strokeWidth="5"
+            />
+          );
+        })}
       </g>
     </svg>
   );

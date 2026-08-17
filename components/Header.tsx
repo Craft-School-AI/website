@@ -25,7 +25,7 @@ export function Header() {
         <Link href="/" className="group flex items-center gap-2.5 whitespace-nowrap">
           <LogoMark className="h-8 w-auto transition-transform duration-300 group-hover:rotate-[-6deg] sm:h-9" />
           <span className="font-display text-xl font-bold tracking-tight sm:text-2xl">
-            Craft Schoo
+            Craft-Schoo
             {/* Осенний акцент: кленовый лист на букве «l» */}
             <span className="relative inline-block">
               l

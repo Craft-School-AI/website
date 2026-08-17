@@ -3,11 +3,15 @@ import { LogoMark } from '@/components/Logo';
 import { RobotActivity } from '@/components/RobotActivity';
 import { TelegramIcon, VkIcon } from '@/components/SocialIcons';
 import { FOOTER_NAV } from '@/lib/nav';
-import { PERSONAL_TELEGRAM_URL, WRITE_MASTER_LABEL } from '@/lib/site';
+import {
+  PERSONAL_TELEGRAM_URL,
+  VK_GROUP_URL,
+  WRITE_MASTER_LABEL,
+} from '@/lib/site';
 
 const socials = [
   { href: PERSONAL_TELEGRAM_URL, label: WRITE_MASTER_LABEL, Icon: TelegramIcon },
-  { href: 'https://vk.ru/club240091437', label: 'VK', Icon: VkIcon },
+  { href: VK_GROUP_URL, label: 'VK', Icon: VkIcon },
 ];
 
 export function Footer() {
@@ -23,7 +27,7 @@ export function Footer() {
         <div className="sm:col-span-2">
           <p className="flex items-center gap-2 font-display text-2xl font-bold">
             <LogoMark className="h-9 w-auto" />
-            <span>Craft School</span>
+            <span>Craft-School</span>
           </p>
           <p className="mt-3 max-w-sm text-sm text-ink-soft">
             Цифровая мастерская для предпринимателей. Учим делать сайты своими

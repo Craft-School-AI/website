@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Reveal } from '@/components/Reveal';
 import { BlogCard } from '@/components/blog/BlogCard';
+import { BlogSocialLinks } from '@/components/blog/BlogSocialLinks';
 import { BlogTagFilter } from '@/components/blog/BlogTagFilter';
 import { BlogWordmark } from '@/components/blog/BlogWordmark';
 import { filterPostsByTags, getAllPosts, getUsedTags } from '@/lib/blog';
@@ -73,6 +74,9 @@ export default async function BlogPage({ searchParams }: PageProps) {
             <p className="mt-4 max-w-2xl text-ink-soft sm:text-lg lg:text-xl">
               Читайте обучающие статьи в нашем AI блоге.
             </p>
+            <div className="mt-5">
+              <BlogSocialLinks />
+            </div>
           </Reveal>
 
           <Reveal className="mt-8">

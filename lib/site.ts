@@ -19,3 +19,6 @@ export const MASTER_TELEGRAM_CHANNEL_URL = 'https://t.me/roman_babanov';
 
 /** Подпись для ссылки/кнопки на Telegram-канал преподавателя. */
 export const TELEGRAM_CHANNEL_LABEL = 'Telegram-канал преподавателя';
+
+/** Группа школы во ВКонтакте — там дублируются материалы и новости потоков. */
+export const VK_GROUP_URL = 'https://vk.ru/club240091437';
