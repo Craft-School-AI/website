@@ -2,15 +2,8 @@ import Link from 'next/link';
 import { LogoMark } from '@/components/Logo';
 import { RobotActivity } from '@/components/RobotActivity';
 import { TelegramIcon, VkIcon } from '@/components/SocialIcons';
+import { FOOTER_NAV } from '@/lib/nav';
 import { PERSONAL_TELEGRAM_URL, WRITE_MASTER_LABEL } from '@/lib/site';
-
-const navLinks = [
-  { href: '/program', label: 'Программа' },
-  { href: '/master', label: 'Преподаватель' },
-  { href: '/pricing', label: 'Тарифы' },
-  { href: '/blog', label: 'Блог' },
-  { href: '/contacts', label: 'Контакты' },
-];
 
 const socials = [
   { href: PERSONAL_TELEGRAM_URL, label: WRITE_MASTER_LABEL, Icon: TelegramIcon },
@@ -43,13 +36,17 @@ export function Footer() {
             Разделы
           </p>
           <ul className="space-y-2">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+            {FOOTER_NAV.map(({ href, label, Icon }) => (
+              <li key={href}>
                 <Link
-                  href={link.href}
-                  className="text-sm text-ink-soft transition-colors hover:text-terracotta"
+                  href={href}
+                  className="group flex items-center gap-2 text-sm text-ink-soft transition-colors hover:text-terracotta"
                 >
-                  {link.label}
+                  <Icon
+                    className="h-4 w-4 shrink-0 text-ink-faint transition-colors group-hover:text-terracotta"
+                    aria-hidden
+                  />
+                  {label}
                 </Link>
               </li>
             ))}
