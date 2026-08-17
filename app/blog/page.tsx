@@ -61,10 +61,12 @@ export default async function BlogPage({ searchParams }: PageProps) {
 
   return (
     <>
-      <section className="section">
+      {/* Верхний отступ меньше базового: над заголовком сразу шапка сайта,
+          а не отдельная секция-обложка, как на остальных страницах */}
+      <section className="section pt-10 sm:pt-14">
         <div className="container-page">
           <Reveal>
-            <h1 className="heading-lg">Материалы из мастерской</h1>
+            <h1 className="heading-lg">Обучающие статьи</h1>
             <p className="mt-2 max-w-2xl text-ink-soft">
               Коротко и без жаргона: про сайты, деньги и ИИ-агентов.
             </p>
