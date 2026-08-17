@@ -30,7 +30,7 @@ export function Footer() {
             <span>
               Craft-School
               {/* Доменная зона — мелко и приглушённо, у нижнего края букв */}
-              <span className="ml-[0.06em] inline-block translate-y-[0.18em] align-bottom text-[0.45em] font-semibold leading-none tracking-normal text-ink-faint">
+              <span className="ml-1 text-[0.45em] font-semibold tracking-normal text-ink-faint">
                 .ru
               </span>
             </span>
