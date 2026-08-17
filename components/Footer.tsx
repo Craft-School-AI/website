@@ -27,7 +27,13 @@ export function Footer() {
         <div className="sm:col-span-2">
           <p className="flex items-center gap-2 font-display text-2xl font-bold">
             <LogoMark className="h-9 w-auto" />
-            <span>Craft-School</span>
+            <span>
+              Craft-School
+              {/* Доменная зона — мелко и приглушённо, у нижнего края букв */}
+              <span className="ml-[0.06em] inline-block translate-y-[0.42em] align-bottom text-[0.45em] font-semibold leading-none tracking-normal text-ink-faint">
+                .ru
+              </span>
+            </span>
           </p>
           <p className="mt-3 max-w-sm text-sm text-ink-soft">
             Цифровая мастерская для предпринимателей. Учим делать сайты своими

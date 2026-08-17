@@ -34,6 +34,10 @@ export function Header() {
                 className="absolute left-1/2 -top-[0.5em] h-[0.72em] w-[0.72em] -translate-x-1/2 rotate-[18deg] transition-transform duration-300 group-hover:rotate-[32deg]"
               />
             </span>
+            {/* Доменная зона — мелко и приглушённо, у нижнего края букв */}
+            <span className="ml-[0.06em] inline-block translate-y-[0.42em] align-bottom text-[0.45em] font-semibold leading-none tracking-normal text-ink-faint">
+              .ru
+            </span>
           </span>
         </Link>
 
