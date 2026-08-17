@@ -7,15 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { LogoMark } from '@/components/Logo';
 import { MapleLeaf } from '@/components/AutumnLeaf';
 import { ThemeToggle } from '@/components/ThemeToggle';
-
-const navLinks = [
-  { href: '/program', label: 'Программа' },
-  { href: '/master', label: 'Преподаватель' },
-  { href: '/pricing', label: 'Тарифы' },
-  { href: '/schedule', label: 'Расписание' },
-  { href: '/blog', label: 'Блог' },
-  // «Контакты» намеренно только в футере (components/Footer.tsx)
-];
+import { HEADER_NAV } from '@/lib/nav';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -45,20 +37,31 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Основная навигация">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-sm transition-colors hover:text-terracotta ${
-                pathname.startsWith(link.href)
-                  ? 'font-semibold text-terracotta'
-                  : 'text-ink-soft'
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Основная навигация">
+          {HEADER_NAV.map(({ href, label, Icon }) => {
+            const active = pathname.startsWith(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                aria-current={active ? 'page' : undefined}
+                className={`group flex items-center gap-1.5 text-sm transition-colors hover:text-terracotta ${
+                  active ? 'font-semibold text-terracotta' : 'text-ink-soft'
+                }`}
+              >
+                {/* Иконка бледнее подписи, но догоняет её по цвету на hover —
+                    так она помогает узнать раздел, а не спорит с текстом */}
+                <Icon
+                  className={`h-4 w-4 shrink-0 transition-colors ${
+                    active ? 'text-terracotta' : 'text-ink-faint group-hover:text-terracotta'
+                  }`}
+                  strokeWidth={2}
+                  aria-hidden
+                />
+                {label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-3">
@@ -114,16 +117,40 @@ export function Header() {
             }`}
           >
             <ul className="flex flex-col">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="block border-b border-line/70 py-3 text-base"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+              {HEADER_NAV.map(({ href, label, hint, Icon }) => {
+                const active = pathname.startsWith(href);
+                return (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      aria-current={active ? 'page' : undefined}
+                      className="flex items-center gap-3 border-b border-line/70 py-3"
+                    >
+                      {/* Квадратная плашка с иконкой — держит ряд ссылок
+                          выровненным и делает раздел узнаваемым с одного взгляда */}
+                      <span
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center border ${
+                          active
+                            ? 'border-terracotta bg-terracotta/10 text-terracotta'
+                            : 'border-line text-ink-soft'
+                        }`}
+                      >
+                        <Icon className="h-[18px] w-[18px]" aria-hidden />
+                      </span>
+                      <span className="min-w-0">
+                        <span
+                          className={`block text-base ${
+                            active ? 'font-semibold text-terracotta' : ''
+                          }`}
+                        >
+                          {label}
+                        </span>
+                        <span className="block text-xs text-ink-faint">{hint}</span>
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
             <div className="pt-4">
               <Button href="/#zayavka" className="w-full">
