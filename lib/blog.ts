@@ -633,6 +633,30 @@ export function getUsedTags(): UsedBlogTag[] {
   }));
 }
 
+/**
+ * Похожие статьи для страницы поста: те, у кого есть общие теги. Сначала идут
+ * статьи с наибольшим числом совпадений, при равенстве — свежие. Сам пост из
+ * выборки исключается.
+ */
+export function getRelatedPosts(post: BlogPost, limit = 5): BlogPost[] {
+  return getAllPosts()
+    .filter((candidate) => candidate.slug !== post.slug)
+    .map((candidate) => ({
+      candidate,
+      shared: candidate.tags.filter((tag) => post.tags.includes(tag)).length,
+    }))
+    .filter((entry) => entry.shared > 0)
+    .sort((a, b) =>
+      b.shared !== a.shared
+        ? b.shared - a.shared
+        : a.candidate.date < b.candidate.date
+          ? 1
+          : -1,
+    )
+    .slice(0, limit)
+    .map((entry) => entry.candidate);
+}
+
 /** Фильтр по тегам: логика ИЛИ, пустой набор означает «все статьи». */
 export function filterPostsByTags(
   posts: BlogPost[],

@@ -5,9 +5,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { BlogChecklist } from '@/components/BlogChecklist';
+import { BlogRelated } from '@/components/blog/BlogRelated';
 import { BlogTagList } from '@/components/blog/BlogTagList';
 import { JsonLd } from '@/components/JsonLd';
-import { getAllPosts, getPostBySlug, type BlogBlock } from '@/lib/blog';
+import {
+  getAllPosts,
+  getPostBySlug,
+  getRelatedPosts,
+  type BlogBlock,
+} from '@/lib/blog';
 import { BLOG_TAGS } from '@/lib/blog-tags';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
 
@@ -244,6 +250,8 @@ export default async function BlogPostPage({ params }: PageProps) {
         <div className="mt-12 border-t-[3px] border-ink pt-6">
           <BlogTagList tags={post.tags} />
         </div>
+
+        <BlogRelated posts={getRelatedPosts(post)} />
 
         <footer className="mt-16 border-[3px] border-ink bg-surface-soft p-8 text-center shadow-[12px_12px_0_0_rgb(var(--brand-terracotta))]">
           <h2 className="heading-md">Соберите такой сайт своими руками</h2>
