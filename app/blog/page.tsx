@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Reveal } from '@/components/Reveal';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { BlogTagFilter } from '@/components/blog/BlogTagFilter';
+import { BlogWordmark } from '@/components/blog/BlogWordmark';
 import { filterPostsByTags, getAllPosts, getUsedTags } from '@/lib/blog';
 import {
   BLOG_TAGS,
@@ -66,8 +67,10 @@ export default async function BlogPage({ searchParams }: PageProps) {
       <section className="section pt-10 sm:pt-14">
         <div className="container-page">
           <Reveal>
-            <h1 className="heading-lg">Обучающие статьи</h1>
-            <p className="mt-2 max-w-2xl text-ink-soft">
+            <BlogWordmark />
+            {/* На планшете и десктопе подпись крупнее базового размера;
+                мобильное значение остаётся прежним */}
+            <p className="mt-4 max-w-2xl text-ink-soft sm:text-lg lg:text-xl">
               Читайте обучающие статьи в нашем AI блоге.
             </p>
           </Reveal>
