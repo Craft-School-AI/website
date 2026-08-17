@@ -5,8 +5,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { BlogChecklist } from '@/components/BlogChecklist';
+import { BlogTagList } from '@/components/blog/BlogTagList';
 import { JsonLd } from '@/components/JsonLd';
 import { getAllPosts, getPostBySlug, type BlogBlock } from '@/lib/blog';
+import { BLOG_TAGS } from '@/lib/blog-tags';
 import { SITE_NAME, SITE_URL } from '@/lib/site';
 
 type PageProps = {
@@ -25,6 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: post.title,
     description: post.description,
+    keywords: post.tags.map((tag) => BLOG_TAGS[tag]),
     openGraph: {
       type: 'article',
       title: post.title,
@@ -155,6 +158,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     description: post.description,
     datePublished: post.date,
     dateModified: post.date,
+    keywords: post.tags.map((tag) => BLOG_TAGS[tag]).join(', '),
     ...(post.cover ? { image: `${SITE_URL}${post.cover}` } : {}),
     author: { '@type': 'Person', name: 'Роман Бабанов' },
     publisher: {
@@ -235,6 +239,10 @@ export default async function BlogPostPage({ params }: PageProps) {
               }
             />
           ))}
+        </div>
+
+        <div className="mt-12 border-t-[3px] border-ink pt-6">
+          <BlogTagList tags={post.tags} />
         </div>
 
         <footer className="mt-16 border-[3px] border-ink bg-surface-soft p-8 text-center shadow-[12px_12px_0_0_rgb(var(--brand-terracotta))]">

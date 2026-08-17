@@ -4,9 +4,10 @@
     {
       "name": "craft-school-dev",
       "runtimeExecutable": "sh",
-      "runtimeArgs": ["-c", "NEXT_DIST_DIR=.next-preview exec node_modules/.bin/next dev"],
-      "port": 3000,
-      "autoPort": true
+      "runtimeArgs": ["-c", "NEXT_DIST_DIR=.next-preview exec node_modules/.bin/next dev -H 0.0.0.0 -p 3100"],
+      "port": 3100,
+      "autoPort": false,
+      "url": "http://craft-school.localhost:3100"
     }
   ]
 }

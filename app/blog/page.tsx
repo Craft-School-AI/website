@@ -1,30 +1,63 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal } from '@/components/Reveal';
-import { getAllPosts } from '@/lib/blog';
+import { BlogCard } from '@/components/blog/BlogCard';
+import { BlogTagFilter } from '@/components/blog/BlogTagFilter';
+import { filterPostsByTags, getAllPosts, getUsedTags } from '@/lib/blog';
+import {
+  BLOG_TAGS,
+  TAGS_PARAM,
+  normalizeSelection,
+  parseTagsParam,
+} from '@/lib/blog-tags';
 
 const description =
   'Полезные материалы для предпринимателей: как устроены сайты, сколько они стоят и как ИИ-агенты меняют правила игры. Без технического жаргона.';
 
-export const metadata: Metadata = {
-  title: 'Блог',
-  description,
-  openGraph: {
-    title: 'Блог — Craft School',
-    description,
-    images: ['/images/blog/blog-index.webp'],
-  },
+type PageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
-const dateFormatter = new Intl.DateTimeFormat('ru-RU', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-});
+export async function generateMetadata({
+  searchParams,
+}: PageProps): Promise<Metadata> {
+  const selected = normalizeSelection(
+    parseTagsParam((await searchParams)[TAGS_PARAM]),
+    getUsedTags().length,
+  );
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+  // Отфильтрованная выдача — это срез того же списка, поэтому канонический
+  // адрес всегда /blog, а сами подборки закрыты от индексации.
+  if (selected.length > 0) {
+    const labels = selected.map((slug) => BLOG_TAGS[slug]).join(', ');
+
+    return {
+      title: `Блог: ${labels}`,
+      description,
+      alternates: { canonical: '/blog' },
+      robots: { index: false, follow: true },
+    };
+  }
+
+  return {
+    title: 'Блог',
+    description,
+    alternates: { canonical: '/blog' },
+    openGraph: {
+      title: 'Блог — Craft School',
+      description,
+      images: ['/images/blog/blog-index.webp'],
+    },
+  };
+}
+
+export default async function BlogPage({ searchParams }: PageProps) {
+  const tags = getUsedTags();
+  const selected = normalizeSelection(
+    parseTagsParam((await searchParams)[TAGS_PARAM]),
+    tags.length,
+  );
+  const posts = filterPostsByTags(getAllPosts(), selected);
 
   return (
     <>
@@ -37,50 +70,31 @@ export default function BlogPage() {
             </p>
           </Reveal>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post, index) => (
-            <Reveal key={post.slug} delay={index * 100}>
-              <Link
-                href={`/blog/${post.slug}`}
-                className="group relative flex aspect-[4/5] flex-col justify-end overflow-hidden border-[3px] border-ink bg-graphite shadow-[8px_8px_0_0_rgb(var(--brand-terracotta))] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[14px_14px_0_0_rgb(var(--brand-terracotta))]"
-              >
-                {post.cover && (
-                  <Image
-                    src={post.cover}
-                    alt=""
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
-                )}
+          <Reveal className="mt-8">
+            <BlogTagFilter tags={tags} selected={selected} />
+          </Reveal>
 
-                {/* Тёмный скрим снизу: держит контраст текста на любой картинке */}
-                <div
-                  className="absolute inset-0 bg-gradient-to-t from-graphite via-graphite/70 to-transparent"
-                  aria-hidden
-                />
-
-                {/* Моно-ярлык встык к краю — единый язык с детальной страницей */}
-                <span className="absolute left-0 top-0 bg-graphite px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-ivory">
-                  Craft School
-                </span>
-
-                {/* Текст абсолютом поверх картинки */}
-                <div className="relative z-10 p-5">
-                  <p className="font-mono text-[11px] uppercase tracking-widest text-amber">
-                    {dateFormatter.format(new Date(post.date))} · {post.readingTime}
-                  </p>
-                  <h2 className="heading-md mt-2 text-balance text-ivory">
-                    {post.title}
-                  </h2>
-                  <p className="mt-2 line-clamp-2 text-sm leading-snug text-ivory/75">
-                    {post.description}
-                  </p>
-                </div>
-              </Link>
+          {posts.length === 0 ? (
+            <Reveal className="mt-10">
+              <p className="text-ink-soft">
+                По выбранным тегам статей пока нет.{' '}
+                <Link
+                  href="/blog"
+                  className="font-medium text-terracotta underline underline-offset-2 transition-colors hover:text-terracotta/70"
+                >
+                  Показать все
+                </Link>
+              </p>
             </Reveal>
-            ))}
-          </div>
+          ) : (
+            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post, index) => (
+                <Reveal key={post.slug} delay={index * 100}>
+                  <BlogCard post={post} />
+                </Reveal>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>

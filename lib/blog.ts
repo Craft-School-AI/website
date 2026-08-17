@@ -9,6 +9,7 @@ import {
   TrendingDown,
   type LucideIcon,
 } from 'lucide-react';
+import { BLOG_TAG_ORDER, type BlogTagSlug } from '@/lib/blog-tags';
 
 /**
  * Блок статьи. Обычная строка = абзац (обратная совместимость со старыми
@@ -36,6 +37,8 @@ export type BlogPost = {
   icon: LucideIcon;
   /** Обложка: путь от корня /public. Используется на карточке и как og:image */
   cover?: string;
+  /** Теги статьи: по ним работает фильтр в списке блога */
+  tags: BlogTagSlug[];
   /** Тело статьи: абзацы (строки) и/или структурные блоки */
   body: BlogContent[];
 };
@@ -50,6 +53,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: '9 минут',
     icon: TrendingDown,
     cover: '/images/blog/blog-why-no-sales.webp',
+    tags: ['sajt-dlya-biznesa', 'oshibki', 'instrukcii'],
     body: [
       'У многих предпринимателей есть сайт, который не приносит заявок. Он открывается, выглядит прилично, ссылка стоит в визитке и в шапке профиля, но клиенты приходят по сарафану, а сайт молчит. Обычно причин сразу несколько, и дизайн среди них редко оказывается главной. Разберём по порядку, где рвётся цепочка, и что можно проверить за один вечер.',
 
@@ -161,6 +165,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: '7 минут',
     icon: ClipboardList,
     cover: '/images/blog/blog-tz-site.webp',
+    tags: ['s-chego-nachat', 'instrukcii', 'sajt-dlya-biznesa'],
     body: [
       'Сайт получается таким, каким вы его задумали, только если задумка записана. Техническое задание, или ТЗ, это и есть такая запись: короткий документ, где сказано, зачем нужен сайт, что на нём будет и как он должен выглядеть. С готовым ТЗ проще работать и с подрядчиком, и с ИИ-агентом, и с самим собой. Разберём, как составить понятное ТЗ, даже если вы делаете это впервые.',
 
@@ -234,6 +239,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: '5 минут',
     icon: PenLine,
     cover: '/images/blog/blog-prompt-tips.webp',
+    tags: ['ii-agenty', 'instrukcii', 'svoimi-rukami'],
     body: [
       'ИИ-агент делает ровно то, что вы попросили. Поэтому результат зависит от того, насколько ясно поставлена задача. Хорошая новость: знание программирования тут не главное, главное умение объяснить, что вы хотите. Собрали пять приёмов, которые мы даём ученикам в мастерской. С ними агент из «выдал непонятно что» превращается в аккуратного исполнителя.',
 
@@ -277,6 +283,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: '8 минут',
     icon: Globe,
     cover: '/images/blog/blog-site-creation.webp',
+    tags: ['svoimi-rukami', 'ii-agenty', 's-chego-nachat'],
     body: [
       'Многие предприниматели откладывают сайт, потому что считают: без программиста и крупного бюджета его не сделать. Сейчас это не так. Собрать сайт можно самому за несколько вечеров. Разберём, какими способами это делают, сколько стоит и что выбрать под конкретную задачу: визитку, лендинг или сайт для бизнеса.',
 
@@ -324,6 +331,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: '12 минут',
     icon: Rocket,
     cover: '/images/blog/blog-prep.webp',
+    tags: ['instrukcii', 's-chego-nachat'],
     body: [
       'До первого занятия осталось немного. Чтобы на встрече сразу перейти к делу и не тратить время на настройку программ, подготовьте всё заранее. Это займёт 20–30 минут и по сложности не отличается от установки обычного приложения. Идите по шагам сверху вниз, и всё получится.',
       'Если что-то не выйдет, ничего страшного: приходите на занятие как есть, настроим вместе. Но когда всё готово заранее, первое занятие проходит спокойнее и продуктивнее.',
@@ -548,6 +556,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: '6 минут',
     icon: Coins,
     cover: '/images/blog/blog-cost.webp',
+    tags: ['dengi', 'sajt-dlya-biznesa', 'svoimi-rukami'],
     body: [
       'Когда студия называет цену «от 150 000 ₽», это только начало истории. Дальше будут правки сверх сметы, ежемесячная «поддержка» и ожидание ответа по три дня.',
       'Посчитаем на примере салона красоты. Сайт-визитка в студии стоит 150–250 тысяч рублей и занимает один-два месяца. Каждое изменение после запуска обойдётся от 3 000 ₽ и займёт от двух дней. Сезонная акция, новая цена, сменился мастер: за каждую правку вы платите и ждёте.',
@@ -565,6 +574,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: '5 минут',
     icon: Bot,
     cover: '/images/blog/blog-ai-agent.webp',
+    tags: ['ii-agenty', 's-chego-nachat'],
     body: [
       'ИИ-агент проще всего описать как очень старательного помощника, который умеет строить сайты и понимает обычную речь. Вы говорите: «сделай страницу с моими услугами, тёплую и уютную, с кнопкой записи», и через несколько минут страница готова.',
       'Внутри агент пишет код, тот же, что вручную набирают программисты. Но видеть этот код вам не обязательно, как водителю не обязательно разбираться в устройстве двигателя.',
@@ -581,6 +591,7 @@ export const blogPosts: BlogPost[] = [
     readingTime: '7 минут',
     icon: SearchCheck,
     cover: '/images/blog/blog-mistakes.webp',
+    tags: ['oshibki', 'sajt-dlya-biznesa'],
     body: [
       'Ошибка первая: нет цен. Формулировка «уточняйте в личных сообщениях» отправляет половину клиентов к тем, у кого цены написаны. Страх «конкуренты увидят» стоит вам заявок каждый день.',
       'Ошибка вторая: неудобно с телефона. Большинство клиентов откроют сайт со смартфона. Если текст мелкий, а кнопки не нажимаются пальцем, толку от такого сайта нет.',
@@ -598,4 +609,35 @@ export function getPostBySlug(slug: string): BlogPost | undefined {
 
 export function getAllPosts(): BlogPost[] {
   return [...blogPosts].sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+export type UsedBlogTag = { slug: BlogTagSlug; count: number };
+
+/**
+ * Теги, у которых есть хотя бы одна статья, со счётчиком. В фильтре не должно
+ * быть тегов, ведущих в пустоту, поэтому словарь фильтруется по фактическим
+ * постам, а не выводится целиком.
+ */
+export function getUsedTags(): UsedBlogTag[] {
+  const counts = new Map<BlogTagSlug, number>();
+
+  for (const post of blogPosts) {
+    for (const tag of post.tags) {
+      counts.set(tag, (counts.get(tag) ?? 0) + 1);
+    }
+  }
+
+  return BLOG_TAG_ORDER.filter((slug) => counts.has(slug)).map((slug) => ({
+    slug,
+    count: counts.get(slug) ?? 0,
+  }));
+}
+
+/** Фильтр по тегам: логика ИЛИ, пустой набор означает «все статьи». */
+export function filterPostsByTags(
+  posts: BlogPost[],
+  tags: BlogTagSlug[],
+): BlogPost[] {
+  if (tags.length === 0) return posts;
+  return posts.filter((post) => post.tags.some((tag) => tags.includes(tag)));
 }
