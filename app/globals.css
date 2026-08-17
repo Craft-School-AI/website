@@ -25,9 +25,12 @@
     --brand-terracotta: 191 99 58; /* #BF633A жжёная охра — главный цвет */
     --brand-amber: 209 147 47; /* #D1932F медовое золото — AI-акценты */
     --brand-green: 138 158 108; /* #8A9E6C приглушённый оливковый — CTA */
-    /* Блик в переливающейся надписи: сама надпись идёт тёмной, по ней светлой
-       полосой проходит отблеск */
-    --iridescent-sheen: 255 255 255;
+    /* Переливающаяся надпись: глубокий розовый уходит в светлый и добивается
+       белым бликом. На светлом фоне базовый тон берём насыщеннее, иначе буквы
+       растворяются в странице */
+    --shine-base: 214 41 126; /* #D6297E */
+    --shine-mid: 255 143 196; /* #FF8FC4 */
+    --shine-hi: 255 255 255;
 
     /* Границы и тени */
     --border-light: 228 224 215; /* #E4E0D7 нейтральная тёплая граница */
@@ -56,8 +59,10 @@
     --brand-terracotta: 212 135 102; /* #D48766 */
     --brand-amber: 232 192 112; /* #E8C070 */
     --brand-green: 122 207 168; /* #7ACFA8 */
-    /* На тёмном фоне блик работает чистым белым */
-    --iridescent-sheen: 255 255 255;
+    /* На тёмном фоне розовый можно брать светлее */
+    --shine-base: 255 79 163; /* #FF4FA3 */
+    --shine-mid: 255 168 211; /* #FFA8D3 */
+    --shine-hi: 255 255 255;
 
     /* Границы и тени */
     --border-light: 58 53 50; /* #3A3532 */
@@ -206,14 +211,14 @@
 .text-iridescent {
   background-image: linear-gradient(
     100deg,
-    rgb(var(--text-primary)) 0%,
-    rgb(var(--text-secondary)) 16%,
-    rgb(var(--iridescent-sheen)) 28%,
-    rgb(var(--text-secondary)) 40%,
-    rgb(var(--text-primary)) 58%,
-    rgb(var(--text-secondary)) 74%,
-    rgb(var(--iridescent-sheen)) 84%,
-    rgb(var(--text-primary)) 100%
+    rgb(var(--shine-base)) 0%,
+    rgb(var(--shine-mid)) 14%,
+    rgb(var(--shine-hi)) 24%,
+    rgb(var(--shine-mid)) 34%,
+    rgb(var(--shine-base)) 54%,
+    rgb(var(--shine-mid)) 72%,
+    rgb(var(--shine-hi)) 82%,
+    rgb(var(--shine-base)) 100%
   );
   background-size: 200% auto;
   background-clip: text;

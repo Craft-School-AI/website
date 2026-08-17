@@ -4,8 +4,10 @@ type LogoMarkProps = {
 
 /**
  * Знак Craft School: буква «C» с код-стрелками внутри и точками нейросети.
- * Цвета берутся из CSS-переменных темы, поэтому знак сам адаптируется
- * к светлой и тёмной теме.
+ *
+ * Форма квадратная, в одном языке с кнопками, карточками и чипсами: прямые
+ * отрезки вместо дуг, срезанные торцы линий, квадратные точки. Цвета берутся
+ * из CSS-переменных темы, поэтому знак сам адаптируется к светлой и тёмной.
  */
 export function LogoMark({ className = '' }: LogoMarkProps) {
   return (
@@ -22,18 +24,17 @@ export function LogoMark({ className = '' }: LogoMarkProps) {
         </linearGradient>
       </defs>
 
-      {/* Буква «C» — внешняя дуга */}
+      {/* Буква «C» — прямоугольная скоба */}
       <path
-        d="M 260 140
-           C 260 100, 220 80, 190 80
-           C 140 80, 110 120, 110 170
-           L 110 230
-           C 110 280, 140 320, 190 320
-           C 220 320, 260 300, 260 260"
+        d="M 262 92
+           L 122 92
+           L 122 308
+           L 262 308"
         fill="none"
         stroke="url(#logo-main-gradient)"
         strokeWidth="24"
-        strokeLinecap="round"
+        strokeLinecap="butt"
+        strokeLinejoin="miter"
       />
 
       {/* Стрелка вперёд — символ кода и ИИ */}
@@ -42,25 +43,25 @@ export function LogoMark({ className = '' }: LogoMarkProps) {
         fill="none"
         stroke="rgb(var(--brand-amber))"
         strokeWidth="16"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        strokeLinecap="butt"
+        strokeLinejoin="miter"
       />
 
       {/* Стрелка назад — символ развития */}
       <path
-        d="M 220 220 L 190 240 L 220 260"
+        d="M 222 220 L 192 240 L 222 260"
         fill="none"
         stroke="rgb(var(--brand-amber))"
         strokeWidth="16"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        strokeLinecap="butt"
+        strokeLinejoin="miter"
       />
 
-      {/* Точки нейросети */}
-      <circle cx="120" cy="140" r="8" fill="rgb(var(--brand-amber))" opacity="0.8" />
-      <circle cx="260" cy="260" r="8" fill="rgb(var(--brand-amber))" opacity="0.8" />
-      <circle cx="270" cy="180" r="6" fill="rgb(var(--brand-terracotta))" opacity="0.6" />
-      <circle cx="110" cy="220" r="6" fill="rgb(var(--brand-terracotta))" opacity="0.6" />
+      {/* Точки нейросети — квадратные */}
+      <rect x="248" y="60" width="16" height="16" fill="rgb(var(--brand-amber))" opacity="0.8" />
+      <rect x="248" y="324" width="16" height="16" fill="rgb(var(--brand-amber))" opacity="0.8" />
+      <rect x="272" y="172" width="12" height="12" fill="rgb(var(--brand-terracotta))" opacity="0.6" />
+      <rect x="96" y="194" width="12" height="12" fill="rgb(var(--brand-terracotta))" opacity="0.6" />
     </svg>
   );
 }

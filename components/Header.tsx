@@ -23,8 +23,8 @@ export function Header() {
       <div className="container-page flex h-20 items-center justify-between gap-4">
         {/* Логотип — визуальная доминанта хедера */}
         <Link href="/" className="group flex items-center gap-2.5 whitespace-nowrap">
-          <LogoMark className="h-10 w-auto transition-transform duration-300 group-hover:rotate-[-6deg] sm:h-11" />
-          <span className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
+          <LogoMark className="h-8 w-auto transition-transform duration-300 group-hover:rotate-[-6deg] sm:h-9" />
+          <span className="font-display text-xl font-bold tracking-tight sm:text-2xl">
             Craft Schoo
             {/* Осенний акцент: кленовый лист на букве «l» */}
             <span className="relative inline-block">
