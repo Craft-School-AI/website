@@ -68,7 +68,7 @@ export default async function BlogPage({ searchParams }: PageProps) {
           <Reveal>
             <h1 className="heading-lg">Обучающие статьи</h1>
             <p className="mt-2 max-w-2xl text-ink-soft">
-              Коротко и без жаргона: про сайты, деньги и ИИ-агентов.
+              Читайте обучающие статьи в нашем AI блоге.
             </p>
           </Reveal>
 
