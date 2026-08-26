@@ -159,7 +159,7 @@ export default function PricingPage() {
                       {plan.index} · {plan.name}
                     </span>
                     {standard && (
-                      <span className="absolute right-0 top-0 inline-flex items-center gap-1.5 bg-ink px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-ivory">
+                      <span className="absolute right-0 top-0 inline-flex items-center gap-1.5 bg-ink px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-surface">
                         <Star className="h-3 w-3 fill-amber text-amber" aria-hidden /> Выбор большинства
                       </span>
                     )}
