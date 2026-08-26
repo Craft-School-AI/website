@@ -98,8 +98,14 @@ export default async function BlogPage({ searchParams }: PageProps) {
           ) : (
             <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post, index) => (
-                <Reveal key={post.slug} delay={index * 100}>
-                  <BlogCard post={post} />
+                <Reveal
+                  key={post.slug}
+                  delay={index * 100}
+                  // Свежая статья на широких экранах занимает 2×2 ячейки,
+                  // на планшете и телефоне — обычная карточка
+                  className={index === 0 ? 'lg:col-span-2 lg:row-span-2' : ''}
+                >
+                  <BlogCard post={post} featured={index === 0} />
                 </Reveal>
               ))}
             </div>
