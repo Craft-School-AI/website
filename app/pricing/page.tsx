@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 
 type Plan = {
   name: string;
+  /** Порядковый номер для моно-ярлыка карточки */
+  index: string;
   price: string;
   /** Обычная цена (зачёркнута) — со второго потока */
   oldPrice: string;
@@ -22,12 +24,14 @@ type Plan = {
   result: string;
   features: string[];
   cta: string;
-  highlighted: boolean;
+  /** Уровень тарифа задаёт цвет карточки: серый / терракота / тёмный с золотом */
+  tier: 'base' | 'standard' | 'premium';
 };
 
 const plans: Plan[] = [
   {
     name: 'Базовый',
+    index: '01',
     price: '19 900 ₽',
     oldPrice: '29 900 ₽',
     duration: '2 недели · 2 спринта · 4 занятия по 1,5 часа',
@@ -44,10 +48,11 @@ const plans: Plan[] = [
       'Разбор работ и демонстрация в группе',
     ],
     cta: 'Выбрать тариф',
-    highlighted: false,
+    tier: 'base',
   },
   {
     name: 'Стандарт',
+    index: '02',
     price: '49 000 ₽',
     oldPrice: '69 000 ₽',
     duration: '3 недели · 3 спринта · 6 занятий по 1,5 часа',
@@ -65,10 +70,11 @@ const plans: Plan[] = [
       'Пакет документов: политика и оферта',
     ],
     cta: 'Выбрать тариф',
-    highlighted: true,
+    tier: 'standard',
   },
   {
     name: 'Индивидуальный',
+    index: '03',
     price: '99 000 ₽',
     oldPrice: '139 000 ₽',
     duration: '4 недели · 4 спринта · 8 занятий по 1,5 часа',
@@ -87,7 +93,7 @@ const plans: Plan[] = [
       'Приоритетные ответы вне очереди',
     ],
     cta: 'Обсудить с преподавателем',
-    highlighted: false,
+    tier: 'premium',
   },
 ];
 
@@ -118,83 +124,126 @@ export default function PricingPage() {
             </div>
           </Reveal>
 
-          <div className="grid items-start gap-6 lg:grid-cols-3">
-            {plans.map((plan, index) => (
-              <Reveal key={plan.name} delay={index * 120} className="relative">
-                {plan.highlighted && (
-                  <div
-                    aria-hidden
-                    className="absolute -inset-2 rounded-none bg-terracotta/20 blur-2xl"
-                  />
-                )}
-                <article
-                  className={`relative flex h-full flex-col rounded-none bg-white p-8 shadow-soft dark:bg-[#0E0C0C] ${
-                    plan.highlighted
-                      ? 'border-2 border-terracotta lg:-translate-y-3'
-                      : 'border border-ink/10 dark:border-white/10'
-                  }`}
-                >
-                  {plan.highlighted && (
-                    <span className="absolute -top-3.5 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-none bg-terracotta px-4 py-1 text-xs font-bold uppercase tracking-wider text-ivory">
-                      <Star className="h-3.5 w-3.5 fill-ivory" aria-hidden /> Выбор большинства
-                    </span>
-                  )}
-                  <h2 className="heading-md">{plan.name}</h2>
+          <div className="grid items-stretch gap-6 gap-y-8 lg:grid-cols-3 lg:gap-8">
+            {plans.map((plan, index) => {
+              const premium = plan.tier === 'premium';
+              const standard = plan.tier === 'standard';
+              const accent = premium ? 'text-amber' : 'text-terracotta';
+              // Жёсткая смещённая тень — язык карточек блога и кнопок.
+              // Цвет тени растёт вместе с тарифом: серый → терракота → золото.
+              const shadow = {
+                base: 'shadow-[8px_8px_0_0_rgb(var(--text-tertiary))]',
+                standard: 'shadow-[8px_8px_0_0_rgb(var(--brand-terracotta))]',
+                premium: 'shadow-[8px_8px_0_0_rgb(var(--brand-amber))]',
+              }[plan.tier];
 
-                  <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="whitespace-nowrap font-display text-[2.75rem] font-bold leading-none">
-                      {plan.price}
-                    </span>
-                    <span className="whitespace-nowrap text-lg font-semibold text-ink-faint line-through">
-                      {plan.oldPrice}
-                    </span>
-                  </div>
-                  <p className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold text-terracotta">
-                    <Flame className="h-3.5 w-3.5" aria-hidden /> Цена первого потока · дальше дороже
-                  </p>
-
-                  <div className="mt-6 space-y-3 border-t border-ink/10 pt-6 text-sm dark:border-white/10">
-                    <p className="flex items-center gap-2.5 text-ink-soft">
-                      <Clock className="h-4 w-4 shrink-0 text-ink-faint" aria-hidden />
-                      {plan.duration}
-                    </p>
-                    <p className="flex items-center gap-2.5 text-ink-soft">
-                      <Users className="h-4 w-4 shrink-0 text-ink-faint" aria-hidden />
-                      {plan.format}
-                    </p>
-                    <p className="flex items-center gap-2.5 font-semibold text-terracotta">
-                      <Coins className="h-4 w-4 shrink-0" aria-hidden />
-                      {plan.tokens}
-                    </p>
-                  </div>
-
-                  <p className="mt-6 text-sm text-ink-soft">{plan.description}</p>
-
-                  <p className="mt-4 rounded-none bg-amber/15 px-4 py-3 text-sm font-semibold">
-                    Результат: {plan.result}
-                  </p>
-
-                  <ul className="mt-6 flex-1 space-y-3 border-t border-ink/10 pt-6 dark:border-white/10">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2.5 text-sm text-ink-soft">
-                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-terracotta" aria-hidden />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-8">
-                    <Button
-                      href="/#zayavka"
-                      variant={plan.highlighted ? 'primary' : 'outline'}
-                      className="w-full"
+              return (
+                <Reveal key={plan.name} delay={index * 120}>
+                  <article
+                    className={`relative flex h-full flex-col rounded-none border-[3px] border-ink p-8 pt-12 ${shadow} ${
+                      premium
+                        ? 'bg-graphite text-ivory'
+                        : 'bg-white dark:bg-[#1E1B1A]'
+                    } ${standard ? 'lg:-translate-y-3' : ''}`}
+                  >
+                    {/* Моно-ярлык встык к краю — единый язык с карточками блога */}
+                    <span
+                      className={`absolute left-0 top-0 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest ${
+                        premium
+                          ? 'bg-amber text-graphite'
+                          : standard
+                            ? 'bg-terracotta text-ivory'
+                            : 'bg-ink text-surface'
+                      }`}
                     >
-                      {plan.cta}
-                    </Button>
-                  </div>
-                </article>
-              </Reveal>
-            ))}
+                      {plan.index} · {plan.name}
+                    </span>
+                    {standard && (
+                      <span className="absolute right-0 top-0 inline-flex items-center gap-1.5 bg-ink px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-widest text-ivory">
+                        <Star className="h-3 w-3 fill-amber text-amber" aria-hidden /> Выбор большинства
+                      </span>
+                    )}
+
+                    <h2 className="heading-md">{plan.name}</h2>
+
+                    <div className="mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                      <span
+                        className={`whitespace-nowrap font-display text-[2.75rem] font-bold leading-none ${premium ? 'text-amber' : ''}`}
+                      >
+                        {plan.price}
+                      </span>
+                      <span
+                        className={`whitespace-nowrap text-lg font-semibold line-through ${premium ? 'text-ivory/40' : 'text-ink-faint'}`}
+                      >
+                        {plan.oldPrice}
+                      </span>
+                    </div>
+                    <p className={`mt-2 inline-flex items-center gap-1.5 text-xs font-semibold ${accent}`}>
+                      <Flame className="h-3.5 w-3.5" aria-hidden /> Цена первого потока · дальше дороже
+                    </p>
+
+                    <div
+                      className={`mt-6 space-y-3 border-t-2 pt-6 text-sm ${premium ? 'border-ivory/15' : 'border-ink/10 dark:border-white/10'}`}
+                    >
+                      <p className={`flex items-center gap-2.5 ${premium ? 'text-ivory/75' : 'text-ink-soft'}`}>
+                        <Clock
+                          className={`h-4 w-4 shrink-0 ${premium ? 'text-ivory/40' : 'text-ink-faint'}`}
+                          aria-hidden
+                        />
+                        {plan.duration}
+                      </p>
+                      <p className={`flex items-center gap-2.5 ${premium ? 'text-ivory/75' : 'text-ink-soft'}`}>
+                        <Users
+                          className={`h-4 w-4 shrink-0 ${premium ? 'text-ivory/40' : 'text-ink-faint'}`}
+                          aria-hidden
+                        />
+                        {plan.format}
+                      </p>
+                      <p className={`flex items-center gap-2.5 font-semibold ${accent}`}>
+                        <Coins className="h-4 w-4 shrink-0" aria-hidden />
+                        {plan.tokens}
+                      </p>
+                    </div>
+
+                    <p className={`mt-6 text-sm ${premium ? 'text-ivory/75' : 'text-ink-soft'}`}>
+                      {plan.description}
+                    </p>
+
+                    <p
+                      className={`mt-4 rounded-none px-4 py-3 text-sm font-semibold ${
+                        premium ? 'bg-amber/20 text-ivory' : 'bg-amber/15'
+                      }`}
+                    >
+                      Результат: {plan.result}
+                    </p>
+
+                    <ul
+                      className={`mt-6 flex-1 space-y-3 border-t-2 pt-6 ${premium ? 'border-ivory/15' : 'border-ink/10 dark:border-white/10'}`}
+                    >
+                      {plan.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className={`flex items-start gap-2.5 text-sm ${premium ? 'text-ivory/75' : 'text-ink-soft'}`}
+                        >
+                          <Check className={`mt-0.5 h-4 w-4 shrink-0 ${accent}`} aria-hidden />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="mt-8">
+                      <Button
+                        href="/#zayavka"
+                        variant={premium ? 'secondary' : standard ? 'primary' : 'outline'}
+                        className="w-full px-3"
+                      >
+                        {plan.cta}
+                      </Button>
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
