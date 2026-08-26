@@ -39,6 +39,24 @@ const works: Work[] = [
     photo: '/images/students/ksenia.webp',
     accent: 'amber',
   },
+  {
+    title: 'Школа испанского языка',
+    student: 'Екатерина',
+    description:
+      'Онлайн-школа испанского: индивидуальные занятия и запись на пробный урок.',
+    url: 'https://education-beta-snowy.vercel.app/',
+    image: '/images/works/espanol.webp',
+    accent: 'green',
+  },
+  {
+    title: 'Лазерное сведение тату',
+    student: 'Евгений',
+    description:
+      'Медицинский лазерный центр: сведение тату и татуажа без следа на коже.',
+    url: 'https://laser-clinic-koja.vercel.app/',
+    image: '/images/works/laser.webp',
+    accent: 'terracotta',
+  },
 ];
 
 // Карточки с картинкой — вперёд (порядок внутри групп сохраняется)
