@@ -3,22 +3,22 @@ import { Reveal } from '@/components/Reveal';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { getAllPosts } from '@/lib/blog';
 
-/** Две свежие статьи блога на главной — перед формой заявки. */
+/** Четыре свежие статьи блога на главной — перед формой заявки. */
 export function BlogTeaser() {
-  const posts = getAllPosts().slice(0, 2);
+  const posts = getAllPosts().slice(0, 4);
 
   return (
     <section id="blog-teaser" className="section scroll-mt-24 bg-surface-soft">
       <div className="container-page">
         <Reveal>
-          <h2 className="heading-lg text-center">Свежее из блога</h2>
+          <h2 className="heading-lg text-center">Обучающие материалы</h2>
           <p className="mx-auto mt-4 max-w-2xl text-center text-ink-soft">
             Пишем о том, как делать сайты самому с помощью ИИ-агентов: разборы,
             инструкции и чеклисты.
           </p>
         </Reveal>
 
-        <div className="mx-auto mt-12 grid max-w-3xl gap-6 sm:grid-cols-2">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {posts.map((post, index) => (
             <Reveal key={post.slug} delay={index * 80}>
               <BlogCard post={post} />

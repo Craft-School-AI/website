@@ -46,6 +46,7 @@ const works: Work[] = [
       'Онлайн-школа испанского: индивидуальные занятия и запись на пробный урок.',
     url: 'https://education-beta-snowy.vercel.app/',
     image: '/images/works/espanol.webp',
+    photo: '/images/students/ekaterina.webp',
     accent: 'green',
   },
   {
@@ -55,6 +56,7 @@ const works: Work[] = [
       'Медицинский лазерный центр: сведение тату и татуажа без следа на коже.',
     url: 'https://laser-clinic-koja.vercel.app/',
     image: '/images/works/laser.webp',
+    photo: '/images/students/evgeniy.webp',
     accent: 'terracotta',
   },
 ];

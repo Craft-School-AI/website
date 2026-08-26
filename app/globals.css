@@ -25,10 +25,6 @@
     --brand-terracotta: 191 99 58; /* #BF633A жжёная охра — главный цвет */
     --brand-amber: 209 147 47; /* #D1932F медовое золото — AI-акценты */
     --brand-green: 138 158 108; /* #8A9E6C приглушённый оливковый — CTA */
-    /* Розовый в надписи «ИИ». На светлом фоне тон насыщеннее, иначе буквы
-       растворяются в странице */
-    --shine-base: 214 41 126; /* #D6297E */
-
     /* Границы и тени */
     --border-light: 228 224 215; /* #E4E0D7 нейтральная тёплая граница */
     --shadow-soft: 0 8px 30px rgba(26, 29, 31, 0.08);
@@ -56,8 +52,6 @@
     --brand-terracotta: 212 135 102; /* #D48766 */
     --brand-amber: 232 192 112; /* #E8C070 */
     --brand-green: 122 207 168; /* #7ACFA8 */
-    /* На тёмном фоне розовый можно брать светлее */
-    --shine-base: 255 79 163; /* #FF4FA3 */
 
     /* Границы и тени */
     --border-light: 58 53 50; /* #3A3532 */
@@ -195,27 +189,6 @@
     animation: none;
     /* Без анимации показываем ленту от начала */
     transform: translateX(0);
-  }
-}
-
-/* ===== Надпись «ИИ» (components/blog/BlogWordmark.tsx) =====
-   Сплошной розовый: на светлом фоне глубже, на тёмном светлее. */
-
-.text-shine {
-  color: rgb(var(--shine-base));
-}
-
-/* Белые буквы с чёрной обводкой. Обводка идёт снаружи глифа (paint-order),
-   поэтому не съедает форму букв и работает на любом фоне. */
-.text-outlined {
-  color: #fff;
-  -webkit-text-stroke: 2px #000;
-  paint-order: stroke fill;
-}
-
-@media (min-width: 640px) {
-  .text-outlined {
-    -webkit-text-stroke-width: 3px;
   }
 }
 

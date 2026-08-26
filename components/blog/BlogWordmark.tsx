@@ -1,14 +1,14 @@
 /**
- * Заголовок списка статей: крупная надпись «ИИ блог».
+ * Заголовок списка статей: «ИИ блог».
  *
- * «ИИ» набран сплошным розовым, «блог» — белым с чёрной обводкой. Без теней,
- * заливок и анимации: минималистично.
+ * Спокойная версия в палитре сайта: «ИИ» терракотой (главный акцент бренда,
+ * как выделенные слова в заголовках на главной), «блог» основным цветом
+ * текста. Размер — heading-xl, как у обложек остальных страниц.
  */
 export function BlogWordmark() {
   return (
-    <h1 className="select-none font-display text-6xl font-bold uppercase leading-none tracking-tight sm:text-8xl lg:text-9xl">
-      <span className="text-shine">ИИ</span>{' '}
-      <span className="text-outlined">блог</span>
+    <h1 className="heading-xl select-none">
+      <span className="text-terracotta">ИИ</span> блог
     </h1>
   );
 }

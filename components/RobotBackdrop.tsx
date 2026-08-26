@@ -41,11 +41,11 @@ export function CourierRobot({ className = '', style }: SpriteProps) {
       <path d="M28,-34 L46,-26" stroke={terracotta} strokeWidth="5" />
       <rect x="42" y="-26" width="22" height="14" fill={green} />
       <g className="rb-wheel">
-        <rect x="-24" y="-10" width="20" height="20" fill={ink} />
+        <circle cx="-14" cy="0" r="10" fill={ink} />
         <line x1="-14" y1="-6" x2="-14" y2="6" stroke={surface} strokeWidth="2.5" />
       </g>
       <g className="rb-wheel">
-        <rect x="4" y="-10" width="20" height="20" fill={ink} />
+        <circle cx="14" cy="0" r="10" fill={ink} />
         <line x1="14" y1="-6" x2="14" y2="6" stroke={surface} strokeWidth="2.5" />
       </g>
     </svg>
@@ -63,11 +63,11 @@ export function ForkliftRobot({ className = '', style }: SpriteProps) {
       <rect x="-12" y="-26" width="13" height="9" fill={surface} />
       <rect className="rb-pulse" x="11" y="-36" width="6" height="6" fill={terracotta} style={{ animationDelay: '-0.8s' }} />
       <g className="rb-wheel rb-wheel-rev">
-        <rect x="-17" y="-7" width="14" height="14" fill={ink} />
+        <circle cx="-10" cy="0" r="7" fill={ink} />
         <line x1="-10" y1="-4" x2="-10" y2="4" stroke={surface} strokeWidth="2" />
       </g>
       <g className="rb-wheel rb-wheel-rev">
-        <rect x="3" y="-7" width="14" height="14" fill={ink} />
+        <circle cx="10" cy="0" r="7" fill={ink} />
         <line x1="10" y1="-4" x2="10" y2="4" stroke={surface} strokeWidth="2" />
       </g>
     </svg>
