@@ -66,7 +66,19 @@ type Sprint = {
   title: string;
   result: string;
   tiers: string;
+  /** Цветовая кодировка доступности: чем выше тариф, тем «дороже» цвет. */
+  tierAccent: 'green' | 'terracotta' | 'amber';
   points: string[];
+};
+
+// Стили плашки тарифов и левой кромки карточки по уровню доступности спринта
+const tierStyles: Record<Sprint['tierAccent'], { badge: string; edge: string }> = {
+  green: { badge: 'border-green/50 bg-green/15 text-ink', edge: 'border-l-green' },
+  terracotta: {
+    badge: 'border-terracotta/50 bg-terracotta/15 text-ink',
+    edge: 'border-l-terracotta',
+  },
+  amber: { badge: 'border-amber/50 bg-amber/15 text-ink', edge: 'border-l-amber' },
 };
 
 const sprints: Sprint[] = [
@@ -76,6 +88,7 @@ const sprints: Sprint[] = [
     title: 'Знакомство с ИИ-агентом',
     result: 'Первая версия вашего сайта на компьютере',
     tiers: 'Все тарифы',
+    tierAccent: 'green',
     points: [
       'Настраиваем рабочее место: всё нужное за один вечер',
       'Учимся ставить задачи ИИ-агенту простыми словами',
@@ -89,6 +102,7 @@ const sprints: Sprint[] = [
     title: 'Сайт целиком и публикация',
     result: 'Готовый сайт в интернете: рабочая ссылка на Vercel',
     tiers: 'Все тарифы',
+    tierAccent: 'green',
     points: [
       'Дорабатываем страницы, тексты и цены под ваш бизнес',
       'Подбираем цвета и шрифты под характер вашего дела',
@@ -102,6 +116,7 @@ const sprints: Sprint[] = [
     title: 'Запуск и заявки',
     result: 'Сайт на своём домене принимает заявки в ВК',
     tiers: 'Тарифы «Стандарт» и «Индивидуальный»',
+    tierAccent: 'terracotta',
     points: [
       'Покупаем и подключаем свой домен',
       'Разворачиваем сайт на настоящем хостинге',
@@ -115,6 +130,7 @@ const sprints: Sprint[] = [
     title: 'Бизнес под ключ',
     result: 'Сайт продаёт: оплата, запись и аналитика под ваш бизнес',
     tiers: 'Только тариф «Индивидуальный»',
+    tierAccent: 'amber',
     points: [
       'Подключаем приём оплаты или онлайн-запись, по потребности',
       'Настраиваем базовое SEO и цели в аналитике',
@@ -233,13 +249,17 @@ export default function ProgramPage() {
           <div className="mt-10 space-y-8">
             {sprints.map((sprint, index) => (
               <Reveal key={sprint.number} delay={index * 100}>
-                <article className="card grid gap-6 lg:grid-cols-[240px_1fr]">
+                <article
+                  className={`card grid gap-6 border-l-4 lg:grid-cols-[240px_1fr] ${tierStyles[sprint.tierAccent].edge}`}
+                >
                   <div>
                     <p className="font-display text-3xl font-bold text-terracotta">
                       {sprint.number}
                     </p>
                     <p className="mt-1 text-sm text-ink-faint">{sprint.duration}</p>
-                    <p className="mt-3 inline-block rounded-none border border-line px-3 py-1 text-xs font-semibold text-ink-soft">
+                    <p
+                      className={`mt-3 inline-block rounded-none border px-3 py-1 text-xs font-semibold ${tierStyles[sprint.tierAccent].badge}`}
+                    >
                       {sprint.tiers}
                     </p>
                     <p className="mt-4 inline-block rounded-none bg-amber/20 px-3 py-2 text-sm font-semibold">

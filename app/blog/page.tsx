@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Reveal } from '@/components/Reveal';
+import { Button } from '@/components/ui/Button';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { BlogSocialLinks } from '@/components/blog/BlogSocialLinks';
 import { BlogTagFilter } from '@/components/blog/BlogTagFilter';
@@ -110,6 +111,26 @@ export default async function BlogPage({ searchParams }: PageProps) {
               ))}
             </div>
           )}
+
+          {/* Продолжение воронки для читателей из поиска: статьи объясняют,
+              мастерская учит делать — без этого блок листинга упирается в тупик */}
+          <Reveal className="mt-16">
+            <div className="border-[3px] border-ink bg-surface-soft p-8 text-center shadow-[8px_8px_0_0_rgb(var(--brand-terracotta))] sm:p-10">
+              <h2 className="heading-lg">Хотите сайт для своего дела?</h2>
+              <p className="mx-auto mt-4 max-w-2xl text-ink-soft">
+                Статьи помогают разобраться, а в мастерской вы соберёте свой
+                сайт за 2–4 недели вместе с преподавателем и ИИ-агентом.
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <Button href="/#zayavka" size="lg">
+                  Записаться в мастерскую
+                </Button>
+                <Button href="/program" variant="outline" size="lg">
+                  Смотреть программу
+                </Button>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
     </>

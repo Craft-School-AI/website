@@ -245,6 +245,15 @@ export default function PricingPage() {
               );
             })}
           </div>
+
+          {/* Мостик к программе: что именно проходят на каждом спринте */}
+          <Reveal>
+            <div className="mt-12 text-center">
+              <Button href="/program" variant="outline">
+                Что проходят на каждом спринте
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
 
