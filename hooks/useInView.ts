@@ -16,6 +16,10 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(
     const element = ref.current;
     if (!element) return;
 
+    // Сигнал для CSS: JS загружен, можно прятать .reveal до появления
+    // во вьюпорте (см. globals.css). Без этого класса контент виден всегда.
+    document.documentElement.classList.add('hydrated');
+
     if (typeof IntersectionObserver === 'undefined') {
       setIsInView(true);
       return;
