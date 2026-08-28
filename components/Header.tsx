@@ -80,7 +80,7 @@ export function Header() {
             onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? 'Закрыть меню' : 'Открыть меню'}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-none border border-line lg:hidden"
+            className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-none border border-line lg:hidden"
           >
             {/* Сдвиг на 8px: центр верхней полоски совпадает с центром стека */}
             <span

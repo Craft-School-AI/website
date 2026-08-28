@@ -1,8 +1,17 @@
 import { ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/Reveal';
 import { RobotBackdrop } from '@/components/RobotBackdrop';
+
+// Фото учеников для полоски доверия — те же, что в «Сайтах наших учеников»
+const studentPhotos = [
+  { src: '/images/students/anastasia.webp', name: 'Анастасия' },
+  { src: '/images/students/ksenia.webp', name: 'Ксения' },
+  { src: '/images/students/ekaterina.webp', name: 'Екатерина' },
+  { src: '/images/students/evgeniy.webp', name: 'Евгений' },
+];
 
 export function Hero() {
   return (
@@ -36,14 +45,32 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={400}>
-          <p className="mt-8 text-sm text-ink-faint">
-            Формат спринтов · Первый сайт — уже на первой неделе
-          </p>
+          {/* Полоска доверия: реальные ученики + ссылка на их сайты */}
+          <Link href="#works" className="group mt-8 inline-flex items-center gap-3">
+            <span className="flex" aria-hidden>
+              {studentPhotos.map((student, index) => (
+                <Image
+                  key={student.src}
+                  src={student.src}
+                  alt=""
+                  width={36}
+                  height={36}
+                  className={`h-9 w-9 border-2 border-ink object-cover ${
+                    index > 0 ? '-ml-2' : ''
+                  }`}
+                />
+              ))}
+            </span>
+            <span className="text-left text-sm text-ink-soft transition-colors group-hover:text-terracotta">
+              Сайты учеников уже в интернете —{' '}
+              <span className="underline underline-offset-4">смотрите сами</span>
+            </span>
+          </Link>
         </Reveal>
 
         <Reveal delay={500} className="mt-10">
           <Link
-            href="#works"
+            href="#audience"
             aria-label="К следующему разделу"
             className="flex h-12 w-12 items-center justify-center border-[3px] border-ink bg-surface text-ink shadow-[3px_3px_0_0_rgb(var(--brand-terracotta))] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_0_rgb(var(--brand-terracotta))] active:translate-y-0 active:shadow-[1px_1px_0_0_rgb(var(--brand-terracotta))]"
           >

@@ -3,7 +3,7 @@ import { AudienceSlider } from '@/components/AudienceSlider';
 
 export function Audience() {
   return (
-    <section className="section">
+    <section id="audience" className="section scroll-mt-24">
       <div className="container-page">
         <Reveal>
           <h2 className="heading-lg text-center">Для кого эта мастерская</h2>

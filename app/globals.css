@@ -111,6 +111,22 @@
   ::selection {
     @apply bg-terracotta text-ivory;
   }
+
+  /* Видимый фокус с клавиатуры — для всех ссылок и контролов.
+     Кнопки задают свой outline через focus-visible-классы и перекрывают этот. */
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid rgb(var(--brand-terracotta));
+    outline-offset: 2px;
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid rgb(var(--brand-terracotta));
+    outline-offset: 0;
+  }
 }
 
 @layer components {

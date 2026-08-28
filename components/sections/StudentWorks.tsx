@@ -158,7 +158,7 @@ export function StudentWorks() {
                       href={work.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1.5 self-start border-2 border-ivory bg-transparent px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-ivory transition-colors hover:bg-ivory hover:text-ink"
+                      className="mt-3 inline-flex min-h-[44px] items-center gap-1.5 self-start border-2 border-ivory bg-transparent px-4 py-2.5 font-mono text-[11px] font-bold uppercase tracking-widest text-ivory transition-colors hover:bg-ivory hover:text-graphite"
                     >
                       Перейти
                       <span aria-hidden>→</span>

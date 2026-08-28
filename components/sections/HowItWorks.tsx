@@ -1,4 +1,5 @@
 import { Reveal } from '@/components/Reveal';
+import { Button } from '@/components/ui/Button';
 
 const steps = [
   {
@@ -47,6 +48,16 @@ export function HowItWorks() {
             </Reveal>
           ))}
         </ol>
+
+        {/* Мини-CTA по ходу воронки: не дожидаясь конца страницы */}
+        <Reveal>
+          <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <Button href="/program" variant="outline">
+              Смотреть программу целиком
+            </Button>
+            <Button href="/#zayavka">Записаться в мастерскую</Button>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
