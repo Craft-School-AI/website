@@ -129,13 +129,15 @@ export function StudentWorks() {
                   />
 
                   {/* Фото автора — круглый аватар в левом верхнем углу */}
+                  {/* На мобилке меньше и в правом углу: слева крупная аватарка
+                      наезжала на подпись и заголовок */}
                   {work.photo && (
-                    <div className="absolute left-4 top-4 z-20 h-[68px] w-[68px] overflow-hidden rounded-none border-[3px] border-ink shadow-[2px_2px_0_0_rgb(var(--brand-terracotta))]">
+                    <div className="absolute right-4 top-4 z-20 h-11 w-11 overflow-hidden rounded-none border-[3px] border-ink shadow-[2px_2px_0_0_rgb(var(--brand-terracotta))] sm:left-4 sm:right-auto sm:h-[68px] sm:w-[68px]">
                       <Image
                         src={work.photo}
                         alt={work.student ?? work.title}
                         fill
-                        sizes="68px"
+                        sizes="(max-width: 640px) 44px, 68px"
                         className="object-cover"
                       />
                     </div>
