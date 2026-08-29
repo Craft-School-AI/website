@@ -47,7 +47,8 @@ export function Hero() {
         <Reveal delay={400}>
           {/* Полоска доверия: реальные ученики + ссылка на их сайты */}
           <Link href="#works" className="group mt-8 inline-flex items-center gap-3">
-            <span className="flex" aria-hidden>
+            {/* shrink-0: иначе flex ужимает полоску, и фото вылезают под текст */}
+            <span className="flex shrink-0" aria-hidden>
               {studentPhotos.map((student, index) => (
                 <Image
                   key={student.src}
