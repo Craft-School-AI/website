@@ -46,7 +46,11 @@ export function Hero() {
 
         <Reveal delay={400}>
           {/* Полоска доверия: реальные ученики + ссылка на их сайты */}
-          <Link href="#works" className="group mt-8 inline-flex items-center gap-3">
+          {/* Мобилка: фото сверху, подпись под ними; с sm — в одну строку */}
+          <Link
+            href="#works"
+            className="group mt-8 flex flex-col items-center gap-2.5 sm:flex-row sm:gap-3"
+          >
             {/* shrink-0: иначе flex ужимает полоску, и фото вылезают под текст */}
             <span className="flex shrink-0" aria-hidden>
               {studentPhotos.map((student, index) => (
@@ -62,7 +66,7 @@ export function Hero() {
                 />
               ))}
             </span>
-            <span className="text-left text-sm text-ink-soft transition-colors group-hover:text-terracotta">
+            <span className="text-center text-sm text-ink-soft transition-colors group-hover:text-terracotta sm:text-left">
               Сайты учеников уже в интернете —{' '}
               <span className="underline underline-offset-4">смотрите сами</span>
             </span>
