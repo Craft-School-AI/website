@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import { BlogChecklist } from '@/components/BlogChecklist';
+import { BlogPromptCopy } from '@/components/blog/BlogPromptCopy';
 import { BlogRelated } from '@/components/blog/BlogRelated';
 import { BlogTagList } from '@/components/blog/BlogTagList';
 import { JsonLd } from '@/components/JsonLd';
@@ -141,6 +142,8 @@ function BlogContentBlock({ block }: { block: BlogBlock }) {
       );
     case 'checklist':
       return <BlogChecklist id={block.id} items={block.items} />;
+    case 'prompt':
+      return <BlogPromptCopy label={block.label} text={block.text} />;
     case 'paragraph':
     default:
       return (

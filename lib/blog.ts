@@ -5,6 +5,7 @@ import {
   Globe,
   LayoutTemplate,
   ListTree,
+  MessageSquareText,
   MousePointerClick,
   PenLine,
   Rocket,
@@ -28,7 +29,8 @@ export type BlogBlock =
   | { type: 'steps'; items: string[] }
   | { type: 'list'; items: string[] }
   | { type: 'note'; text: string }
-  | { type: 'checklist'; id: string; items: string[] };
+  | { type: 'checklist'; id: string; items: string[] }
+  | { type: 'prompt'; label: string; text: string };
 
 export type BlogContent = string | BlogBlock;
 
@@ -47,7 +49,181 @@ export type BlogPost = {
   body: BlogContent[];
 };
 
+/**
+ * Промпт для статьи «Промпт для создания сайта». Две части: шаблон рассказа,
+ * который ученик заполняет своими словами, и инструкция для агента, которую
+ * менять не нужно. Исходник лежит в prompts/build-site.md.
+ */
+const SITE_PROMPT_STORY_TEMPLATE = `РАССКАЗ О МОЁМ САЙТЕ
+
+Чем я занимаюсь и что продаю:
+[например: я мастер маникюра, делаю маникюр и педикюр, хочу, чтобы клиенты записывались ко мне через сайт]
+
+Кто мои клиенты:
+[например: женщины 20–40 лет из моего города, которым важен аккуратный и стойкий маникюр]
+
+Одно главное действие посетителя:
+[например: оставить заявку на запись. Другие варианты: позвонить мне, написать в мессенджер, посмотреть цены и выбрать услугу]
+
+Какие страницы нужны:
+[например: главная, услуги и цены, обо мне, отзывы, контакты]
+
+Что должно быть на главной странице, сверху вниз:
+[например: крупный заголовок и кнопка «Записаться», мои 3 преимущества, список услуг с ценами, несколько фото работ, отзывы, форма заявки]
+
+Тон и характер сайта:
+[например: тёплый и уютный, дружелюбный, без корпоративного официоза]
+
+Цвета и настроение:
+[например: мягкий бежевый и золотой. Или напишите: подбери сам, что подойдёт моему делу]
+
+Обязательное содержание (услуги, цены, контакты, соцсети):
+[например: классический маникюр 1500 ₽, гель-лак 2500 ₽; телефон +7 ...; Telegram @...; адрес: город, улица]
+
+Сайты, которые мне нравятся:
+[вставьте 1–3 ссылки или опишите словами, что понравилось]
+
+Чего на сайте быть не должно и что ещё важно:
+[например: без стоковых картинок; сайт должен отлично выглядеть на телефоне]`;
+
+const SITE_PROMPT_AGENT_INSTRUCTIONS = `--- ИНСТРУКЦИЯ ДЛЯ АГЕНТА (этот текст не меняйте) ---
+
+You are a senior fullstack developer (Next.js 15 App Router + TypeScript +
+Tailwind CSS). Build the website described in my story above.
+
+Setup (do this first):
+- Work in the current git repository — the folder that is already open.
+  Do NOT create a new nested project folder, and keep the existing git history
+  and remote. Make a first git commit once the project runs.
+- If the folder already contains our Next.js + Tailwind + TypeScript starter
+  (already split into a Header, Footer, page sections, a Button UI component
+  and light/dark theme support), reuse and adapt it — rename, add and remove
+  sections to match my story.
+- If the starter is NOT present, scaffold a clean Next.js 15 app (App Router)
+  with TypeScript and Tailwind CSS into the current directory, e.g.
+  npx create-next-app@latest . --ts --tailwind --app --eslint --src-dir=false,
+  then build on it.
+- Organise the code for future maintainability: one component per section
+  under components/, shared UI (like Button) under components/ui/, pages
+  and layout under app/. Everything typed (TypeScript), no dead code.
+
+Scope — build ONLY the website. Do NOT add any of the following:
+- No analytics or counters (Yandex.Metrika, Google Analytics, etc.)
+- No cookie-consent banner
+- No privacy policy, terms, or public offer pages
+- No backend/integration for the contact form — the form is UI only
+  (fields + client-side validation + a friendly "thank you" state). It must
+  NOT send data anywhere (no Telegram, no VK, no email, no API route).
+- No payment, no login/accounts, no CMS, no database.
+Keep it to a clean, static marketing website. We add those other things later,
+in a separate lesson.
+
+How to build:
+- Turn my story into real pages and sections. Use the visitor's ONE action as
+  the main call-to-action, repeated where it makes sense.
+- Write ALL visible text in the language I used above (Russian by default),
+  short and free of technical jargon — my audience is not technical. If my
+  story gives real content (services, prices), use it; otherwise write
+  realistic placeholder copy I can edit.
+- Clean component architecture: one component per section, a shared Button,
+  reusable pieces. Everything typed (TypeScript). No dead code.
+- Fully responsive (looks great on a phone first), with working light and dark
+  theme, and subtle, tasteful animations.
+- Basic per-page SEO metadata only (page title + description). Nothing more.
+- If a colour/style wasn't specified, choose a cohesive palette that fits the
+  business — avoid generic "AI" looks (no Inter font, no purple-on-white
+  gradients, no cookie-cutter layout).
+
+Process:
+1. Read my story above. If something critical is missing or unclear, ask me at
+   most 1–2 short questions — otherwise start building.
+2. Build a first version of the whole site.
+3. Show me how to run it on my computer and give me the local link to open.
+4. Briefly explain what you built, in plain language for a non-technical
+   person.
+
+After the first version, I will review it in the browser and ask you for
+changes in plain words.`;
+
 export const blogPosts: BlogPost[] = [
+  {
+    slug: 'prompt-dlya-sozdaniya-sajta',
+    title: 'Промпт для создания сайта',
+    description:
+      'Готовый промпт, по которому ИИ-агент собирает первую версию сайта: шаблон рассказа о вашем деле с примерами и инструкция для агента. Оба блока копируются одной кнопкой.',
+    date: '2026-08-30',
+    readingTime: '7 минут',
+    icon: MessageSquareText,
+    cover: '/images/blog/blog-prompt.webp',
+    tags: ['ii-agenty', 'instrukcii', 'svoimi-rukami'],
+    body: [
+      'Первую версию сайта ИИ-агент собирает по одному большому промпту. В этой статье он лежит целиком, с кнопкой «Скопировать». Промпт состоит из двух частей: сначала вы своими словами рассказываете о будущем сайте, потом добавляете готовую инструкцию для агента. Разберём по шагам, что и куда писать.',
+
+      { type: 'heading', text: 'Как устроен промпт' },
+      'Агенту нужно два вида информации. Первый: что за сайт вы хотите. Это знаете только вы, поэтому эту часть вы пишете сами, по шаблону из шага 1. Второй: как именно собирать сайт технически. Это уже наша забота, готовая инструкция лежит в шаге 2, менять в ней ничего не нужно.',
+      {
+        type: 'steps',
+        items: [
+          'Скопируйте шаблон рассказа из шага 1, вставьте его в заметки или в текстовый документ и замените примеры своими словами.',
+          'Скопируйте инструкцию для агента из шага 2 и вставьте её сразу после своего рассказа, в тот же документ.',
+          'Отправьте всё одним сообщением ИИ-агенту: сверху рассказ, снизу инструкция.',
+        ],
+      },
+      {
+        type: 'note',
+        text: 'Частая ошибка: отправить агенту только инструкцию, без рассказа о себе. Тогда агент не знает, что за бизнес, и придумывает сайт про абстрактную компанию. Рассказ о вашем деле обязателен, с него всё начинается.',
+      },
+
+      { type: 'heading', text: 'Шаг 1. Расскажите о своём сайте' },
+      'Скопируйте шаблон ниже и заполните его. В квадратных скобках стоят примеры для мастера маникюра: они показывают, как отвечать, но сам текст нужно заменить на свой. Пишите обычными словами, как рассказали бы знакомому. Технические термины не нужны.',
+      {
+        type: 'prompt',
+        label: 'Шаблон рассказа: заполните своими словами',
+        text: SITE_PROMPT_STORY_TEMPLATE,
+      },
+      'Несколько советов по заполнению:',
+      {
+        type: 'list',
+        items: [
+          'Замените текст в каждой паре квадратных скобок своим и удалите сами скобки. Слово «например» тоже удалите.',
+          'Главное действие выберите одно. Если хочется и заявку, и звонок, и подписку, перечитайте статью [как сделать лендинг](/blog/kak-sdelat-lending): внимание посетителя не делится на три кнопки.',
+          'Цены, телефон и адрес пишите настоящие: агент поставит их на сайт как есть, и вам не придётся потом их искать и менять.',
+          'Не знаете, что ответить в каком-то пункте: так и напишите «подбери на свой вкус». Агент справится, а поправить всегда успеете.',
+          'Чем подробнее рассказ, тем ближе первая версия к тому, что вы хотели, и тем меньше правок потом.',
+        ],
+      },
+
+      { type: 'heading', text: 'Шаг 2. Допишите инструкцию для агента' },
+      'Теперь скопируйте инструкцию ниже и вставьте её в тот же документ, сразу после своего рассказа. Эту часть менять не нужно: она написана для агента и на английском, потому что технические инструкции агенты понимают на нём точнее. На язык сайта это не влияет: сайт будет на русском.',
+      {
+        type: 'prompt',
+        label: 'Инструкция для агента: вставьте после рассказа',
+        text: SITE_PROMPT_AGENT_INSTRUCTIONS,
+      },
+      'Если коротко, инструкция говорит агенту: собери аккуратный сайт по рассказу выше, сделай его удобным на телефоне, со светлой и тёмной темой, а всё лишнее пока не трогай. Аналитика, приём заявок на почту, оплата и юридические страницы подключаются позже, отдельными шагами: так проще проверять работу и находить ошибки.',
+
+      { type: 'heading', text: 'Шаг 3. Отправьте агенту и посмотрите результат' },
+      'Вставьте весь текст, рассказ вместе с инструкцией, в чат ИИ-агента одним сообщением и отправьте. Если чего-то важного не хватает, агент задаст один-два вопроса, отвечайте простыми словами. Дальше он соберёт первую версию сайта и покажет, как открыть её в браузере на вашем компьютере.',
+      'Первая версия почти никогда не бывает финальной, и это нормально. Посмотрите сайт глазами клиента и просите правки обычными словами: «сделай заголовок спокойнее», «подними цены выше», «на телефоне кнопку не видно». Как формулировать такие просьбы, разбираем в статье [как правильно написать промпт для ИИ-агента](/blog/top-5-sposobov-napisat-promt-dlya-ii-agenta).',
+
+      { type: 'heading', text: 'Чеклист перед отправкой' },
+      {
+        type: 'checklist',
+        id: 'prompt-dlya-sozdaniya-sajta',
+        items: [
+          'Шаблон рассказа заполнен своими словами',
+          'Примеры в квадратных скобках заменены, скобки удалены',
+          'Выбрано одно главное действие посетителя',
+          'Цены и контакты настоящие',
+          'Инструкция для агента вставлена после рассказа без изменений',
+          'Всё отправлено агенту одним сообщением',
+        ],
+      },
+
+      { type: 'heading', text: 'Коротко' },
+      'Промпт для создания сайта складывается из двух частей: ваш рассказ о деле по шаблону и готовая инструкция для агента. Заполните первую, скопируйте вторую, отправьте одним сообщением, и агент соберёт первую версию сайта. Именно с этого промпта начинается работа в [мастерской](/program): дальше ученики доводят сайт до запуска вместе с преподавателем.',
+    ],
+  },
   {
     slug: 'luchshie-ai-dlya-sozdaniya-sajta',
     title: 'Лучшие AI для создания сайта',
