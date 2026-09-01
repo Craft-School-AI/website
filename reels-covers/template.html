@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Craft School — обложка рилза</title>
+<style>
+  /* Шрифт заголовка: жирный italic serif с кириллицей */
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: italic;
+    font-weight: 900;
+    src: url('fonts/playfair-900italic-cyrillic.woff2') format('woff2');
+    unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: italic;
+    font-weight: 900;
+    src: url('fonts/playfair-900italic-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F;
+  }
+
+  :root {
+    /* Фирменные цвета Craft School (светлая тема сайта) */
+    --terracotta: #BF633A;
+    --terracotta-bright: #D4713F; /* чуть ярче для читаемости на фото */
+    --amber: #D1932F;
+    --amber-bright: #E8A93C;
+    --ivory: #FDF8F0;
+    --graphite: #1A1D1F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+    position: relative;
+    background: var(--graphite);
+    font-family: 'Playfair Display', 'Georgia', serif;
+  }
+
+  /* ===== Фотография во весь кадр ===== */
+  #photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%; /* переопределяется параметром pos */
+  }
+
+  /* Лёгкое затемнение за текстом, чтобы заголовок читался на любом фото */
+  .scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg,
+        rgba(26, 29, 31, 0.18) 0%,
+        rgba(26, 29, 31, 0.00) 22%,
+        rgba(26, 29, 31, 0.00) 38%,
+        rgba(26, 29, 31, 0.30) 58%,
+        rgba(26, 29, 31, 0.16) 78%,
+        rgba(26, 29, 31, 0.34) 100%);
+  }
+
+  /* ===== Постоянный бренд-элемент: плашка со знаком Craft School =====
+     Квадратная плашка со скруглением — в одном языке с кнопками сайта,
+     градиент терракота→янтарь, знак «C» со стрелками кода внутри. */
+  .badge {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    width: 380px;
+    height: 380px;
+    transform: translateX(-50%) rotate(-5deg);
+    background: linear-gradient(135deg, var(--terracotta-bright) 0%, var(--amber) 100%);
+    border-radius: 88px;
+    box-shadow:
+      0 30px 70px rgba(26, 29, 31, 0.45),
+      inset 0 2px 0 rgba(253, 248, 240, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .badge svg {
+    width: 62%;
+    height: 62%;
+  }
+
+  /* ===== Заголовок: 2 строки, крупный жирный italic serif =====
+     Первая строка белая, вторая — фирменный градиент терракота→янтарь.
+     Каждая строка автоматически растягивается почти на всю ширину кадра. */
+  .headline {
+    position: absolute;
+    top: 56%; /* переопределяется параметром ty */
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.94;
+    letter-spacing: 0.01em;
+  }
+
+  .headline .line {
+    display: block;
+    width: max-content; /* ширина по тексту, иначе замер для подгонки даст ширину кадра */
+    margin: 0 auto;
+    white-space: nowrap;
+    font-size: 150px; /* базовый размер, JS подгоняет по ширине */
+    padding: 0 10px 14px; /* запас под свисания курсива */
+  }
+
+  .line-1 {
+    color: var(--ivory);
+    text-shadow:
+      0 4px 14px rgba(26, 29, 31, 0.85),
+      0 14px 44px rgba(26, 29, 31, 0.55);
+  }
+
+  .line-2 {
+    background: linear-gradient(100deg, var(--terracotta-bright) 12%, var(--amber-bright) 88%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter:
+      drop-shadow(0 4px 10px rgba(26, 29, 31, 0.9))
+      drop-shadow(0 14px 38px rgba(26, 29, 31, 0.55));
+  }
+</style>
+</head>
+<body>
+  <img id="photo" alt="">
+  <div class="scrim"></div>
+
+  <div class="badge">
+    <!-- Знак Craft School в статичных цветах слоновой кости (не зависит от темы) -->
+    <svg viewBox="80 50 220 300" aria-hidden="true">
+      <path d="M 262 92 L 122 92 L 122 308 L 262 308"
+            fill="none" stroke="#FDF8F0" stroke-width="26"
+            stroke-linecap="butt" stroke-linejoin="miter"/>
+      <path d="M 180 140 L 210 160 L 180 180"
+            fill="none" stroke="#FDF8F0" stroke-width="17"
+            stroke-linecap="butt" stroke-linejoin="miter" opacity="0.92"/>
+      <path d="M 222 220 L 192 240 L 222 260"
+            fill="none" stroke="#FDF8F0" stroke-width="17"
+            stroke-linecap="butt" stroke-linejoin="miter" opacity="0.92"/>
+      <rect x="248" y="60" width="17" height="17" fill="#FDF8F0" opacity="0.85"/>
+      <rect x="248" y="323" width="17" height="17" fill="#FDF8F0" opacity="0.85"/>
+      <rect x="272" y="172" width="13" height="13" fill="#FDF8F0" opacity="0.6"/>
+      <rect x="96" y="194" width="13" height="13" fill="#FDF8F0" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <div class="headline">
+    <span class="line line-1" id="line1">ПЕРВЫЙ САЙТ</span>
+    <span class="line line-2" id="line2">БЕЗ ОПЫТА</span>
+  </div>
+
+<script>
+  // Параметры обложки передаются через query string:
+  //   photo — путь к фотографии (file:// или относительный)
+  //   l1    — первая строка (белая)
+  //   l2    — вторая строка (фирменный цвет)
+  //   pos   — object-position фото, например "50% 25%"
+  //   ty    — вертикаль текстового блока в процентах, например "58"
+  const p = new URLSearchParams(location.search);
+
+  if (p.get('photo')) document.getElementById('photo').src = p.get('photo');
+  if (p.get('l1')) document.getElementById('line1').textContent = p.get('l1');
+  if (p.get('l2')) document.getElementById('line2').textContent = p.get('l2');
+  if (p.get('pos')) document.getElementById('photo').style.objectPosition = p.get('pos');
+  if (p.get('ty')) document.querySelector('.headline').style.top = p.get('ty') + '%';
+
+  // Подгоняем каждую строку почти на всю ширину кадра (как в референсе),
+  // но не даём короткой строке раздуться выше потолка.
+  const MAX_WIDTH = 985;
+  const MAX_SIZE = 210;
+  const lines = [...document.querySelectorAll('.headline .line')];
+  // Явно грузим нужные глифы: document.fonts.ready может сработать раньше,
+  // чем подключится Playfair, и тогда замер пройдёт по запасной Georgia.
+  Promise.all(
+    lines.map((el) => document.fonts.load('italic 900 150px "Playfair Display"', el.textContent)),
+  ).then(() => requestAnimationFrame(() => {
+    for (const el of lines) {
+      const base = parseFloat(getComputedStyle(el).fontSize);
+      const scale = MAX_WIDTH / el.getBoundingClientRect().width;
+      el.style.fontSize = Math.min(base * scale, MAX_SIZE) + 'px';
+    }
+    document.body.dataset.ready = '1'; // маркер готовности для скриншота
+  }));
+</script>
+</body>
+</html>
