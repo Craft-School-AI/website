@@ -38,7 +38,7 @@
     overflow: hidden;
     position: relative;
     background: var(--graphite);
-    font-family: 'Playfair Display', 'Georgia', serif;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   /* ===== Фотография во весь кадр ===== */
@@ -184,7 +184,7 @@
   // Явно грузим нужные глифы: document.fonts.ready может сработать раньше,
   // чем подключится Playfair, и тогда замер пройдёт по запасной Georgia.
   Promise.all(
-    lines.map((el) => document.fonts.load('italic 900 150px "Playfair Display"', el.textContent)),
+    lines.map((el) => document.fonts.load('italic 900 150px "Helvetica Neue"', el.textContent)),
   ).then(() => requestAnimationFrame(() => {
     for (const el of lines) {
       const base = parseFloat(getComputedStyle(el).fontSize);
