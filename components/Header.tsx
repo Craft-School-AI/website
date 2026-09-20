@@ -130,13 +130,10 @@ export function Header() {
                       aria-current={active ? 'page' : undefined}
                       className="flex items-center gap-3 border-b border-line/70 py-3"
                     >
-                      {/* Квадратная плашка с иконкой — держит ряд ссылок
-                          выровненным и делает раздел узнаваемым с одного взгляда */}
+                      {/* Иконка без рамки: фиксированная ширина держит ряд ссылок выровненным */}
                       <span
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center border ${
-                          active
-                            ? 'border-terracotta bg-terracotta/10 text-terracotta'
-                            : 'border-line text-ink-soft'
+                        className={`flex h-9 w-9 shrink-0 items-center justify-center ${
+                          active ? 'text-terracotta' : 'text-ink-soft'
                         }`}
                       >
                         <Icon className="h-[18px] w-[18px]" aria-hidden />

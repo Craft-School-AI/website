@@ -2,9 +2,23 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "menu-worktree-3181",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": [
+        "-c",
+        "NEXT_DIST_DIR=.next-preview-menu exec node_modules/.bin/next dev -H 0.0.0.0 -p 3181"
+      ],
+      "port": 3181,
+      "autoPort": false,
+      "url": "http://localhost:3181"
+    },
+    {
       "name": "tilt-worktree-3178",
       "runtimeExecutable": "sh",
-      "runtimeArgs": ["-c", "NEXT_DIST_DIR=.next-preview-tilt exec node_modules/.bin/next dev -H 0.0.0.0 -p 3178"],
+      "runtimeArgs": [
+        "-c",
+        "NEXT_DIST_DIR=.next-preview-tilt exec node_modules/.bin/next dev -H 0.0.0.0 -p 3178"
+      ],
       "port": 3178,
       "autoPort": false,
       "url": "http://localhost:3178"
@@ -12,7 +26,10 @@
     {
       "name": "craft-school-dev",
       "runtimeExecutable": "sh",
-      "runtimeArgs": ["-c", "NEXT_DIST_DIR=.next-preview exec node_modules/.bin/next dev -H 0.0.0.0 -p 3100"],
+      "runtimeArgs": [
+        "-c",
+        "NEXT_DIST_DIR=.next-preview exec node_modules/.bin/next dev -H 0.0.0.0 -p 3100"
+      ],
       "port": 3100,
       "autoPort": true,
       "url": "http://craft-school.localhost:3100"
