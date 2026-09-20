@@ -1,4 +1,4 @@
-import { Check, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
@@ -13,14 +13,6 @@ const studentPhotos = [
   { src: '/images/students/evgeniy.webp', name: 'Евгений' },
 ];
 
-// Результаты трёх недель программы (PROGRAM.md)
-const outcomes = [
-  'Сайт для своего дела',
-  'Тексты и логотип',
-  'Форма заявок',
-  'Запуск в интернет',
-];
-
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
@@ -29,39 +21,19 @@ export function Hero() {
 
       {/* С lg: блок занимает первый экран целиком (100svh минус шапка 7rem), поля 48px */}
       <div className="container-page section relative z-10 flex flex-col items-center pb-20 pt-10 text-center sm:pb-24 sm:pt-14 lg:min-h-[calc(100svh-7rem)] lg:max-w-none lg:justify-center lg:px-12 lg:py-12">
-        {/* До lg: стек по центру — фото, текст, чек-лист.
-            С lg: три колонки — текст слева, фото в центре, чек-лист справа */}
-        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-10">
-          <Reveal className="order-2 lg:order-1 lg:text-left">
-            <p className="inline-flex items-center border-2 border-terracotta px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-terracotta">
-              2–4 недели до сайта
-            </p>
-            <h1 className="mt-5 font-display font-bold leading-none tracking-tight">
-              <span className="block text-3xl sm:text-4xl lg:text-3xl 2xl:text-4xl">
-                Соберите
-              </span>
-              <span className="mt-1 block text-5xl uppercase text-terracotta sm:text-6xl lg:text-5xl 2xl:text-6xl">
-                свой сайт
-              </span>
-              <span className="mt-2 block text-2xl sm:text-3xl lg:text-2xl 2xl:text-3xl">
-                с помощью ИИ
-              </span>
-            </h1>
-            <p className="mt-5 text-lg font-semibold text-ink-soft sm:text-xl lg:text-lg 2xl:text-xl">
-              и сэкономьте{' '}
-              <span className="text-terracotta">сотни тысяч рублей</span> на студиях
-              и фрилансерах
-            </p>
-            <p className="mt-4 text-sm font-semibold text-ink-faint">
-              Без программирования <span className="mx-1.5 text-terracotta">•</span> Без
-              жаргона <span className="mx-1.5 text-terracotta">•</span> Онлайн
-            </p>
-          </Reveal>
+        {/* Заголовок лежит на заднем плане, фото — поверх него.
+            До lg: стопка «Учу» / фото / «Использовать AI», фото наезжает на строки сверху и снизу.
+            С lg: одна строка, фото стоит посередине и перекрывает края слов. */}
+        <h1 className="hero-title flex w-full flex-col items-center font-display font-bold uppercase leading-none tracking-tight lg:flex-row lg:items-end lg:justify-center">
+          <span className="hero-word hero-word-lead relative z-0 lg:min-w-0 lg:flex-1 lg:pb-[calc(min(58svh,38vw)*0.16)] lg:text-right">
+            Учимся <span className="block">вместе</span>
+          </span>
 
           {/* Фото: с lg высота зависит и от высоты, и от ширины окна.
-              Низ растворяется в фон (hero-photo), логотипы агентов на уровне ушей */}
-          {/* Боковые отступы обёртки — место под логотипы, чтобы они не наезжали на соседние колонки */}
-          <div className="relative order-1 mx-auto h-56 w-auto px-14 sm:h-80 sm:px-20 lg:order-2 lg:h-[min(54svh,36vw)] lg:px-[clamp(4.5rem,6.5vw,7rem)]">
+              Низ растворяется в фон (hero-photo), логотипы агентов на уровне ушей.
+              Логотипы вынесены за края фото отрицательными left/right.
+              Отрицательные поля обёртки — чтобы фото заметно легло поверх слов. */}
+          <span className="relative z-10 -mb-7 -mt-3 mx-auto block h-64 w-auto shrink-0 sm:-mb-9 sm:-mt-4 sm:h-80 lg:-mx-[clamp(2.5rem,4.2vw,4.75rem)] lg:my-0 lg:h-[min(58svh,38vw)]">
             <Image
               src="/images/roman-hero.webp"
               alt=""
@@ -71,31 +43,25 @@ export function Hero() {
               className="hero-photo pointer-events-none h-full w-auto object-contain"
             />
 
-            <div className="agent-badge absolute left-0 top-[38%] text-[10px] text-[#d97757] sm:text-xs">
+            <span className="agent-badge absolute -left-10 top-[38%] sm:-left-20 lg:-left-[clamp(4.5rem,6.5vw,7rem)] text-[10px] text-[#d97757] sm:text-xs">
               <ClaudeLogo className="agent-claude h-9 w-9 sm:h-11 sm:w-11 lg:h-[clamp(2.75rem,4.5vw,4.5rem)] lg:w-[clamp(2.75rem,4.5vw,4.5rem)]" />
               <span>Claude</span>
-            </div>
-            <div className="agent-badge absolute right-0 top-[38%] text-[10px] text-ink sm:text-xs">
+            </span>
+            <span className="agent-badge absolute -right-10 top-[38%] sm:-right-20 lg:-right-[clamp(4.5rem,6.5vw,7rem)] text-[10px] text-ink sm:text-xs">
               <ChatGPTLogo className="agent-chatgpt h-9 w-9 sm:h-11 sm:w-11 lg:h-[clamp(2.75rem,4.5vw,4.5rem)] lg:w-[clamp(2.75rem,4.5vw,4.5rem)]" />
               <span>ChatGPT</span>
-            </div>
-          </div>
+            </span>
+          </span>
 
-          {/* Чек-лист результатов — плашка, как на референсе */}
-          <Reveal delay={200} className="order-3 mx-auto w-full max-w-sm lg:mx-0 lg:justify-self-start">
-            <ul className="card space-y-3 text-left">
-              {outcomes.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-base font-semibold">
-                  <span aria-hidden className="h-2.5 w-2.5 shrink-0 bg-terracotta" />
-                  <span className="flex-1">{item}</span>
-                  <Check className="h-5 w-5 shrink-0 text-terracotta" strokeWidth={3} aria-hidden />
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
+          <span className="hero-word relative z-0 lg:min-w-0 lg:flex-1 lg:pb-[calc(min(58svh,38vw)*0.16)] lg:text-left">
+            Использовать{' '}
+            <span className="block lg:pl-[0.8em]">
+              <span className="text-terracotta">AI</span>-агентов
+            </span>
+          </span>
+        </h1>
 
-        <Reveal delay={300} className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:mt-6">
+        <Reveal delay={300} className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:mt-8">
           <Button href="/#zayavka" size="lg">
             Записаться в мастерскую
           </Button>
