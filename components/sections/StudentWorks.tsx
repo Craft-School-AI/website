@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Reveal } from '@/components/Reveal';
+import { TiltCard } from '@/components/TiltCard';
 
 type Work = {
   title: string;
@@ -91,6 +92,7 @@ export function StudentWorks() {
             const color = accentColor[work.accent];
             return (
               <Reveal key={work.url} delay={index * 80}>
+                <TiltCard>
                 <article className="group relative flex aspect-[4/3] flex-col justify-end overflow-hidden border-[3px] border-ink bg-surface-deep shadow-[8px_8px_0_0_rgb(var(--brand-terracotta))]">
                   {/* Картинка на всю карточку (скрин) либо браузер-заглушка с адресом */}
                   {work.image ? (
@@ -167,6 +169,7 @@ export function StudentWorks() {
                     </a>
                   </div>
                 </article>
+                </TiltCard>
               </Reveal>
             );
           })}
