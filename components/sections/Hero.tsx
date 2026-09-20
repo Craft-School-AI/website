@@ -1,9 +1,8 @@
-import { ChevronDown } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/Reveal';
-import { RobotBackdrop } from '@/components/RobotBackdrop';
 
 // Фото учеников для полоски доверия — те же, что в «Сайтах наших учеников»
 const studentPhotos = [
@@ -13,27 +12,75 @@ const studentPhotos = [
   { src: '/images/students/evgeniy.webp', name: 'Евгений' },
 ];
 
+// Результаты трёх недель программы (PROGRAM.md)
+const outcomes = [
+  'Сайт для своего дела',
+  'Тексты и логотип',
+  'Форма заявок',
+  'Запуск в интернет',
+];
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Анимация «роботы за работой» на заднем плане */}
-      <RobotBackdrop />
+      {/* Тёплый градиент с сеткой под тему — самый нижний слой */}
+      <div aria-hidden className="hero-surface pointer-events-none absolute inset-0" />
 
-      <div className="container-page section relative z-10 flex flex-col items-center pb-48 text-center sm:pb-56">
-        <Reveal>
-          <h1 className="heading-xl max-w-4xl text-balance">
-            Учим предпринимателей{' '}
-            <span className="text-terracotta">создавать сайты с помощью ИИ</span>
-          </h1>
-        </Reveal>
+      <div className="container-page section relative z-10 flex flex-col items-center pb-48 pt-10 text-center sm:pb-56 sm:pt-14 lg:pt-20">
+        {/* До lg: стек по центру — фото, текст, чек-лист.
+            С lg: три колонки — текст слева, фото в центре, чек-лист справа */}
+        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-6">
+          <Reveal className="order-2 lg:order-1 lg:text-left">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-ink-soft">
+              Claude + ChatGPT
+            </p>
+            <p className="mt-4 inline-flex items-center border-2 border-terracotta px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-terracotta">
+              2–4 недели до сайта
+            </p>
+            <h1 className="mt-5 font-display font-bold leading-none tracking-tight">
+              <span className="block text-3xl sm:text-4xl lg:text-3xl">Соберите</span>
+              <span className="mt-1 block text-5xl uppercase text-terracotta sm:text-6xl lg:text-5xl">
+                свой сайт
+              </span>
+              <span className="mt-2 block text-2xl sm:text-3xl lg:text-2xl">
+                с помощью ИИ
+              </span>
+            </h1>
+            <p className="mt-5 text-lg font-semibold text-ink-soft sm:text-xl lg:text-lg">
+              и сэкономьте{' '}
+              <span className="text-terracotta">сотни тысяч рублей</span> на студиях
+              и фрилансерах
+            </p>
+            <p className="mt-4 text-sm font-semibold text-ink-faint">
+              Без программирования <span className="mx-1.5 text-terracotta">•</span> Без
+              жаргона <span className="mx-1.5 text-terracotta">•</span> Онлайн
+            </p>
+          </Reveal>
 
-        <Reveal delay={200}>
-          <p className="mt-6 max-w-2xl text-lg text-ink-soft sm:text-xl">
-            За 2–4 недели вы научитесь собирать сайты для своего дела — и
-            сэкономите сотни тысяч рублей на студиях и фрилансерах. Без
-            программирования. Без технического жаргона.
-          </p>
-        </Reveal>
+          <div className="pointer-events-none relative order-1 mx-auto h-64 w-auto sm:h-80 lg:order-2 lg:h-[30rem]">
+            <Image
+              src="/images/roman-hero.webp"
+              alt=""
+              width={900}
+              height={894}
+              priority
+              className="h-full w-auto object-contain"
+            />
+          </div>
+
+          {/* Чек-лист результатов — плашка, как на референсе */}
+          <Reveal delay={200} className="order-3 mx-auto w-full max-w-sm lg:mx-0 lg:justify-self-start">
+            <ul className="card space-y-3 text-left">
+              {outcomes.map((item) => (
+                <li key={item} className="flex items-center gap-3 text-base font-semibold">
+                  <span aria-hidden className="h-2.5 w-2.5 shrink-0 bg-terracotta" />
+                  <span className="flex-1">{item}</span>
+                  <Check className="h-5 w-5 shrink-0 text-terracotta" strokeWidth={3} aria-hidden />
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
 
         <Reveal delay={300} className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
           <Button href="/#zayavka" size="lg">

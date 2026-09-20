@@ -214,6 +214,32 @@
   }
 }
 
+/* ===== Тёплый фон Hero главной (components/sections/Hero.tsx) =====
+   Градиент терракоты + миллиметровая сетка, к низу растворяется в фон страницы,
+   чтобы не было шва со следующей секцией. В тёмной теме заливка заметно гуще. */
+
+/* Токены — RGB-триплеты через пробел, поэтому альфа только через slash: rgb(var(--x) / a) */
+.hero-surface {
+  background-color: rgb(var(--bg-primary));
+  background-image:
+    radial-gradient(1200px 620px at 82% -10%, rgb(var(--brand-terracotta) / 0.3), transparent 62%),
+    linear-gradient(180deg, rgb(var(--brand-terracotta) / 0.1), transparent 70%),
+    repeating-linear-gradient(to right, rgb(var(--text-primary) / 0.055) 0, rgb(var(--text-primary) / 0.055) 1px, transparent 1px, transparent 56px),
+    repeating-linear-gradient(to bottom, rgb(var(--text-primary) / 0.055) 0, rgb(var(--text-primary) / 0.055) 1px, transparent 1px, transparent 56px);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 60%, transparent 100%);
+}
+
+/* Тёмная: почти чёрный фон, приглушённое тёплое свечение снизу справа */
+.dark .hero-surface {
+  background-image:
+    radial-gradient(900px 620px at 82% 62%, rgb(var(--brand-terracotta) / 0.5), transparent 60%),
+    repeating-linear-gradient(to right, rgb(var(--text-primary) / 0.07) 0, rgb(var(--text-primary) / 0.07) 1px, transparent 1px, transparent 56px),
+    repeating-linear-gradient(to bottom, rgb(var(--text-primary) / 0.07) 0, rgb(var(--text-primary) / 0.07) 1px, transparent 1px, transparent 56px);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+}
+
 /* ===== Анимации роботов-персонажей (components/RobotBackdrop.tsx) ===== */
 
 .rb-drive-a {

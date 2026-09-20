@@ -52,8 +52,8 @@ export default function MasterPage() {
             <Image
               src="/images/master-portrait.webp"
               alt="Роман Бабанов — преподаватель Craft School"
-              width={1024}
-              height={1404}
+              width={800}
+              height={1147}
               priority
               className="relative h-auto w-full rounded-none shadow-hover"
               sizes="(min-width: 1024px) 40vw, 24rem"
