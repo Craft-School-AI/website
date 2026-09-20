@@ -97,7 +97,7 @@ export function StudentWorks() {
                     style={{ backgroundColor: color }}
                   />
 
-                  {/* Автор: ч/б вырезка на правой половине, прижата к низу,
+                  {/* Автор: ч/б вырезка в правом нижнем углу (56% ширины),
                       жёсткая цветная тень-силуэт слева от фигуры */}
                   {work.portrait ? (
                     <div className="absolute bottom-0 right-0 h-[88%] w-[56%]">
@@ -113,48 +113,43 @@ export function StudentWorks() {
                   ) : (
                     work.photo && (
                       <div
-                        className="absolute bottom-0 right-0 top-2 w-[50%] border-l-[3px] border-ink"
+                        className="absolute bottom-0 right-0 aspect-square w-[56%] border-l-[3px] border-t-[3px] border-ink sm:w-[44%]"
                         style={{ boxShadow: `-12px 0 0 0 ${color}` }}
                       >
                         <Image
                           src={work.photo}
                           alt={work.student ?? work.title}
                           fill
-                          sizes="(max-width: 640px) 50vw, 25vw"
+                          sizes="(max-width: 640px) 56vw, 22vw"
                           className="object-cover grayscale contrast-125 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
                         />
                       </div>
                     )
                   )}
 
-                  {/* Подпись слева, прижата к верху: имя, что за сайт, ссылка.
-                      Описание не длиннее двух строк, чтобы блок не наезжал на фото */}
-                  <div className="relative z-10 flex h-full w-[54%] flex-col justify-start p-5 pt-6 sm:w-[48%] sm:p-6 sm:pt-7">
-                    {work.student && (
-                      <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color }}>
-                        {work.student} · ученик
-                      </p>
-                    )}
-                    <div className="mt-3">
-                      <h3 className="font-display text-lg font-bold uppercase leading-[1.05] tracking-tight text-white sm:text-2xl">
-                        {work.title}
-                      </h3>
-                      <p className="mt-2 line-clamp-2 text-[13px] leading-snug text-white/80 sm:text-sm">
-                        {work.description}
-                      </p>
-                      <p className="mt-2 hidden font-mono text-[11px] text-white/50 sm:block">
+                  {/* Текст занимает всё свободное место: верхняя полоса на всю
+                      ширину (имя, домен, заголовок), описание в нижнем левом углу
+                      в колонке уже фигуры. Правый нижний угол за фото. */}
+                  <div className="relative z-10 flex h-full flex-col p-5 pt-6 sm:p-6 sm:pt-7">
+                    <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between sm:gap-3">
+                      {work.student && (
+                        <p
+                          className="shrink-0 font-mono text-[11px] uppercase tracking-widest"
+                          style={{ color }}
+                        >
+                          {work.student} · ученик
+                        </p>
+                      )}
+                      <p className="min-w-0 truncate font-mono text-[11px] text-white/50">
                         {hostname(work.url)}
                       </p>
-                      <a
-                        href={work.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 inline-flex min-h-[44px] items-center gap-1.5 border-2 border-white bg-transparent px-4 py-2.5 font-mono text-[11px] font-bold uppercase tracking-widest text-white transition-colors hover:bg-white hover:text-graphite"
-                      >
-                        Перейти
-                        <span aria-hidden>→</span>
-                      </a>
                     </div>
+                    <h3 className="mt-3 font-display text-xl font-bold uppercase leading-[1.05] tracking-tight text-white sm:text-2xl">
+                      {work.title}
+                    </h3>
+                    <p className="mt-auto w-[42%] pt-4 text-[13px] leading-snug text-white/80 sm:text-sm">
+                      {work.description}
+                    </p>
                   </div>
                 </article>
                 </TiltCard>
