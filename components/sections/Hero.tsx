@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/Reveal';
-import { RobotBackdrop } from '@/components/RobotBackdrop';
 
 // Фото учеников для полоски доверия — те же, что в «Сайтах наших учеников»
 const studentPhotos = [
@@ -16,14 +15,11 @@ const studentPhotos = [
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Анимация «роботы за работой» на заднем плане */}
-      <RobotBackdrop />
-
       <div className="container-page section relative z-10 flex flex-col items-center pb-48 text-center sm:pb-56">
         <Reveal>
           <h1 className="heading-xl max-w-4xl text-balance">
             Учим предпринимателей{' '}
-            <span className="text-terracotta">создавать сайты с помощью ИИ</span>
+            <span className="text-terracotta">использовать ИИ</span>
           </h1>
         </Reveal>
 
