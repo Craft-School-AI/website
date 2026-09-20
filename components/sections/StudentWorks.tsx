@@ -127,18 +127,19 @@ export function StudentWorks() {
                     )
                   )}
 
-                  {/* Подпись слева: имя, что за сайт и зачем он, ссылка */}
-                  <div className="relative z-10 flex h-full w-[58%] flex-col justify-between p-5 pt-6 sm:w-[54%] sm:p-6 sm:pt-7">
+                  {/* Подпись слева, прижата к верху: имя, что за сайт, ссылка.
+                      Описание не длиннее двух строк, чтобы блок не наезжал на фото */}
+                  <div className="relative z-10 flex h-full w-[54%] flex-col justify-start p-5 pt-6 sm:w-[48%] sm:p-6 sm:pt-7">
                     {work.student && (
                       <p className="font-mono text-[11px] uppercase tracking-widest" style={{ color }}>
                         {work.student} · ученик
                       </p>
                     )}
-                    <div>
+                    <div className="mt-3">
                       <h3 className="font-display text-lg font-bold uppercase leading-[1.05] tracking-tight text-white sm:text-2xl">
                         {work.title}
                       </h3>
-                      <p className="mt-2 text-[13px] leading-snug text-white/80 sm:text-sm">
+                      <p className="mt-2 line-clamp-2 text-[13px] leading-snug text-white/80 sm:text-sm">
                         {work.description}
                       </p>
                       <p className="mt-2 hidden font-mono text-[11px] text-white/50 sm:block">
