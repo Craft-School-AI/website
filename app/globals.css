@@ -189,12 +189,13 @@
 /* ===== Бегущая строка набора (components/AnnouncementBar.tsx) ===== */
 
 .announce-bar {
-  /* Кислотный жёлто-зелёный — намеренно вне палитры бренда, чтобы цеплять взгляд */
-  background-color: #d4f500;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  /* Тёплый почти-чёрный из палитры (--text-primary светлой темы), текст — ivory */
+  background-color: #211b16;
+  color: #fdf8f0;
+  border-bottom: 1px solid rgba(253, 248, 240, 0.12);
 }
 .announce-bar:hover {
-  background-color: #c8ea00;
+  background-color: #2a2421;
 }
 
 .announce-track {
