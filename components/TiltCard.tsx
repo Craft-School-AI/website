@@ -42,7 +42,7 @@ export function TiltCard({
   const handleEnter = () => {
     const el = ref.current;
     if (!el || !enabled.current) return;
-    el.style.transition = 'transform 160ms ease-out';
+    el.style.transition = 'transform 450ms cubic-bezier(0.22, 1, 0.36, 1)';
     el.style.willChange = 'transform';
   };
 
@@ -64,7 +64,7 @@ export function TiltCard({
   const handleLeave = () => {
     const el = ref.current;
     if (!el) return;
-    el.style.transition = 'transform 600ms cubic-bezier(0.22, 1, 0.36, 1)';
+    el.style.transition = 'transform 1100ms cubic-bezier(0.22, 1, 0.36, 1)';
     el.style.transform = '';
     el.style.willChange = '';
   };
