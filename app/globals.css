@@ -241,6 +241,24 @@
   mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
 }
 
+/* Заголовок Hero: слова лежат под фото. Размер — от ширины окна,
+   чтобы «Использовать» влезало в свою колонку на любом экране */
+.hero-title {
+  font-size: clamp(2.75rem, 4vw, 5rem);
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+/* «Учимся вместе» крупнее второй строки. На мобильном ограничено шириной экрана,
+   с lg — шириной колонки слева от фото */
+.hero-word-lead {
+  font-size: 1.5em;
+}
+@media (min-width: 1024px) {
+  .hero-word-lead {
+    font-size: 1.55em;
+  }
+}
+
 /* Низ фото растворяется в фон, чтобы срез рубашки не выглядел оторванным */
 .hero-photo {
   -webkit-mask-image: linear-gradient(to bottom, black 78%, transparent 100%);
