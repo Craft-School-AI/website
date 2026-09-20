@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/Reveal';
+import { ChatGPTLogo, ClaudeLogo } from '@/components/AgentLogos';
 
 // Фото учеников для полоски доверия — те же, что в «Сайтах наших учеников»
 const studentPhotos = [
@@ -26,27 +27,27 @@ export function Hero() {
       {/* Тёплый градиент с сеткой под тему — самый нижний слой */}
       <div aria-hidden className="hero-surface pointer-events-none absolute inset-0" />
 
-      <div className="container-page section relative z-10 flex flex-col items-center pb-48 pt-10 text-center sm:pb-56 sm:pt-14 lg:pt-20">
+      {/* С lg: блок занимает первый экран целиком (100svh минус шапка 7rem), поля 48px */}
+      <div className="container-page section relative z-10 flex flex-col items-center pb-20 pt-10 text-center sm:pb-24 sm:pt-14 lg:min-h-[calc(100svh-7rem)] lg:max-w-none lg:justify-center lg:px-12 lg:py-12">
         {/* До lg: стек по центру — фото, текст, чек-лист.
             С lg: три колонки — текст слева, фото в центре, чек-лист справа */}
-        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-6">
+        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-10">
           <Reveal className="order-2 lg:order-1 lg:text-left">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-ink-soft">
-              Claude + ChatGPT
-            </p>
-            <p className="mt-4 inline-flex items-center border-2 border-terracotta px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-terracotta">
+            <p className="inline-flex items-center border-2 border-terracotta px-4 py-1.5 text-sm font-bold uppercase tracking-wider text-terracotta">
               2–4 недели до сайта
             </p>
             <h1 className="mt-5 font-display font-bold leading-none tracking-tight">
-              <span className="block text-3xl sm:text-4xl lg:text-3xl">Соберите</span>
-              <span className="mt-1 block text-5xl uppercase text-terracotta sm:text-6xl lg:text-5xl">
+              <span className="block text-3xl sm:text-4xl lg:text-3xl 2xl:text-4xl">
+                Соберите
+              </span>
+              <span className="mt-1 block text-5xl uppercase text-terracotta sm:text-6xl lg:text-5xl 2xl:text-6xl">
                 свой сайт
               </span>
-              <span className="mt-2 block text-2xl sm:text-3xl lg:text-2xl">
+              <span className="mt-2 block text-2xl sm:text-3xl lg:text-2xl 2xl:text-3xl">
                 с помощью ИИ
               </span>
             </h1>
-            <p className="mt-5 text-lg font-semibold text-ink-soft sm:text-xl lg:text-lg">
+            <p className="mt-5 text-lg font-semibold text-ink-soft sm:text-xl lg:text-lg 2xl:text-xl">
               и сэкономьте{' '}
               <span className="text-terracotta">сотни тысяч рублей</span> на студиях
               и фрилансерах
@@ -57,15 +58,27 @@ export function Hero() {
             </p>
           </Reveal>
 
-          <div className="pointer-events-none relative order-1 mx-auto h-64 w-auto sm:h-80 lg:order-2 lg:h-[30rem]">
+          {/* Фото: с lg высота зависит и от высоты, и от ширины окна.
+              Низ растворяется в фон (hero-photo), логотипы агентов на уровне ушей */}
+          {/* Боковые отступы обёртки — место под логотипы, чтобы они не наезжали на соседние колонки */}
+          <div className="relative order-1 mx-auto h-56 w-auto px-14 sm:h-80 sm:px-20 lg:order-2 lg:h-[min(54svh,36vw)] lg:px-[clamp(4.5rem,6.5vw,7rem)]">
             <Image
               src="/images/roman-hero.webp"
               alt=""
               width={900}
-              height={894}
+              height={866}
               priority
-              className="h-full w-auto object-contain"
+              className="hero-photo pointer-events-none h-full w-auto object-contain"
             />
+
+            <div className="agent-badge absolute left-0 top-[38%] text-[10px] text-[#d97757] sm:text-xs">
+              <ClaudeLogo className="agent-claude h-9 w-9 sm:h-11 sm:w-11 lg:h-[clamp(2.75rem,4.5vw,4.5rem)] lg:w-[clamp(2.75rem,4.5vw,4.5rem)]" />
+              <span>Claude</span>
+            </div>
+            <div className="agent-badge absolute right-0 top-[38%] text-[10px] text-ink sm:text-xs">
+              <ChatGPTLogo className="agent-chatgpt h-9 w-9 sm:h-11 sm:w-11 lg:h-[clamp(2.75rem,4.5vw,4.5rem)] lg:w-[clamp(2.75rem,4.5vw,4.5rem)]" />
+              <span>ChatGPT</span>
+            </div>
           </div>
 
           {/* Чек-лист результатов — плашка, как на референсе */}
@@ -82,7 +95,7 @@ export function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={300} className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
+        <Reveal delay={300} className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:mt-6">
           <Button href="/#zayavka" size="lg">
             Записаться в мастерскую
           </Button>
@@ -96,7 +109,7 @@ export function Hero() {
           {/* Мобилка: фото сверху, подпись под ними; с sm — в одну строку */}
           <Link
             href="#works"
-            className="group mt-8 flex flex-col items-center gap-2.5 sm:flex-row sm:gap-3"
+            className="group mt-8 flex flex-col items-center gap-2.5 sm:flex-row sm:gap-3 lg:mt-5"
           >
             {/* shrink-0: иначе flex ужимает полоску, и фото вылезают под текст */}
             <span className="flex shrink-0" aria-hidden>
@@ -120,7 +133,7 @@ export function Hero() {
           </Link>
         </Reveal>
 
-        <Reveal delay={500} className="mt-10">
+        <Reveal delay={500} className="mt-10 lg:mt-5">
           <Link
             href="#audience"
             aria-label="К следующему разделу"
