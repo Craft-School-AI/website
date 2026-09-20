@@ -35,8 +35,8 @@ export function TiltCard({
   className = '',
   maxTilt = 12,
   maxTwist = 2,
-  stiffness = 0.045,
-  damping = 0.82,
+  stiffness = 0.012,
+  damping = 0.9,
 }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const enabled = useRef(false);
