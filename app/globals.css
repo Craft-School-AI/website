@@ -189,12 +189,13 @@
 /* ===== Бегущая строка набора (components/AnnouncementBar.tsx) ===== */
 
 .announce-bar {
-  /* Кислотный жёлто-зелёный — намеренно вне палитры бренда, чтобы цеплять взгляд */
-  background-color: #d4f500;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  /* Тёплый почти-чёрный из палитры (--text-primary светлой темы), текст — ivory */
+  background-color: #211b16;
+  color: #fdf8f0;
+  border-bottom: 1px solid rgba(253, 248, 240, 0.12);
 }
 .announce-bar:hover {
-  background-color: #c8ea00;
+  background-color: #2a2421;
 }
 
 .announce-track {
@@ -238,6 +239,24 @@
     repeating-linear-gradient(to bottom, rgb(var(--text-primary) / 0.07) 0, rgb(var(--text-primary) / 0.07) 1px, transparent 1px, transparent 56px);
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 0%, black 70%, transparent 100%);
+}
+
+/* Заголовок Hero: слова лежат под фото. Размер — от ширины окна,
+   чтобы «Использовать» влезало в свою колонку на любом экране */
+.hero-title {
+  font-size: clamp(2.75rem, 4vw, 5rem);
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+}
+/* «Учимся вместе» крупнее второй строки. На мобильном ограничено шириной экрана,
+   с lg — шириной колонки слева от фото */
+.hero-word-lead {
+  font-size: 1.5em;
+}
+@media (min-width: 1024px) {
+  .hero-word-lead {
+    font-size: 1.55em;
+  }
 }
 
 /* Низ фото растворяется в фон, чтобы срез рубашки не выглядел оторванным */

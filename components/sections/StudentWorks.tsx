@@ -10,15 +10,21 @@ type Work = {
   url: string;
   /** Ч/б вырезка автора без фона (WebP с альфой) — занимает правую половину карточки. */
   portrait?: string;
+  /** Готовое квадратное фото «как есть» — в правом нижнем углу, без ч/б-фильтра. */
+  cover?: string;
   /** Квадратное фото автора — запасной вариант, пока нет вырезки. */
   photo?: string;
-  accent: 'terracotta' | 'amber' | 'green';
+  /** Флаг в верхней строке карточки рядом с доменом (пока только Испания). */
+  flag?: 'es';
+  accent: 'terracotta' | 'amber' | 'green' | 'red';
 };
 
 const accentColor: Record<Work['accent'], string> = {
   terracotta: 'rgb(var(--brand-terracotta))',
   amber: 'rgb(var(--brand-amber))',
   green: 'rgb(var(--brand-green))',
+  // Красный фон фото Екатерины — акцент её карточки под цвет снимка
+  red: '#EA4935',
 };
 
 const works: Work[] = [
@@ -46,8 +52,10 @@ const works: Work[] = [
     description:
       'Онлайн-школа испанского: индивидуальные занятия и запись на пробный урок.',
     url: 'https://education-beta-snowy.vercel.app/',
+    cover: '/images/authors/ekaterina.webp',
     photo: '/images/students/ekaterina.webp',
-    accent: 'green',
+    flag: 'es',
+    accent: 'red',
   },
   {
     title: 'Лазерное сведение тату',
@@ -66,6 +74,16 @@ function hostname(url: string): string {
   } catch {
     return url;
   }
+}
+
+/** Флаг Испании: красная, жёлтая (двойной высоты), красная полосы */
+function SpainFlag({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 3 2" className={className} role="img" aria-label="Испания">
+      <rect width="3" height="2" fill="#AA151B" />
+      <rect y="0.5" width="3" height="1" fill="#F1BF00" />
+    </svg>
+  );
 }
 
 export function StudentWorks() {
@@ -110,6 +128,19 @@ export function StudentWorks() {
                         style={{ filter: `drop-shadow(-12px 0 0 ${color})` }}
                       />
                     </div>
+                  ) : work.cover ? (
+                    <div
+                      className="absolute bottom-0 right-0 aspect-square w-[56%] border-l-[3px] border-t-[3px] border-ink sm:w-[44%]"
+                      style={{ boxShadow: `-12px 0 0 0 ${color}` }}
+                    >
+                      <Image
+                        src={work.cover}
+                        alt={work.student ?? work.title}
+                        fill
+                        sizes="(max-width: 640px) 56vw, 22vw"
+                        className="object-cover object-[35%_center] transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                      />
+                    </div>
                   ) : (
                     work.photo && (
                       <div
@@ -140,9 +171,14 @@ export function StudentWorks() {
                           {work.student} · ученик
                         </p>
                       )}
-                      <p className="min-w-0 truncate font-mono text-[11px] text-white/50">
-                        {hostname(work.url)}
-                      </p>
+                      <div className="flex min-w-0 items-center gap-2 sm:justify-end">
+                        <p className="min-w-0 truncate font-mono text-[11px] text-white/50">
+                          {hostname(work.url)}
+                        </p>
+                        {work.flag === 'es' && (
+                          <SpainFlag className="h-3.5 w-5 shrink-0 border border-ink" />
+                        )}
+                      </div>
                     </div>
                     <h3 className="mt-3 font-display text-xl font-bold uppercase leading-[1.05] tracking-tight text-white sm:text-2xl">
                       {work.title}

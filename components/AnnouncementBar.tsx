@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 
-// Бегущая строка о наборе на сентябрь. Клик ведёт к карточкам потоков
-// на странице расписания (#potoki). Кислотный цвет — чтобы бросалось в глаза.
-const MESSAGE = 'Идёт набор учеников на сентябрь — места в группах ограничены';
+// Бегущая строка о наборе на ноябрь. Клик ведёт к карточкам потоков
+// на странице расписания (#potoki). Тёмная плашка в тонах палитры со светлым текстом.
+const MESSAGE = 'Идёт набор учеников на ноябрь — места в группах ограничены';
 
 export function AnnouncementBar() {
   // Дублируем контент в дорожке, чтобы лента была бесшовной при прокрутке.
@@ -12,8 +12,8 @@ export function AnnouncementBar() {
   return (
     <Link
       href="/schedule#potoki"
-      aria-label="Идёт набор учеников на сентябрь — открыть расписание потоков"
-      className="announce-bar group block overflow-hidden text-graphite"
+      aria-label="Идёт набор учеников на ноябрь — открыть расписание потоков"
+      className="announce-bar group block overflow-hidden text-ivory"
     >
       <div className="announce-track flex w-max items-center py-2 group-hover:[animation-play-state:paused]">
         {items.map((_, i) => (
